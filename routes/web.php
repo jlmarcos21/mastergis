@@ -8,50 +8,54 @@ Route::get('/', function () {
 Auth::routes();
 
 
-//Panel de Control
-Route::get('dashboard', 'DashboardController@dashboard')->name('dashboard');
+Route::group(['middleware' => 'cors'], function(){
 
-//Country
-Route::resource('countries', 'CountryController')->except([
-    'create', 'store', 'edit', 'show', 'update', 'destroy'
-]);
+    //Panel de Control
+    Route::get('dashboard', 'DashboardController@dashboard')->name('dashboard');
 
-//Students
-Route::resource('students', 'StudentController');
+    //Country
+    Route::resource('countries', 'CountryController')->except([
+        'create', 'store', 'edit', 'show', 'update', 'destroy'
+    ]);
 
-//Courses
-Route::resource('courses', 'CourseController');
+    //Students
+    Route::resource('students', 'StudentController');
 
-//Informacion para el componente Sale
-Route::get('api/get-data-sale','SaleController@getData');
+    //Courses
+    Route::resource('courses', 'CourseController');
 
-//Sales
-Route::resource('sales', 'SaleController')->except([
-    'store', 'edit', 'update'
-]);
+    //Informacion para el componente Sale
+    Route::get('api/get-data-sale','SaleController@getData');
 
-//Payment
-Route::resource('payments', 'PaymentController')->except([
-    'create', 'edit', 'update'
-]);
+    //Sales
+    Route::resource('sales', 'SaleController')->except([
+        'store', 'edit', 'update'
+    ]);
 
-//Save Sale
-Route::post('save-sale', 'SaleController@SaveSale');
+    //Payment
+    Route::resource('payments', 'PaymentController')->except([
+        'create', 'edit', 'update'
+    ]);
 
-//Assignment
-Route::resource('assignments', 'AssignmentController')->except([
-    'store', 'create', 'destroy'
-]);
+    //Save Sale
+    Route::post('save-sale', 'SaleController@SaveSale');
 
-//Verification
-Route::get('generate-certificate/{code}', 'AssignmentController@certificate')->name('generate-certificate');
+    //Assignment
+    Route::resource('assignments', 'AssignmentController')->except([
+        'store', 'create', 'destroy'
+    ]);
 
-//Project
-Route::resource('projects', 'ProjectController')->except([
-    'index', 'create', 'edit', 'update','destroy'
-]);
+    //Verification
+    Route::get('generate-certificate/{code}', 'AssignmentController@certificate')->name('generate-certificate');
 
-//SalesStatistics
-Route::resource('statistics', 'StatisticsController')->except([
-    'store', 'edit', 'show', 'update', 'destroy'
-]);
+    //Project
+    Route::resource('projects', 'ProjectController')->except([
+        'index', 'create', 'edit', 'update','destroy'
+    ]);
+
+    //SalesStatistics
+    Route::resource('statistics', 'StatisticsController')->except([
+        'store', 'edit', 'show', 'update', 'destroy'
+    ]);
+
+});
