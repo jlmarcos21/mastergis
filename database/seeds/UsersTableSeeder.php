@@ -12,8 +12,8 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         App\User::create([
-            'name'      => 'JL Marcos',
-            'email'     => 'jlmarcos@mastergis.com',
+            'name'      => 'Administrador',
+            'email'     => 'admin@mastergis.com',
             'password'  => bcrypt('admin')
         ]);
     }
