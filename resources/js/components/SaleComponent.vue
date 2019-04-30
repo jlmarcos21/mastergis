@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12" v-show="spinner==false">
                 <div class="card">
                     <div class="card-header"><h3>Realizar Ventas de Cursos</h3></div>
                     <div class="card-body">
@@ -113,6 +113,9 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-12 text-center" v-show="spinner==true">
+                <img src="https://loading.io/spinners/coin/index.money-coin-palette-color-preloader.svg" alt="Cargando..." width="50%">
+            </div>
         </div>
     </div>
 </template>
@@ -131,6 +134,8 @@
                 Url: '',
                 count: 0,
                 veri: 0,
+
+                spinner : false,
 
                 students: [],
                 payments: [],
@@ -242,6 +247,7 @@
                         courses : this.CoursesDatails
                     })
                     .then(response => {
+                        this.spinner = true,
                         toastr.success('Se Registro Correctamente la Venta')
                         setTimeout(() => {
                             window.location.href = `${this.Url}sales/${response.data}`;
