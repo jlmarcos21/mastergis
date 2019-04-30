@@ -23,7 +23,7 @@ window.Vue = require('vue');
 Vue.component('sale-component', require('./components/SaleComponent.vue').default);
 
 // Vue.prototype.$appUrl = 'http://mastergis.test/';
-Vue.prototype.$appUrl = 'https://mastergis.herokuapp.com/';
+Vue.prototype.$appUrl = 'http://mastergis.herokuapp.com/';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
