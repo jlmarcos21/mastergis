@@ -22,7 +22,7 @@
                             <td><span class="text-primary" id="data_rest">0</span></td>
                             <td>
                                 @if ($assignment->access==1 && $assignment->entry==1 && $assignment->poll==1)
-                                    <a href="{{ route('generate-certificate', $assignment->code) }}" class="btn btn-sm btn-dark" title="Generar Certificado">Generar Certificado</a>
+                                    <a href="{{ route('generate-certificate', $assignment->code) }}" target="_blank" class="btn btn-sm btn-dark" title="Generar Certificado">Generar Certificado</a>
                                 @else
                                     <span>En Proceso...</span>
                                 @endif                                

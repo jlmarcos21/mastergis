@@ -8,14 +8,22 @@
 	<style>
 		html, body{
 			width: 100%;
-			margin: 0;	
+			margin: 0;			
+		}
+		#bg-svg{
+			width: 100%;
+			text-align: center
+		}
+		#svg5283:hover{
+			cursor: pointer;
+			background-color: white;
 		}
 	</style>
 </head>
 <body>
 			
-<div id="capture">
-	<svg		
+<div id="bg-svg">
+	<svg onclick="window.print(this)" title="Descargar PDF"		
 		xmlns:dc="http://purl.org/dc/elements/1.1/"
 		xmlns:cc="http://creativecommons.org/ns#"
 		xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -24,8 +32,8 @@
 		xmlns:xlink="http://www.w3.org/1999/xlink"
 		xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
 		xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-		width="100%"
-		height="595.29999"
+		width="842"
+		height="595"
 		viewBox="0 0 222.75271 157.50646"
 		version="1.1"
 		id="svg5283"
@@ -1887,12 +1895,12 @@
 				id="text1722">
 			<tspan
 				style="font-size:3.17499995px;font-family:ArialNarrow-Bold;fill:#040006;stroke-width:0.26458332;stroke:none"
-				x="87.384026"
 				y="290.41379"
+				x="93.384026"
 				class="st0 st22 st23"
-				id="tspan1716">CÓDIGO DE ALUMNO <tspan
-		id="tspan8609"
-		style="fill:#ff0000;stroke:none">({{ $assignment->student->code }})</tspan>
+				id="tspan1716">CÓDIGO <tspan
+				id="tspan8609"
+				style="fill:#ff0000;stroke:none">({{ $assignment->code }})</tspan>
 	</tspan>
 			</text>
 			<rect

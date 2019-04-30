@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
+use Carbon\Carbon;
+
+use App\Assignment;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        Schema::defaultStringLength(191);
+        Schema::defaultStringLength(191);        
     }
 
     /**
@@ -24,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $assignments = Assignment::whereMonth('final_date', Carbon::now()->month)
+                        ->whereYear('final_date', Carbon::now()->year)->get();
+
+        View::share('view_assignments', $assignments);
     }
 }
