@@ -41,9 +41,9 @@
                             <th>Curso</th>
                             <th>Nivel</th>
                             <th width="10px">Acceso</th>
-                            <th width="10px">Ingreso</th>                            
-                            <th width="10px">Certificado.F</th>
-                            <th width="10px">Encuesta</th>
+                            <th width="10px">Ingreso</th>
+                            <th width="10px">Encuesta</th>             
+                            <th width="10px">Certificado.F</th>                            
                         </tr>
                         <tr>
                             <td>{{ $assignment->code }}</td>
@@ -57,11 +57,11 @@
                                 {!! $assignment->entry=='0'?'<i class="far fa-times-circle text-danger"></i>':'<i class="far fa-check-circle text-success"></i>' !!}
                             </td>
                             <td>
-                                {!! $assignment->physical_certificate=='0'?'<i class="far fa-times-circle text-danger"></i>':'<i class="far fa-check-circle text-success"></i>' !!}
-                            </td>
+                                    {!! $assignment->poll=='0'?'<i class="far fa-times-circle text-danger"></i>':'<i class="far fa-check-circle text-success"></i>' !!}
+                                </td> 
                             <td>
-                                {!! $assignment->poll=='0'?'<i class="far fa-times-circle text-danger"></i>':'<i class="far fa-check-circle text-success"></i>' !!}
-                            </td>                            
+                                {!! $assignment->physical_certificate=='0'?'<i class="far fa-times-circle text-danger"></i>':'<i class="far fa-check-circle text-success"></i>' !!}
+                            </td>                                                       
                         </tr>          
                     </tbody>
                 </table>                            
