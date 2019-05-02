@@ -17,9 +17,20 @@
   <link rel="apple-touch-icon-precomposed" href="https://www.mastergis.com/wp-content/uploads/2018/08/cropped-favicon-1-180x180.png" />
   <meta name="msapplication-TileImage" content="https://www.mastergis.com/wp-content/uploads/2018/08/cropped-favicon-1-270x270.png" />
 
+  <style>
+    .bg-login{
+      background-image: url("https://i.imgur.com/ThZvNLF.jpg");
+      background-color: #cccccc;
+      height: 500px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+    }
+  </style>
 </head>
 
-<body class="bg-danger">
+<body class="bg-login">
 
     <div class="container" id="app">
 

@@ -26,7 +26,7 @@
                             <th>Alumno</th>
                             <th>Pago</th>
                             <th>Fecha</th>                    
-                            <th>Subtotal</th>
+                            <th>Moneda</th>
                             <th>Total</th>
                             <th width="10px"><i class="far fa-edit"></i></th>
                         </tr>
@@ -38,8 +38,8 @@
                                 <td><a href="{{ route('sales.show', $sale->id) }}">{{ $sale->code }}</a></td>
                                 <td>{{ $sale->student->lastname }}, {{ $sale->student->name }}</td>
                                 <td>{{ $sale->payment->name }} <i class="{{ $sale->payment->icon }}"></i></td>
-                                <td>{{ $sale->date }}</td>                        
-                                <td class="text-success">{{ $sale->subtotal }}</td>
+                                <td>{{ $sale->date }}</td>                   
+                                <td>{{ $sale->currency->icon }} {{ $sale->currency->name }}</td>
                                 <td class="text-success">{{ $sale->total }}</td>
                                 <td>
                                     <div class="dropdown">

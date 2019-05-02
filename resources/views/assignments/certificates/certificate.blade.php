@@ -19,6 +19,14 @@
 			background-color: white;
 		}
 	</style>
+	<style type="text/css" media="print">
+		@page  
+		{ 
+			size: auto;
+			transform:scale(.8,.8);			
+			margin: 0mm 0mm 0mm 0mm;  
+		} 	
+	</style>
 </head>
 <body>
 			

@@ -19,6 +19,7 @@ class CreateSalesTable extends Migration
             $table->string('code', 10)->unique();
             $table->integer('student_id')->unsigned();
             $table->integer('payment_id')->unsigned();
+            $table->integer('currency_id')->unsigned();
             $table->string('description', 150)->nullable();
             $table->date('date');
             $table->time('time');
@@ -31,7 +32,8 @@ class CreateSalesTable extends Migration
 
             //Relacion
             $table->foreign('student_id')->references('id')->on('students');
-            $table->foreign('payment_id')->references('id')->on('payment_ms');            
+            $table->foreign('payment_id')->references('id')->on('payment_ms');
+            $table->foreign('currency_id')->references('id')->on('currencies');        
         });
     }
 

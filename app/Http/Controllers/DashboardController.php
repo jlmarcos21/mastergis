@@ -24,8 +24,21 @@ class DashboardController extends Controller
         $courses    = Course::count();
         $countries  = Country::count();
         $sales      = Sale::count();
+        
+        $months = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        $month = Carbon::now()->month;
+        $date = $months[$month - 1];
 
-        return view('dashboard', compact('students', 'courses', 'countries', 'sales'));
+        $sales_pe = Sale::whereMonth('date', $month)
+                    ->where('currency_id', '=', 1)
+                    ->selectRaw('sum(total) as total')                    
+                    ->first();
+        $sales_usd = Sale::whereMonth('date', $month)
+                    ->where('currency_id', '=', 2)
+                    ->selectRaw('sum(total) as total')                    
+                    ->first();                    
+
+        return view('dashboard', compact('students', 'courses', 'countries', 'sales', 'date', 'sales_pe', 'sales_usd'));
     }
     
 }

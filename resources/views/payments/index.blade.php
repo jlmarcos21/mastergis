@@ -28,7 +28,7 @@
                             <th>Alumno</th>
                             <th>Pago</th>
                             <th>Fecha</th>                    
-                            <th>Subtotal</th>
+                            <th>Moneda</th>
                             <th>Total</th>
                             <th>Deuda</th>
                             <th width="10px">Cobrar</th>
@@ -42,7 +42,7 @@
                                 <td>{{ $sale->student->lastname }}, {{ $sale->student->name }}</td>
                                 <td>{{ $sale->payment->name }} <i class="{{ $sale->payment->icon }}"></i></td>
                                 <td>{{ $sale->date }}</td>                        
-                                <td class="text-success">{{ $sale->subtotal }}</td>
+                                <td>{{ $sale->currency->icon }} {{ $sale->currency->name }}</td>
                                 <td class="text-success">{{ $sale->total }}</td>
                                 <td>{!! $sale->debt==0?'<span class="text-success">Cancelado</span>': '<span class="text-danger">'.$sale->debt.'</span>'!!}</td>                                
                                 <td>

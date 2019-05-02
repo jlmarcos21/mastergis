@@ -14,7 +14,7 @@
       <!-- Icon Cards-->
     <div class="row">
       <div class="col-xl-3 col-sm-6 mb-3">
-        <div class="card text-white bg-primary o-hidden h-100">
+        <div class="card text-white bg-dark o-hidden h-100">
           <div class="card-body">
             <div class="card-body-icon">
               <i class="fas fa-fw fa-users"></i>
@@ -76,6 +76,23 @@
             </span>
           </a>
         </div>
-      </div>      
+      </div>
+      <div class="col-xl-3 col-sm-6 mb-3">
+        <div class="card text-white text-center bg-primary o-hidden h-100">
+          <div class="card-header">
+              Ventas de {{$date}}
+          </div>
+          <div class="card-body">
+            <div class="card-body-icon">
+              <i class="fas fa-fw fa-users"></i>
+            </div>
+            <div class="py-1">
+              S/ {{$sales_pe->total}}
+            </div>
+            <div class="py-1">
+              $ {{$sales_usd->total}}
+            </div>
+        </div>
+      </div>
     </div>
 @endsection

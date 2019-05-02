@@ -1,123 +1,129 @@
-<template>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12" v-show="spinner==false">
-                <div class="card">
-                    <div class="card-header"><h3>Realizar Ventas de Cursos</h3></div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Estudiante</label>
-                                    <select class="selectpicker form-control" data-size="5" data-style="border border-dark" data-live-search="true" title="Buscar Alumno" v-model="student" ref="student" @change="studentChange()">
-                                        <option v-for="student in students" :key="student.id" :value="student" :data-content="`${student.lastname} ${student.name} <small class='text-muted'>Codigó: ${student.code}</small>`"></option>
-                                    </select>
-                                </div>
+<template>    
+    <div class="row">
+        <div class="col-md-12" v-show="spinner==false">
+            <div class="card">
+                <div class="card-header"><h3>Realizar Ventas de Cursos</h3></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Estudiante</label>
+                                <select class="selectpicker form-control" data-size="5" data-style="border border-dark" data-live-search="true" title="Buscar Estudiante" v-model="student" ref="student" @change="studentChange()">
+                                    <option v-for="student in students" :key="student.id" :value="student" :data-content="`${student.lastname} ${student.name} <small class='text-muted'>Codigó: ${student.code}</small>`"></option>
+                                </select>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Metodo de Pago</label>
-                                    <select class="selectpicker form-control" data-size="5" data-style="border border-dark" data-live-search="true" title="Metodo de Pago" v-model="payment" ref="payment">
-                                        <option v-for="payment in payments" :key="payment.id" :value="payment" :data-icon="`${payment.icon} text-success`">{{ payment.name }} </option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Metodo de Pago</label>
+                                <select class="selectpicker form-control" data-size="5" data-style="border border-dark" data-live-search="true" title="Metodo de Pago" v-model="payment" ref="payment">
+                                    <option v-for="payment in payments" :key="payment.id" :value="payment" :data-icon="`${payment.icon} text-success`">{{ payment.name }} </option>
+                                </select>
                             </div>
-                            <div class="col-md">
-                                <div class="form-group">
-                                    <label>Descripcion de Pago</label>
-                                    <input type="text" class="form-control border border-dark" v-model="description" ref="description">
-                                </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>Descripcion de Pago</label>
+                                <input type="text" class="form-control border border-dark" v-model="description" ref="description">
                             </div>
-                            <div class="col-md-2" v-if="payment.id==2 || payment.id==3 || payment.id==4">
-                                <div class="form-group">
-                                    <label>Credito (Opcional)</label>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="chekcredit" v-model="credit">
-                                        <label class="custom-control-label" for="chekcredit"><strong>Credito</strong></label>
-                                    </div>
+                        </div>
+                        <div class="col-md-2" v-if="payment.id==2 || payment.id==3 || payment.id==4">
+                            <div class="form-group">
+                                <label>Credito (Opcional)</label>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="chekcredit" v-model="credit">
+                                    <label class="custom-control-label" for="chekcredit"><strong>Credito</strong></label>
                                 </div>
                             </div>
                         </div>
-                        <hr class="bg-dark">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <div class="form-group">
-                                    <label>Seleccionar Curso</label>
-                                    <select class="selectpicker form-control" data-size="5" data-style="border border-dark" data-live-search="true" title="Buscar Curso" v-model="course" ref="course" @change="$refs.price.focus()">
-                                        <option v-for="course in courses" :key="course.id" :value="course" :data-content="`<img src='${course.image_url}' width='30px'> <strong>${course.name}</strong> <small class='text-muted'>Codigó: ${course.code}</small>`"></option>
-                                    </select>
-                                </div>
-                            </div>                            
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label>Precio del Curso</label>
-                                    <input type="number" class="form-control border border-dark text-center" v-model="price" ref="price" @keypress.enter="AddCourses()">
-                                </div>
-                            </div>
-                            <div class="col-md-1">
-                                <div class="form-group">
-                                    <label>Añadir</label>
-                                    <button class="btn btn-block btn-primary" @click="AddCourses()"><i class="fas fa-plus-circle"></i></button>
-                                </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Moneda</label>
+                                <select class="selectpicker form-control" data-size="5" data-style="border border-dark" data-live-search="true" title="Moneda" v-model="currency" ref="currency">
+                                    <option v-for="currency in currencies" :key="currency.id" :value="currency" :data-icon="`${currency.flag}`"> {{ currency.icon }} {{ currency.name }}</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th width="10px"><i class="far fa-trash-alt"></i></th>
-                                                <th>Descripcion del Curso</th>
-                                                <th width="10px">Precio</th>
-                                                <th width="10px">Cantidad</th>
-                                                <th width="10px">Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="(details, index)  in CoursesDatails" :key="details.course_id">
-                                                <td>
-                                                    <button class="btn btn-sm btn-danger" @click="DeleteCourse(index)"><i class="far fa-trash-alt"></i></button>
-                                                </td>
-                                                <td>
-                                                    {{ details.course_description }}
-                                                </td>
-                                                <td class="text-center">
-                                                    {{ details.course_price }}
-                                                </td>
-                                                <td class="text-center">
-                                                    {{ details.course_quantity }}
-                                                </td>
-                                                <td class="text-center">
-                                                    {{ details.course_total }}
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3"></td>
-                                                <td><strong>Subtotal:</strong></td>
-                                                <td class="text-center">{{ subtotal }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="3"></td>
-                                                <td><strong>Total:</strong></td>
-                                                <td class="text-center">{{ total }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                    </div>
+                    <hr class="bg-dark">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label>Seleccionar Curso</label>
+                                <select class="selectpicker form-control" data-size="5" data-style="border border-dark" data-live-search="true" title="Buscar Curso" v-model="course" ref="course" @change="$refs.price.focus()">
+                                    <option v-for="course in courses" :key="course.id" :value="course" :data-content="`<img src='${course.image_url}' width='30px'> <strong>${course.name}</strong> <small class='text-muted'>Codigó: ${course.code}</small>`"></option>
+                                </select>
                             </div>
-                            <div class="col-md-12" v-show="CoursesDatails.length > 0">
-                                <button class="btn btn-block btn-lg btn-success" @click="SaveSale()">Registrar Venta</button>
+                        </div>                            
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Precio del Curso</label>
+                                <input type="number" class="form-control border border-dark text-center" v-model="price" ref="price" @keypress.enter="AddCourses()">
                             </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <label>Añadir</label>
+                                <button class="btn btn-block btn-primary" @click="AddCourses()"><i class="fas fa-plus-circle"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th width="10px"><i class="far fa-trash-alt"></i></th>
+                                            <th>Descripcion del Curso</th>
+                                            <th width="10%" class="text-center">Precio</th>
+                                            <th width="10px">Cantidad</th>
+                                            <th width="10%" class="text-center">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(details, index)  in CoursesDatails" :key="details.course_id">
+                                            <td>
+                                                <button class="btn btn-sm btn-danger" @click="DeleteCourse(index)"><i class="far fa-trash-alt"></i></button>
+                                            </td>
+                                            <td>
+                                                {{ details.course_description }}
+                                            </td>
+                                            <td class="text-center">
+                                                {{ currency.icon }} {{ details.course_price }}
+                                            </td>
+                                            <td class="text-center">
+                                                {{ details.course_quantity }}
+                                            </td>
+                                            <td class="text-center">
+                                                {{ currency.icon }} {{ details.course_total }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3"></td>
+                                            <td><strong>Subtotal:</strong></td>
+                                            <td class="text-center">{{ currency.icon }} {{ subtotal }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3"></td>
+                                            <td><strong>Total:</strong></td>
+                                            <td class="text-center">{{ currency.icon }} {{ total }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-12" v-show="CoursesDatails.length > 0">
+                            <button class="btn btn-block btn-lg btn-success" @click="SaveSale()">Registrar Venta</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 text-center" v-show="spinner==true">
-                <img src="https://loading.io/spinners/coin/index.money-coin-palette-color-preloader.svg" alt="Cargando..." width="50%">
-            </div>
         </div>
-    </div>
+        <div class="col-md-12 text-center" v-show="spinner==true">
+            <img src="https://loading.io/spinners/coin/index.money-coin-palette-color-preloader.svg" alt="Cargando..." width="50%">
+        </div>
+    </div>    
 </template>
 
 <script>
@@ -139,12 +145,14 @@
 
                 students: [],
                 payments: [],
+                currencies: [],
                 courses: [],
 
                 description: '',
                 credit: false,
                 student: {},
                 payment: {},
+                currency: {},
                 course: {},
                 price: '0.0',
 
@@ -161,6 +169,7 @@
                 .then(response => {
                      this.students = response.data.students
                      this.payments = response.data.paymentms
+                     this.currencies = response.data.currencies
                      this.courses = response.data.courses
                 }).catch(error => {
                     toastr.error(error)
@@ -193,7 +202,7 @@
                                     course_id : this.course.id,
                                     course_code : this.course.code,
                                     course_description : this.course.name,
-                                    course_price : this.price,
+                                    course_price : parseFloat(this.price).toFixed(2),
                                     course_quantity : 1,
                                     course_total : (this.price * 1).toFixed(2),
                                 });                                
@@ -240,6 +249,7 @@
                     axios.post(`${this.Url}save-sale` ,{
                         student_id : this.student.id,
                         payment_id : this.payment.id,
+                        currency_id : this.currency.id,
                         description : this.description,
                         credit : this.credit,
                         subtotal: this.subtotal,

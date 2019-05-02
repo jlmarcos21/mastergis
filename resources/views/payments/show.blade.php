@@ -12,6 +12,7 @@
                     <th>Estudiante</th>
                     <th>Metodo de Pago</th>
                     <th>País</th>
+                    <th>Moneda</th>
                     <th>Total</th>
                     <th>Deuda</th>
                     <th>Fecha</th>
@@ -27,6 +28,7 @@
                         {{ $sale->payment->name }} <i class="{{ $sale->payment->icon }}"></i>
                     </td>                    
                     <td>{{ $sale->student->country->description }} <span class="{{ $sale->student->country->flag }}"></span></td> 
+                    <td>{{ $sale->currency->icon }} {{ $sale->currency->name }}</td>
                     <td>{{ $sale->total }}</td>
                     <td>{!! $sale->debt==0?'<span class="text-danger">Cancelada</span>':$sale->debt !!}</td>
                     <td>{{ $sale->date }}</td>                    

@@ -14,6 +14,7 @@ use App\PaymentM;
 use App\Sale;
 use App\DetailSale;
 use App\Assignment;
+use App\Currency;
 
 class SaleController extends Controller
 {
@@ -46,11 +47,13 @@ class SaleController extends Controller
         
         $courses = Course::orderBy('name', 'ASC')->get();
         $paymentms = PaymentM::all();
+        $currencies = Currency::all();
         
         return response()->json([
-            'students' => $students,
-            'courses' => $courses,
-            'paymentms' => $paymentms
+            'students'      => $students,
+            'courses'       => $courses,
+            'paymentms'     => $paymentms,
+            'currencies'    => $currencies,
         ], 200);
     }
 
@@ -74,6 +77,7 @@ class SaleController extends Controller
             $sale->code = $code;
             $sale->student_id = $request->student_id;
             $sale->payment_id = $request->payment_id;
+            $sale->currency_id = $request->currency_id;
             $sale->description = $request->description;
             $sale->date = Carbon::now()->toDateString();
             $sale->time = Carbon::now()->toTimeString();

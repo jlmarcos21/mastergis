@@ -18,7 +18,7 @@ class StatisticsController extends Controller
 
         $students_courses = Student::withCount(['assignments'])->orderBy('assignments_count','DESC')->take(10)->get();
         
-        $countries = Country::withCount(['students'])->orderBy('students_count', 'DESC')->get();
+        $countries = Country::withCount(['students'])->orderBy('students_count', 'DESC')->take(10)->get();
                 
         return view('statistics.index', compact('courses', 'students', 'students_courses', 'countries'));
     }

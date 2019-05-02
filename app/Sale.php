@@ -9,7 +9,7 @@ class Sale extends Model
     protected $table = 'sales';
 
     protected $fillable = [
-        'code', 'student_id', 'payment_id', 'description', 'date', 'time', 'credit', 'subtotal', 'debt', 'total'
+        'code', 'student_id', 'payment_id', 'currency_id', 'description', 'date', 'time', 'credit', 'subtotal', 'debt', 'total'
     ];
 
     public function student()
@@ -20,6 +20,11 @@ class Sale extends Model
     public function payment()
     {
         return $this->belongsTo(PaymentM::class);
+    }
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class);
     }
 
     public function items()

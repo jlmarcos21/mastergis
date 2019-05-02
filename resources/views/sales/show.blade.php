@@ -33,7 +33,8 @@
 
                         <div class="col-md-6 text-right">
                             <p class="font-weight-bold mb-4">Detalles del pago</p>
-                            <p class="mb-1"><span class="text-muted">Tipo de pago: </span> {{ $sale->payment->name }}</p>                            
+                            <p class="mb-1"><span class="text-muted">Tipo de Pago: </span> {{ $sale->payment->name }}</p>
+                            <p class="mb-1"><span class="text-muted">Tipo de Moneda: </span> {{ $sale->currency->name }}</p>
                         </div>
                     </div>
 
@@ -55,8 +56,8 @@
                                         <td>{{ $index+1 }}</td>
                                         <td>{{ $item->course_description }}</td>
                                         <td>{{ $item->quantity }}</td>
-                                        <td>{{ $item->price }}</td>
-                                        <td>{{ $item->total }}</td>
+                                        <td>{{ $sale->currency->icon }} {{ $item->price }}</td>
+                                        <td>{{ $sale->currency->icon }} {{ $item->total }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -67,12 +68,12 @@
                     <div class="d-flex flex-row-reverse bg-danger text-white p-4">
                         <div class="py-3 px-5 text-right">
                             <div class="mb-2">Total</div>
-                            <div class="h2 font-weight-light">{{ $sale->total }}</div>
+                            <div class="h2 font-weight-light">{{ $sale->currency->icon }} {{ $sale->total }}</div>
                         </div>
 
                         <div class="py-3 px-5 text-right">
                             <div class="mb-2">Subtotal</div>
-                            <div class="h2 font-weight-light">{{ $sale->subtotal }}</div>
+                            <div class="h2 font-weight-light">{{ $sale->currency->icon }} {{ $sale->subtotal }}</div>
                         </div>
                     </div>
                 </div>
