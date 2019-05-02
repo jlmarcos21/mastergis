@@ -127,6 +127,17 @@
           <a class="dropdown-item" href="{{ route('assignments.index') }}">Lista de Asignaciones</a>
         </div>
       </li>
+      <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="ReportDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">          
+            <i class="fas fa-fw fa-file-pdf"></i>
+            <span>Reportes</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="ReportDropdown">
+            <a class="dropdown-item" href="#">Consulta de Ventas</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Consulta de Cursos</a>
+          </div>
+        </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ route('statistics.index') }}">          
           <i class="fas fa-fw fa-chart-line"></i>
@@ -215,7 +226,6 @@
       </div>
     </div>
   </div>
-  
 
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}"></script>

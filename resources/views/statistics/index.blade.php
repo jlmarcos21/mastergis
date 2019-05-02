@@ -24,7 +24,7 @@
         </div>
 
         <div class="col-md-12 py-2">
-            <div class="card border-primary">
+            <div class="card border-danger">
                 <div class="card-header d-flex">                
                     <div class="p-2 mr-auto">
                         <h3>Ranking de Estudiantes por Ventas Top(10)</h3>
@@ -43,7 +43,7 @@
         </div>
 
         <div class="col-md-12 py-2">
-            <div class="card border-primary">
+            <div class="card border-warning">
                 <div class="card-header d-flex">                
                     <div class="p-2 mr-auto">
                         <h3>Ranking de Estudiantes por Cursos Top(10)</h3>

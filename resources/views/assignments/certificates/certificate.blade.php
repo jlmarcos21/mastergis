@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,30 +8,29 @@
 	<style>
 		html, body{
 			width: 100%;
-			margin: 0;			
+			margin: 0;	
 		}
 		#bg-svg{
 			width: 100%;
 			text-align: center
 		}
-		#svg5283:hover{
+		#svgcertificate:hover{
 			cursor: pointer;
 			background-color: white;
 		}
-	</style>
-	<style type="text/css" media="print">
-		@page  
-		{ 
-			size: auto;
-			transform:scale(.8,.8);			
-			margin: 0mm 0mm 0mm 0mm;  
-		} 	
+		#pdf-file{
+			display: block;
+			background: #000;
+			border: none;
+			height: 100vh;
+			width: 100vw;
+		}
 	</style>
 </head>
 <body>
 			
 <div id="bg-svg">
-	<svg onclick="window.print(this)" title="Descargar PDF"		
+	<svg onclick="createPdf()" title="Descargar PDF"		
 		xmlns:dc="http://purl.org/dc/elements/1.1/"
 		xmlns:cc="http://creativecommons.org/ns#"
 		xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -44,7 +43,7 @@
 		height="595"
 		viewBox="0 0 222.75271 157.50646"
 		version="1.1"
-		id="svg5283"
+		id="svgcertificate"
 		inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
 		sodipodi:docname="proyecto.svg">
 		<defs
@@ -2044,6 +2043,58 @@
 		</g>
 		</g>
 	</svg>		
-</div>	
+</div>
+
+<iframe id="pdf-file" width="100%" style="display: none"></iframe>
+
+<script src="https://cdn.jsdelivr.net/npm/svg-to-pdfkit@0.1.7/examples/pdfkit.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/svg-to-pdfkit@0.1.7/examples/blobstream.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/svg-to-pdfkit@0.1.7/source.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script>
+
+function createPdf() {
+
+	let compress = 'false',
+		pagewidth = 0,
+		pageheight = parseFloat(($('#svgcertificate').height() * 3) / 4 ),
+		showViewport = false,
+		x = null,
+		y = null;
+	  
+	let options = {
+		useCSS: false,
+		assumePt: false,
+		preserveAspectRatio: "",
+		width: null,
+		height: null
+	};
+
+  	let doc = new PDFDocument({compress: compress, size: [pagewidth || 612, pageheight || 792]}),
+		textarea = $('#bg-svg');
+
+  	//Crear PDF
+  	SVGtoPDF(doc, textarea.html(), x, y, options);
+
+	let stream = doc.pipe(blobStream());
+	stream.on('finish', function() {
+		let blob = stream.toBlob('application/pdf');
+		if (navigator.msSaveOrOpenBlob) {
+		navigator.msSaveOrOpenBlob(blob, 'File.pdf');
+		} else {
+		document.getElementById('pdf-file').contentWindow.location.replace(URL.createObjectURL(blob));
+		}
+	});
+
+	$('#bg-svg').hide()
+	$('#pdf-file').show()
+
+	doc.end()
+
+}
+
+</script>
+
 </body>
 </html>

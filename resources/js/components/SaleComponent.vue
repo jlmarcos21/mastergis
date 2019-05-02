@@ -180,7 +180,7 @@
                                 
                     for(var index in this.student.assignments){
                         if(this.course.id==this.student.assignments[index].course_id){
-                            toastr.warning('Este Curso ya fue Comprado por el alumno')
+                            toastr.warning('Este Curso ya fue Comprado por el Estudiante')
                             this.ClearCourse()
                             this.veri++
                         }                    
@@ -220,7 +220,7 @@
                         this.veri=0
                     }
                 }else{
-                    toastr.warning('Seleccionar Alumno')
+                    toastr.warning('Seleccione un Estudiante')
                 }    
             },
             studentChange(){
