@@ -35,17 +35,6 @@ class CourseController extends Controller
     public function store(CourseStoreRequest $request)
     {
         $course = Course::create($request->all());
-
-        //IMAGE 
-        if($request->hasFile('image')){
-
-            $path = $request->file('image')->store('courses', 'public');
-
-            $course->fill([
-                'image' => $path,
-                'image_url' => asset(Storage::url($path))
-            ])->save();
-        }
         return redirect()->route('courses.index')->with('info', 'Registrado con éxito');
     }
 
@@ -66,20 +55,6 @@ class CourseController extends Controller
     {
         $course = Course::findOrFail($id);
         $course->fill($request->all())->save();
-
-        //IMAGE 
-        if($request->hasFile('image')){
-
-            //Borrar Imagen anterior
-            Storage::delete('public/'.$course->photo);
-
-            $path = $request->file('image')->store('courses', 'public');
-
-            $course->fill([
-                'image' => $path,
-                'image_url' => asset(Storage::url($path))
-            ])->save();
-        }
         return redirect()->route('courses.index')->with('info', 'Actualizado con éxito');
     }
 

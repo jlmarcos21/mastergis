@@ -226,6 +226,7 @@
             studentChange(){
                 this.$refs.payment.focus()
                 this.CoursesDatails = []
+                this.Calculate()
             },
             ClearCourse(){
                 this.$refs.course.focus()

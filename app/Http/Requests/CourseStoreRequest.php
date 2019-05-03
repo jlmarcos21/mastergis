@@ -31,9 +31,6 @@ class CourseStoreRequest extends FormRequest
             'duration'      => 'required|string|max:120'
         ];
 
-        if($this->hasFile('image'))        
-            $rules = array_merge($rules, ['image' => 'image|mimes:jpg,jpeg,png']);
-
         return $rules;
     }
 }

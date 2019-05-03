@@ -85,7 +85,7 @@
                     <thead>
                         <th>Nivel</th>
                         <th>Descrición</th>
-                        <th width="10px">Proyecto</th>
+                        <th>Nombre</th>
                         <th>Estado</th>
                         <th width="15%">Fecha</th>
                         <th>Constancia</th>
@@ -97,7 +97,7 @@
                                 <td><i class="fas fa-circle" style="color:{{ $project->sub_level->colour }}"> {{ $project->sub_level->description }}</i></td>
                                 <td>{{ $project->description }}</td>
                                 <td>
-                                    {!! $project->project=='0'?'<i class="far fa-times-circle text-danger"></i>':'<i class="far fa-check-circle text-success"></i>' !!}
+                                    {{ $project->name }}
                                 </td>
                                 <td>
                                     {!! $project->state=='0'?'<span class="text-danger">Desaprobado</span>':'<span class="text-success">Aprobado</span>' !!}
@@ -105,13 +105,13 @@
                                 <td>{{ $project->date }}</td>
                                 <th width="10px">
                                     @if($project->state==1)
-                                        <a href="" class="btn btn-sm btn-danger">Constancia</a>
+                                        <a href="{{ route('generate-constancy', $project->id) }}" target="_blank" class="btn btn-sm btn-danger">Constancia</a>
                                     @else
                                     <h3 class="far fa-sad-cry text-danger"></h3>
                                     @endif
                                 </th>
                                 <th width="10px">
-                                    <a href="" class="btn btn-sm btn-danger">Observaciones</a>
+                                    <a href="{{ route('generate-annotation', $project->id) }}" target="_blank" class="btn btn-sm btn-danger">Observaciones</a>
                                 </th>
                             </tr>
                         @endforeach

@@ -31,13 +31,13 @@
         </div>
     
         <div class="form-group col-md-4">
-            {{ Form::label('duration', 'Duracipon del Curso') }}
+            {{ Form::label('duration', 'Duración del Curso') }}
             {{ Form::text('duration', null, ['class' => 'form-control border border-success', 'id' => 'duration', 'required', 'maxlength' => '240']) }}
         </div>
     
         <div class="form-group col-md-4">
-            {{ Form::label('image', 'Imagen del Curso') }} @isset($course) <a href="{{$course->image_url }}" target="_blank">(Ver Imagen)</a> @endisset 
-            {{ Form::file('image', ['class' => 'form-control border border-success', 'id' => 'image']) }}
+            {{ Form::label('image_url', 'Imagen del Curso') }} @isset($course) <a href="{{$course->image_url }}" target="_blank">(Ver Imagen)</a> @endisset 
+            {{ Form::text('image_url', null, ['class' => 'form-control border border-success', 'id' => 'image_url']) }}
         </div>
     
         <div class="form-group col-md-12">

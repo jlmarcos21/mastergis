@@ -9,7 +9,7 @@ class Project extends Model
     protected $table = 'projects';
 
     protected $fillable = [
-        'assignment_id', 'sub_level_id', 'description', 'project', 'state', 'date'
+        'assignment_id', 'sub_level_id', 'description', 'name', 'state', 'date'
     ];
 
     public function sub_level()

@@ -16,8 +16,7 @@ class CoursesTableSeeder extends Seeder
             'code'          => 'adrca',
             'level_id'      => 2,
             'certificate'   => 'Especialista en Análisis de Redes con Network Analyst de ArcGIS',
-            'duration'      => 'Con una duración de 40 horas lectivas',
-            'image'         => 'https://www.mastergis.com/wp-content/uploads/2018/09/network.png',
+            'duration'      => 'Con una duración de 40 horas lectivas',            
             'image_url'     => 'https://www.mastergis.com/wp-content/uploads/2018/09/network.png',
         ]);
 
@@ -26,8 +25,7 @@ class CoursesTableSeeder extends Seeder
             'code'          => 'acc',
             'level_id'      => 3,
             'certificate'   => 'Especialista en Sistemas de Información Geográfica con ArcGIS',
-            'duration'      => 'Con una duración de 120 horas lectivas',
-            'image'         => 'https://www.mastergis.com/wp-content/uploads/2018/01/post-website-01.png',
+            'duration'      => 'Con una duración de 120 horas lectivas',            
             'image_url'     => 'https://www.mastergis.com/wp-content/uploads/2018/01/post-website-01.png',
         ]);
 
@@ -36,8 +34,7 @@ class CoursesTableSeeder extends Seeder
             'code'          => 'aaac',
             'level_id'      => 3,
             'certificate'   => 'Especialista en ArcGIS aplicado al Catastro Urbano',
-            'duration'      => 'Con una duración de 120 horas lectivas',
-            'image'         => 'https://www.mastergis.com/wp-content/uploads/2018/08/ArcGIS-aplicado-al-catastro.png',
+            'duration'      => 'Con una duración de 120 horas lectivas',            
             'image_url'     => 'https://www.mastergis.com/wp-content/uploads/2018/08/ArcGIS-aplicado-al-catastro.png',
         ]);
 
@@ -46,8 +43,7 @@ class CoursesTableSeeder extends Seeder
             'code'          => 'gdch',
             'level_id'      => 3,
             'certificate'   => 'Especialista en Hidrología de cuencas con ArcGIS',
-            'duration'      => 'Con una duración de 20 horas lectivas',
-            'image'         => 'https://www.mastergis.com/wp-content/uploads/2019/04/MINIATURA_WEB.png',
+            'duration'      => 'Con una duración de 20 horas lectivas',            
             'image_url'     => 'https://www.mastergis.com/wp-content/uploads/2019/04/MINIATURA_WEB.png',
         ]);
 
@@ -56,8 +52,7 @@ class CoursesTableSeeder extends Seeder
             'code'          => 'gml3',
             'level_id'      => 1,
             'certificate'   => 'Especialista en Sistemas de Información Geográfica con Global Mapper',
-            'duration'      => 'Con una duración de 40 horas lectivas',
-            'image'         => 'https://www.mastergis.com/wp-content/uploads/2018/12/post-website-05.png',
+            'duration'      => 'Con una duración de 40 horas lectivas',            
             'image_url'     => 'https://www.mastergis.com/wp-content/uploads/2018/12/post-website-05.png',
         ]);
 
@@ -66,8 +61,7 @@ class CoursesTableSeeder extends Seeder
             'code'          => 'pacp',
             'level_id'      => 1,
             'certificate'   => 'Especialista en Programación GIS con Python',
-            'duration'      => 'Con una duración de 40 horas lectivas',
-            'image'         => 'https://www.mastergis.com/wp-content/uploads/2018/08/post-website-04.png',
+            'duration'      => 'Con una duración de 40 horas lectivas',            
             'image_url'     => 'https://www.mastergis.com/wp-content/uploads/2018/08/post-website-04.png',
         ]);
 
@@ -76,8 +70,7 @@ class CoursesTableSeeder extends Seeder
             'code'          => 'qcc',
             'level_id'      => 3,
             'certificate'   => 'Especialista en Sistemas de Información Geográfica con QGIS',
-            'duration'      => 'Con una duración de 120 horas lectivas',
-            'image'         => 'https://www.mastergis.com/wp-content/uploads/2018/08/post-website-11.png',
+            'duration'      => 'Con una duración de 120 horas lectivas',            
             'image_url'     => 'https://www.mastergis.com/wp-content/uploads/2018/08/post-website-11.png',
         ]);
 
@@ -86,8 +79,7 @@ class CoursesTableSeeder extends Seeder
             'code'          => 'vymwcao',
             'level_id'      => 3,
             'certificate'   => 'Especialista en Visores y Mapas Web con ArcGIS Online',
-            'duration'      => 'Con una duración de 40 horas lectivas',
-            'image'         => 'https://www.mastergis.com/wp-content/uploads/2018/01/post-website-06.png',
+            'duration'      => 'Con una duración de 40 horas lectivas',            
             'image_url'     => 'https://www.mastergis.com/wp-content/uploads/2018/01/post-website-06.png',
         ]);
 
@@ -96,8 +88,7 @@ class CoursesTableSeeder extends Seeder
             'code'          => 'tacq',
             'level_id'      => 3,
             'certificate'   => 'Especialista en Procesamiento de Imágenes Satelitales con QGIS',
-            'duration'      => 'Con una duración de 40 horas lectivas',
-            'image'         => 'https://www.mastergis.com/wp-content/uploads/2018/01/PDI_QGIS-02.png',
+            'duration'      => 'Con una duración de 40 horas lectivas',            
             'image_url'     => 'https://www.mastergis.com/wp-content/uploads/2018/01/PDI_QGIS-02.png',
         ]);
 
@@ -106,8 +97,7 @@ class CoursesTableSeeder extends Seeder
             'code'          => 'talyd',
             'level_id'      => 3,
             'certificate'   => 'Especialista en Teledetección, Drones y Lidar con ENVI',
-            'duration'      => 'Con una duración de 120 horas lectivas',
-            'image'         => 'https://www.mastergis.com/wp-content/uploads/2018/08/envi.png',
+            'duration'      => 'Con una duración de 120 horas lectivas',            
             'image_url'     => 'https://www.mastergis.com/wp-content/uploads/2018/08/envi.png',
         ]);
 

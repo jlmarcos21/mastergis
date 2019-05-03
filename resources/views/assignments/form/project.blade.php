@@ -14,11 +14,8 @@
             <div class="row">                              
                 <div class="col-md-3 form-group">
                     {{ Form::hidden('assignment_id', $assignment->id) }}
-                    {{ Form::label('project', 'E. Proyecto') }}
-                    <div class="custom-control custom-checkbox form-control text-center">
-                        {{Form::checkbox("project", "1", old('project'), ["class" => "custom-control-input", "id" => "project"])}}
-                        <label class="custom-control-label" for="project"> Recibido</label>
-                    </div>
+                    {{ Form::label('name', 'Nombre del Proyecto') }}
+                    {{ Form::text('name', null, ['class' => 'form-control']) }}
                 </div>
                 <div class="col-md-3 form-group">                    
                     {{ Form::label('sub_level_id', 'Nivel del Proyecto') }}

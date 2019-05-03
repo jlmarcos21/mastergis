@@ -9,7 +9,7 @@ class Course extends Model
     protected $table = 'courses';
 
     protected $fillable = [
-        'name', 'code', 'level_id', 'certificate', 'duration', 'image', 'image_url'
+        'name', 'code', 'level_id', 'certificate', 'duration', 'image_url'
     ];
 
     public function level()

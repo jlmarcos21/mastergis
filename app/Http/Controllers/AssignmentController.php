@@ -7,6 +7,7 @@ use Carbon\Carbon;
 
 use App\Assignment;
 use App\SubLevel;
+use App\Project;
 
 class AssignmentController extends Controller
 {
@@ -51,7 +52,29 @@ class AssignmentController extends Controller
         $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
         $date = "Lima, ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ;        
         
-        return view('assignments.certificate', compact('assignment','date'));
+        return view('assignments.certificates.certificate', compact('assignment','date'));
     }
 
+    public function constancy($id)
+    {
+        $project = Project::findOrFail($id);
+
+        $assignment = Assignment::findOrFail($project->assignment_id);
+    
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        $date = "Lima, ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ;        
+        
+        return view('assignments.certificates.constancy', compact('project','assignment','date'));
+    }
+
+    public function annotation($id)
+    {
+        $project = Project::findOrFail($id);
+
+        $descriptions = array_map('trim', explode( '|', $project->description));
+
+        $assignment = Assignment::findOrFail($project->assignment_id);     
+        
+        return view('assignments.certificates.annotation', compact('project','assignment', 'descriptions'));
+    }
 }

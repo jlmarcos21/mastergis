@@ -19,7 +19,7 @@ class CreateProjectsTable extends Migration
             $table->integer('assignment_id')->unsigned();
             $table->integer('sub_level_id')->unsigned();
             $table->string('description', 150)->nullable();
-            $table->boolean('project')->default('0');
+            $table->string('name', 150);
             $table->boolean('state')->default('0');
             $table->date('date');
 

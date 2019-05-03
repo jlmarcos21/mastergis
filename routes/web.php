@@ -41,8 +41,14 @@ Route::group(['middleware' => 'cors'], function(){
         'store', 'create', 'destroy'
     ]);
 
-    //Verification
+    //certificate
     Route::get('generate-certificate/{code}', 'AssignmentController@certificate')->name('generate-certificate');
+    
+    //constancy
+    Route::get('generate-constancy/{id}', 'AssignmentController@constancy')->name('generate-constancy');
+
+    //annotation
+    Route::get('generate-annotation/{id}', 'AssignmentController@annotation')->name('generate-annotation');
 
     //Project
     Route::resource('projects', 'ProjectController')->except([
