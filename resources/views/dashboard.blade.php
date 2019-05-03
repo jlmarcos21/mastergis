@@ -87,10 +87,10 @@
               <i class="fas fa-fw fa-users"></i>
             </div>
             <div class="py-1">
-              S/ {{$sales_pe->total}}
+              S/ {{ number_format($sales_pe->total, 2)}}
             </div>
             <div class="py-1">
-              $ {{$sales_usd->total}}
+              $ {{ number_format($sales_usd->total, 2) }}
             </div>
         </div>
       </div>

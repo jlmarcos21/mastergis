@@ -1,17 +1,13 @@
 <?php
 use Carbon\Carbon;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 
 Route::group(['middleware' => 'cors'], function(){
 
     //Panel de Control
-    Route::get('dashboard', 'DashboardController@dashboard')->name('dashboard');
+    Route::get('/', 'DashboardController@dashboard')->name('dashboard');
 
     //Country
     Route::resource('countries', 'CountryController')->except([

@@ -2083,7 +2083,7 @@ function createPdf() {
 		if (navigator.msSaveOrOpenBlob) {
 		navigator.msSaveOrOpenBlob(blob, 'File.pdf');
 		} else {
-		document.getElementById('pdf-file').contentWindow.location.replace(URL.createObjectURL(blob));
+			document.getElementById('pdf-file').contentWindow.location.replace(URL.createObjectURL(blob));
 		}
 	});
 
