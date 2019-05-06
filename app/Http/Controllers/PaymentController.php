@@ -20,7 +20,7 @@ class PaymentController extends Controller
     {
         $sales = Sale::orderBy('created_at', 'DESC')
                     ->where('credit', '=', '1')
-                    ->paginate(10);
+                    ->get();
         return view('payments.index', compact('sales'));
     }
 

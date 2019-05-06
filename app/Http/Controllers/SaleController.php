@@ -26,7 +26,7 @@ class SaleController extends Controller
 
     public function index()
     {
-        $sales = Sale::orderBy('created_at', 'DESC')->paginate(10);
+        $sales = Sale::orderBy('created_at', 'DESC')->get();
         return view('sales.index', compact('sales'));
     }
 
@@ -43,7 +43,11 @@ class SaleController extends Controller
 
     public function getData()
     {
-        $students = Student::orderBy('lastname', 'ASC')->with('country')->with('assignments')->get();
+        $students = Student::orderBy('id', 'DESc')
+                    ->where('state', '=', '1')
+                    ->with('country')
+                    ->with('assignments')
+                    ->get();
         
         $courses = Course::orderBy('name', 'ASC')->get();
         $paymentms = PaymentM::all();

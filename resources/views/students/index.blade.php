@@ -4,7 +4,8 @@
 
 @section('links')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
 @endsection
 
 @section('content')
@@ -30,7 +31,7 @@
                         <td>{{ $student->id }}</td>
                         <td>{{ $student->lastname }}, {{ $student->name }}</td>
                         <td>{{ $student->code }}</td>                                
-                        <td><span class="{{ $student->country->flag }}" title="{{ $student->country->description }}"></span></td>
+                        <td><span class="{{ $student->country->flag }}" title="{{ $student->country->description }}"></span><small class="d-none">{{ $student->country->description }}</small></td>
                         <td>
                             <a href="mailto:{{ $student->email }}" title="Enviar Correo">{{ $student->email }}</a>
                         </td>
@@ -62,6 +63,12 @@
 @section('scripts')    
 
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
 
     <script>
         $(function(){
@@ -89,7 +96,35 @@
                         "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                         "sSortDescending": ": Activar para ordenar la columna de manera descendente"
                     }
-                }
+                },
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        text: 'Copiar Correos',
+                        exportOptions: {
+                            columns: [ 4 ]
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Exportar Excel',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        text: 'Exportar PDF',
+                        exportOptions: {
+                            columns: [ 0, 1, 2, 3, 4 ]
+                        }
+                    },
+                    {
+                        extend: 'colvis',
+                        text: 'Columnas Visibles'
+                    }                    
+                ]
             });
 
             table

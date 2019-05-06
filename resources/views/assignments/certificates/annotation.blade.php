@@ -25,7 +25,13 @@
 			height: 100vh;
 			width: 100vw;
 		}
-	</style>
+     </style>
+     <style media="print">          
+          @media print {
+               @page { margin: 0mm}
+               @page {size: A4 horizontal}
+          }
+     </style>
 </head>
 <body>
 			

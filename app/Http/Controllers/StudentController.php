@@ -22,6 +22,7 @@ class StudentController extends Controller
     public function index()
     {
         $students = Student::orderBy('id', 'DESC')
+                    ->where('state', '=', '1')
                     ->get();
         return view('students.index', compact('students'));
     }
@@ -67,7 +68,10 @@ class StudentController extends Controller
 
     public function destroy($id)
     {
-        $student = Student::findOrFail($id)->delete();
+        $student = Student::findOrFail($id);
+        $student->state = 0;
+        $student->save();
+
         return back()->with('info', 'Eliminado correctamente');
     }
     

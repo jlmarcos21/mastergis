@@ -20,7 +20,7 @@
   <style>
     .bg-login{
       background-image: url("https://i.imgur.com/ThZvNLF.jpg");
-      background-color: #cccccc;
+      background-color: black;
       height: 500px;
       background-position: center;
       background-repeat: no-repeat;

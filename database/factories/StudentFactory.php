@@ -16,6 +16,7 @@ $factory->define(App\Student::class, function (Faker $faker) {
         'nationality'   => $faker->randomElement(['EXTRANJERO', 'NACIONAL']),
         'country_id'    => App\Country::inRandomOrder()->first()->id,   
         'email'         => $faker->unique()->safeEmail,
-        'phone'         => $faker->unique()->phoneNumber
+        'phone'         => $faker->unique()->phoneNumber,
+        'state'         => 1
     ];
 });

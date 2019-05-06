@@ -23,12 +23,22 @@
       cursor: pointer;
       border: solid #000 1px;
     }
+    .se-pre-con {
+      position: fixed;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background: url(https://loading.io/spinners/earth/lg.earth-globe-map-spinner.gif) center no-repeat #fff;
+    }
   </style>
   @yield('links')
 
 </head>
 
 <body id="page-top">
+  <div class="se-pre-con"></div>
 
   <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
@@ -230,6 +240,10 @@
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}"></script>
   <script>
+
+    window.onload = function() {
+      $(".se-pre-con").fadeOut("slow");
+    };
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     })
