@@ -143,9 +143,9 @@
             <span>Reportes</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="ReportDropdown">
-            <a class="dropdown-item" href="#">Consulta de Ventas</a>
+            <a class="dropdown-item" href="{{ route('search_sales') }}">Consulta de Ventas</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Consulta de Cursos</a>
+            <a class="dropdown-item" href="{{ route('search_courses') }}">Consulta de Cursos</a>
           </div>
         </li>
       <li class="nav-item">

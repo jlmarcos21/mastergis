@@ -17,6 +17,7 @@ class CreateSalesTable extends Migration
             $table->increments('id');
 
             $table->string('code', 10)->unique();
+            $table->integer('user_id')->unsigned();
             $table->integer('student_id')->unsigned();
             $table->integer('payment_id')->unsigned();
             $table->integer('currency_id')->unsigned();
@@ -31,6 +32,7 @@ class CreateSalesTable extends Migration
             $table->timestamps();
 
             //Relacion
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('student_id')->references('id')->on('students');
             $table->foreign('payment_id')->references('id')->on('payment_ms');
             $table->foreign('currency_id')->references('id')->on('currencies');        

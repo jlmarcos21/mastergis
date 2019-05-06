@@ -33,6 +33,7 @@ class DashboardController extends Controller
                     ->where('currency_id', '=', 1)
                     ->selectRaw('sum(total) as total')                    
                     ->first();
+                    
         $sales_usd = Sale::whereMonth('date', $month)
                     ->where('currency_id', '=', 2)
                     ->selectRaw('sum(total) as total')                    

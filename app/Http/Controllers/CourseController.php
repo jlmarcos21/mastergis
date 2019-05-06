@@ -22,6 +22,7 @@ class CourseController extends Controller
     public function index()
     {
         $courses = Course::orderBy('id', 'DESC')
+                    ->where('state', '=', '1')
                     ->get();
         return view('courses.index', compact('courses'));
     }
@@ -60,7 +61,9 @@ class CourseController extends Controller
 
     public function destroy($id)
     {
-        $course = Course::findOrFail($id)->delete();
+        $course = Course::findOrFail($id);        
+        $course->state = 0;
+        $course->save();
         return back()->with('info', 'Eliminado correctamente');
     }
     

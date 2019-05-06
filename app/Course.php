@@ -9,7 +9,7 @@ class Course extends Model
     protected $table = 'courses';
 
     protected $fillable = [
-        'name', 'code', 'level_id', 'certificate', 'duration', 'image_url'
+        'name', 'code', 'level_id', 'certificate', 'duration', 'image_url', 'state'
     ];
 
     public function level()
@@ -20,5 +20,10 @@ class Course extends Model
     public function assignments()
     {
         return $this->hasMany(Assignment::class);
+    }
+
+    public function detailsales()
+    {
+        return $this->hasMany(DetailSale::class);
     }
 }

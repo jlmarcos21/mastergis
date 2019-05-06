@@ -23,7 +23,7 @@ class CreateStudentsTable extends Migration
             $table->integer('country_id')->unsigned();            
             $table->string('email', 240)->unique();
             $table->string('phone', 25)->nullable();
-            $table->boolean('state', 25)->default('1')->nullable();   
+            $table->boolean('state', 25)->default('1')->nullable();
 
             $table->timestamps();
 

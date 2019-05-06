@@ -49,7 +49,10 @@ class SaleController extends Controller
                     ->with('assignments')
                     ->get();
         
-        $courses = Course::orderBy('name', 'ASC')->get();
+        $courses = Course::orderBy('name', 'ASC')
+                    ->where('state', '=', '1')
+                    ->get();
+                    
         $paymentms = PaymentM::all();
         $currencies = Currency::all();
         
@@ -73,17 +76,20 @@ class SaleController extends Controller
     {
        try {
             
+            $date_now = Carbon::now()->toDateString();
+            
             //Registrar Venta
             $sale = new Sale();
 
             $code = str_pad(($sale->orderBy('id', 'DESC')->pluck('id')->first() + 1), 10, "0", STR_PAD_LEFT);
 
             $sale->code = $code;
+            $sale->user_id = auth()->user()->id;
             $sale->student_id = $request->student_id;
             $sale->payment_id = $request->payment_id;
             $sale->currency_id = $request->currency_id;
             $sale->description = $request->description;
-            $sale->date = Carbon::now()->toDateString();
+            $sale->date = $date_now;
             $sale->time = Carbon::now()->toTimeString();
             $sale->credit = $request->credit;
             $sale->subtotal = $request->subtotal;
@@ -101,6 +107,7 @@ class SaleController extends Controller
                 $item->price = $course['course_price'];
                 $item->quantity = $course['course_quantity'];
                 $item->total = $course['course_total'];
+                $item->date = $date_now;
                 $item->save();
 
                 //Asiganaciones
@@ -113,7 +120,7 @@ class SaleController extends Controller
                 $item->entry = false;
                 $item->poll = false;
                 $item->physical_certificate = false;
-                $item->start_date = Carbon::now()->toDateString();
+                $item->start_date = $date_now;
                 $item->final_date = Carbon::now()->addYear(1)->toDateString();
 
                 $item->save();

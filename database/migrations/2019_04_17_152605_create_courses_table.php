@@ -21,6 +21,7 @@ class CreateCoursesTable extends Migration
             $table->text('certificate');
             $table->text('duration', 120);            
             $table->string('image_url', 191)->default('https://doc.louisiana.gov/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png')->nullable();
+            $table->boolean('state', 25)->default('1')->nullable();
 
             $table->timestamps();
 

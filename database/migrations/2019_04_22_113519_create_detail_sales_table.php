@@ -22,6 +22,7 @@ class CreateDetailSalesTable extends Migration
             $table->decimal('price', 10,2);
             $table->integer('quantity');
             $table->decimal('total', 10,2);
+            $table->date('date');
 
             $table->timestamps();
 

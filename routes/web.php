@@ -60,4 +60,10 @@ Route::group(['middleware' => 'cors'], function(){
         'store', 'edit', 'show', 'update', 'destroy'
     ]);
 
+    //Consultation sales
+    Route::get('search_sales', 'ReportController@search_sales')->name('search_sales');
+
+    //Consultation courses
+    Route::get('search_courses', 'ReportController@search_courses')->name('search_courses');
+
 });

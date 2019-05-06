@@ -9,8 +9,13 @@ class Sale extends Model
     protected $table = 'sales';
 
     protected $fillable = [
-        'code', 'student_id', 'payment_id', 'currency_id', 'description', 'date', 'time', 'credit', 'subtotal', 'debt', 'total'
+        'code', 'user_id', 'student_id', 'payment_id', 'currency_id', 'description', 'date', 'time', 'credit', 'subtotal', 'debt', 'total'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function student()
     {
