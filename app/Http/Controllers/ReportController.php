@@ -30,9 +30,9 @@ class ReportController extends Controller
                         ->whereBetween('date', [$request->date_s, $request->date_f])                                     
                         ->get();
 
-            return view('reports.courses_consultation', compact('request'));                 
+            return view('reports.courses_consultation', compact('s_courses', 'request'));                 
         }else {
-            return view('reports.courses_consultation', compact('s_courses', 'request'));
+            return view('reports.courses_consultation', compact('request'));
         }                
     }
 
