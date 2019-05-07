@@ -12,6 +12,11 @@ class DetailSale extends Model
         'sale_id', 'course_id', 'course_description', 'price', 'quantity', 'total', 'date'
     ];
 
+    public function sale()
+    {
+        return $this->belongsTo(Sale::class);
+    }
+
     public function course()
     {
         return $this->belongsTo(Course::class);

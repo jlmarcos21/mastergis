@@ -21,11 +21,11 @@
                         <div class="row">
                             <div class="col-md-5">
                                 {{ Form::label('date_s', 'Fecha de Inicio') }}
-                                {{ Form::date('date_s', isset($request->date_s), ['class' => 'form-control border border-success', 'id' => 'date_s', 'required']) }}
+                                {{ Form::date('date_s', (isset($request->date_s))?$request->date_s:'', ['class' => 'form-control border border-success', 'id' => 'date_s', 'required']) }}
                             </div>
                             <div class="col-md-5">
                                 {{ Form::label('date_f', 'Fecha Final') }}
-                                {{ Form::date('date_f', isset($request->date_f), ['class' => 'form-control border border-success', 'id' => 'date_f', 'required']) }}
+                                {{ Form::date('date_f', (isset($request->date_f))?$request->date_f:'', ['class' => 'form-control border border-success', 'id' => 'date_f', 'required']) }}
                             </div>
                             <div class="col-md-2">
                                 {{ Form::label('date_f', 'Filtrar') }}                                
@@ -41,7 +41,8 @@
                             <div class="table-responsive py-3">
                                 <table class="table table-bordered table-hover text-center" id="table-courses">
                                     <thead>
-                                        <tr>                                            
+                                        <tr>
+                                            <th>Codigo de Venta</th>                         
                                             <th>Codigo</th>
                                             <th>Curso</th>                                            
                                             <th>Fecha</th>  
@@ -50,6 +51,7 @@
                                     <tbody>
                                         @foreach ($s_courses as $s_course)
                                             <tr>
+                                                <td><a href="{{ route('sales.show', $s_course->sale->id) }}">{{ $s_course->sale->code }}</td>
                                                 <td>{{ $s_course->course->code }}</td>
                                                 <td>{{ $s_course->course->name }}</td>
                                                 <td>{{ $s_course->date }}</td>                   

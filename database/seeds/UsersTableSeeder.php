@@ -16,5 +16,11 @@ class UsersTableSeeder extends Seeder
             'email'     => 'admin@mastergis.com',
             'password'  => bcrypt('admin')
         ]);
+
+        App\User::create([
+            'name'      => 'Renzo',
+            'email'     => 'renzo@mastergis.com',
+            'password'  => bcrypt('renzo123')
+        ]);
     }
 }
