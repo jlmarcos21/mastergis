@@ -11,4 +11,9 @@ class Payment extends Model
     protected $fillable = [
         'sale_id', 'description', 'previous_amount', 'amount', 'next_amount', 'date'
     ];
+
+    public function sale()
+    {
+        return $this->belongsTo(Sale::class);
+    }
 }
