@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\DataTables\SalesDataTable;
 use Barryvdh\DomPDF\Facade as PDF;
 
 use Illuminate\Support\Str;
@@ -27,10 +27,9 @@ class SaleController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(SalesDataTable $dataTable)
     {
-        $sales = Sale::orderBy('created_at', 'DESC')->get();
-        return view('sales.index', compact('sales'));
+        return $dataTable->render('sales.index');
     }
 
     public function create()

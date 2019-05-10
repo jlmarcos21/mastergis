@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\DataTables\CoursesDataTable;
 use Illuminate\Support\Facades\Storage;
 
 use App\Http\Requests\CourseStoreRequest;
@@ -19,12 +20,9 @@ class CourseController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(CoursesDataTable $dataTable)
     {
-        $courses = Course::orderBy('id', 'DESC')
-                    ->where('state', '=', '1')
-                    ->get();
-        return view('courses.index', compact('courses'));
+        return $dataTable->render('courses.index');        
     }
 
     public function create()

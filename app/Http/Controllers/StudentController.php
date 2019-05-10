@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\DataTables\StudentsDataTable;
 use Illuminate\Support\Str;
 
 use App\Http\Requests\StudentStoreRequest;
@@ -19,14 +20,10 @@ class StudentController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(StudentsDataTable $dataTable)
     {
-        $students = Student::orderBy('id', 'DESC')
-                    ->where('state', '=', '1')
-                    ->get();
-        return view('students.index', compact('students'));
+        return $dataTable->render('students.index');    
     }
-
 
     public function create()
     {

@@ -12,12 +12,12 @@ class VouchersTableSeeder extends Seeder
     public function run()
     {
         App\Voucher::create([
-            'name'  =>  'Factura',
+            'name'  =>  'FACTURA',
             'serie'  =>  '001',
         ]);
 
         App\Voucher::create([
-            'name'  =>  'Boleta',
+            'name'  =>  'BOLETA',
             'serie'  =>  '002',
         ]);
     }

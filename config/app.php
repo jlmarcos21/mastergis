@@ -176,6 +176,8 @@ return [
         App\Providers\RouteServiceProvider::class,        
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
+        Yajra\DataTables\ButtonsServiceProvider::class
         
     ],
 
@@ -228,6 +230,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 
     ],
 
