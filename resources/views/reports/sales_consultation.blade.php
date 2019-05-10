@@ -19,15 +19,69 @@
                 <div class="card-body">
                     {!! Form::open(['route' => 'search_sales', 'method' => 'GET']) !!}
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-2">
                                 {{ Form::label('date_s', 'Fecha de Inicio') }}
                                 {{ Form::date('date_s', (isset($request->date_s))?$request->date_s:'', ['class' => 'form-control border border-success', 'id' => 'date_s', 'required']) }}
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-2">
                                 {{ Form::label('date_f', 'Fecha Final') }}
                                 {{ Form::date('date_f', (isset($request->date_f))?$request->date_f:'', ['class' => 'form-control border border-success', 'id' => 'date_f', 'required']) }}
                             </div>
+                            <div class="col-md-3">
+                                    {{ Form::label('searchpayment', 'Pago') }}
+                                    <select name="searchpayment" id="searchpayment" class="form-control">
+                                        <option value="">Todos</option>
+                                        @foreach ($payments as $payment)     
+    
+                                        <option value="{{ $payment->id }}"
+                                            @isset($request->searchpayment)
+                                                @if ($payment->id==$request->searchpayment)
+                                                    selected
+                                                @endif
+                                            @endisset
+                                            >{{ $payment->name }}
+                                        </option>
+    
+                                        @endforeach
+                                    </select>
+                                </div>
                             <div class="col-md-2">
+                                {{ Form::label('searchvoucher', 'Comprobante') }}
+                                <select name="searchvoucher" id="searchvoucher" class="form-control">
+                                    <option value="">Todos</option>
+                                    @foreach ($vouchers as $voucher)                                         
+
+                                    <option value="{{ $voucher->id }}"
+                                        @isset($request->searchvoucher)
+                                            @if ($voucher->id==$request->searchvoucher)
+                                                selected
+                                            @endif
+                                        @endisset
+                                        >{{ $voucher->name }}
+                                    </option>
+
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                    {{ Form::label('searchcurrency', 'Moneda') }}
+                                    <select name="searchcurrency" id="searchcurrency" class="form-control">
+                                        <option value="">Todos</option>
+                                        @foreach ($currencies as $currency)                                             
+
+                                        <option value="{{ $currency->id }}"
+                                            @isset($request->searchcurrency)
+                                                @if ($currency->id==$request->searchcurrency)
+                                                    selected
+                                                @endif
+                                            @endisset
+                                            >{{ $currency->name }}
+                                        </option>
+
+                                        @endforeach
+                                    </select>
+                                </div>
+                            <div class="col-md-1">
                                 {{ Form::label('date_f', 'Filtrar') }}                                
                                 <button type="submit" class="btn btn-block btn-primary"><i class="fas fa-search"></i></button>
                             </div>
@@ -43,13 +97,20 @@
                                     <thead>
                                         <tr>
                                             <th width="10px">#</th>
-                                            <th>Codigo</th>
+                                            <th>Serie</th>
                                             <th>Alumno</th>
                                             <th>Pago</th>
-                                            <th>Fecha</th>                    
+                                            <th>Comprobante</th>
                                             <th>Moneda</th>
+                                            <th>Credito</th>
+                                            <th>Deuda</th>
+                                            <th>Fecha</th>                                                                
+                                            <th>SubTotal</th>
                                             <th>Total</th>
-                                            <th width="10px"><i class="far fa-edit"></i></th>
+                                            <th>Desc.Paypal</th>
+                                            <th>Desc.Total</th>
+                                            <th>Desc.Interbank</th>
+                                            <th>Desc.Total</th>                                  
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -57,20 +118,19 @@
                                             <tr>
                                                 <td>{{ $sale->id }}</td>
                                                 <td><a href="{{ route('sales.show', $sale->id) }}">{{ $sale->code }}</a></td>
-                                                <td>{{ $sale->student->lastname }}, {{ $sale->student->name }}</td>
+                                                <td>{{ $sale->student->lastname }} {{ $sale->student->name }}</td>
                                                 <td>{{ $sale->payment->name }} <i class="{{ $sale->payment->icon }}"></i></td>
-                                                <td>{{ $sale->date }}</td>                   
+                                                <td>{{ $sale->voucher->name }}</td>                                                             
                                                 <td>{{ $sale->currency->icon }} {{ $sale->currency->name }}</td>
-                                                <td class="text-success">{{ $sale->total }}</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-sm btn-danger dropdown-toggle" type="button" id="ddm-{{ $sale->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                                            
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="ddm-{{ $sale->id }}">
-                                                            <a class="dropdown-item" href="{{ route('sales.show', $sale->id) }}"><i class="far fa-edit"></i> Detalle</a>                                    
-                                                        </div>
-                                                    </div>
-                                                </td>
+                                                <td>{{ $sale->credit==1?'Si':'No' }}</td>
+                                                <td>{{ $sale->debt }}</td>
+                                                <td>{{ $sale->date }}</td>    
+                                                <td>{{ $sale->subtotal }}</td>
+                                                <td>{{ $sale->total }}</td>
+                                                <td>{{ $sale->discount_paypal }}</td>
+                                                <td>{{ $sale->total_paypal }}</td>
+                                                <td>{{ $sale->discount_interbank }}</td>
+                                                <td>{{ $sale->total_interbank }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -128,23 +188,14 @@
                     {
                         extend: 'copyHtml5',
                         text: 'Copiar Datos',
-                        exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
-                        }
                     },
                     {
                         extend: 'excelHtml5',
                         text: 'Exportar Excel',
-                        exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
-                        }
                     },
                     {
                         extend: 'pdfHtml5',
                         text: 'Exportar PDF',
-                        exportOptions: {
-                            columns: [ 0, 1, 2, 3, 4, 5, 6 ]
-                        }
                     },
                     {
                         extend: 'colvis',

@@ -27,17 +27,14 @@
 		}          
      </style>
      <style media="print">          
-          @media print {
-               @page { margin: 0mm}
-               @page {size: A4 horizontal}
-          }
+         @page { margin: 0mm}
      </style>
 </head>
 <body>
 			
 <div id="bg-svg">
 
-    <svg onclick="createPdf()" title="Descargar PDF"
+    <svg onclick="window.print()" title="Descargar PDF"
         xmlns:dc="http://purl.org/dc/elements/1.1/"
         xmlns:cc="http://creativecommons.org/ns#"
         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -839,7 +836,7 @@
           x="104.18079"
           style="font-style:normal;font-weight:Bold;font-size:32px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
           xml:space="preserve"><tspan
-            style="font-size:33.23895264px;stroke:none"
+            style="font-size:31.23895264px;stroke:none"
             y="587.94147"
             x="50%"
             alignment-baseline="middle"
@@ -894,7 +891,7 @@
             alignment-baseline="middle"
             text-anchor="middle"
             y="457.29352"
-            style="font-size:18.84393692px;stroke:none">{{ $project->sub_level->description }}</tspan></text>
+            style="font-size:18.84393692px;stroke:none">{{ ($project->sub_level->description=='Nulo')?'':$project->sub_level->description }}</tspan></text>
      </g><g
         id="g4301"
         transform="translate(0,-8)"
@@ -911,7 +908,7 @@
           style="font-style:normal;font-weight:normal;font-size:32px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
           xml:space="preserve"><tspan
             style="font-size:14.77557087px;stroke:none"
-            y="493.13727"
+            y="{{ ($project->sub_level->description=='Nulo')?'484.13727':'493.13727' }}"
             x="50%"
             alignment-baseline="middle"
             text-anchor="middle"

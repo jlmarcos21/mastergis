@@ -8,6 +8,31 @@
         <div class="col-md-12">
             <h3>Lista de Asignaciones</h3>
             <hr>
+            {!! Form::open(['route' => 'assignments.index', 'method' => 'GET']) !!}
+            <div class="form group">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Código" name="searchcode" id="searchcode" value="{{ (isset($request->searchcode))?$request->searchcode:'' }}">
+                    <select name="searchcourse" id="searchcourse" class="form-control">
+                        <option value="">Todos los Cursos</option>
+                        @foreach ($courses as $course)     
+
+                        <option value="{{ $course->id }}"
+                            @isset($request->searchcourse)
+                                @if ($course->id==$request->searchcourse)
+                                    selected
+                                @endif
+                            @endisset
+                            >{{ $course->name }}
+                        </option>
+
+                        @endforeach
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+            {!! Form::close() !!}
         </div>
         @foreach ($assignments as $assignment)
         <div class="col-md-3 py-2">

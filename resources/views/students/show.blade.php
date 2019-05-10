@@ -43,7 +43,8 @@
     <ul class="list-group">
       <li class="list-group-item bg-primary text-center text-white"><h4>Datos del Estudiante</h4></li>
       <li class="list-group-item"><strong>Nombre :</strong> {{ $student->name }}</li>
-      <li class="list-group-item"><strong>Apellido :</strong> {{ $student->lastname }}</li>      
+      <li class="list-group-item"><strong>Apellido :</strong> {{ $student->lastname }}</li>
+      <li class="list-group-item"><strong>Sexo :</strong> {{ $student->sex }}</li>    
       <li class="list-group-item"><strong>Nacionalidad :</strong> {{ $student->nationality }}</li>
       <li class="list-group-item"><strong>País :</strong> {{ $student->country->description }} <span class="{{ $student->country->flag }}"></span></li>      
       <li class="list-group-item"><strong>Correo :</strong> {{ $student->email }}</li>

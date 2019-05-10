@@ -25,11 +25,12 @@ class StudentUpdateRequest extends FormRequest
     {
         $rules = [            
             'name'          => 'required|max:150|unique:students,name,'. $this->student,
-            'lastname'      => 'required|max:150|unique:students,lastname,'. $this->student,            
+            'lastname'      => 'required|max:150|unique:students,lastname,'. $this->student,
+            'sex'           => 'required|in:MASCULINO,FEMENINO',          
             'nationality'   => 'required|in:NACIONAL,EXTRANJERO',
             'country_id'    => 'required|integer',
             'email'         => 'required|max:240|unique:students,email,'. $this->student,
-            'phone'         => 'required|max:25'
+            'phone'         => 'max:25'
         ];
 
         if($this->hasFile('photo'))        

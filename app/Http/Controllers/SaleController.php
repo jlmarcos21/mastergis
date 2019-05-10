@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Barryvdh\DomPDF\Facade as PDF;
+
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
 use App\Student;
 use App\Course;
 use App\PaymentM;
+use App\Voucher;
 
 use App\Sale;
 use App\DetailSale;
@@ -55,12 +58,14 @@ class SaleController extends Controller
                     
         $paymentms = PaymentM::all();
         $currencies = Currency::all();
+        $vouchers = Voucher::all();
         
         return response()->json([
             'students'      => $students,
             'courses'       => $courses,
             'paymentms'     => $paymentms,
             'currencies'    => $currencies,
+            'vouchers'      => $vouchers,
         ], 200);
     }
 
@@ -81,20 +86,56 @@ class SaleController extends Controller
             //Registrar Venta
             $sale = new Sale();
 
-            $code = str_pad(($sale->orderBy('id', 'DESC')->pluck('id')->first() + 1), 10, "0", STR_PAD_LEFT);
+            $serie = Voucher::where('id', '=', $request->voucher_id)->first();
+
+            $code = $serie->serie."-".str_pad(($sale->where('voucher_id', '=', $request->voucher_id)->count() + 1), 6, "0", STR_PAD_LEFT);
 
             $sale->code = $code;
+            $sale->serie = str_pad(($sale->where('voucher_id', '=', $request->voucher_id)->count() + 1), 6, "0", STR_PAD_LEFT);
             $sale->user_id = auth()->user()->id;
             $sale->student_id = $request->student_id;
             $sale->payment_id = $request->payment_id;
+            $sale->voucher_id = $request->voucher_id;
             $sale->currency_id = $request->currency_id;
             $sale->description = $request->description;
             $sale->date = $date_now;
             $sale->time = Carbon::now()->toTimeString();
             $sale->credit = $request->credit;
             $sale->subtotal = $request->subtotal;
-            $sale->debt = $request->total;
+
+            if ($sale->credit==1) {
+                $sale->debt = $request->total;
+            }else{
+                $sale->debt = 0.0;
+            }
+
             $sale->total = $request->total;
+
+            if($request->payment_id==2){
+
+                // calcular el descuento por paypal 
+                $totpaypal = number_format(((($request->total * 94.6) / 100) - 0.3), 2);
+                $discpaypal = number_format(($request->total - $totpaypal), 2);
+
+                $sale->discount_paypal = $discpaypal;
+                $sale->total_paypal = $totpaypal;
+
+                // calcular el descuento por interbank
+                $totinterbank = number_format(((($totpaypal * 98.5) / 100)), 2);
+                $discinterbank = number_format(($totpaypal - $totinterbank), 2);
+
+                $sale->discount_interbank = $discinterbank;
+                $sale->total_interbank = $totinterbank;
+
+            }else{
+                $sale->discount_paypal = 0.0;
+                $sale->total_paypal = $request->total;
+
+                $sale->discount_interbank = 0.0;
+                $sale->total_interbank = $request->total;
+            }
+
+            
             $sale->save();
 
             foreach ($request->courses as $course) {
@@ -131,6 +172,16 @@ class SaleController extends Controller
        } catch (Throwable $errror) {
             return response()->json($errror, 500);
        }
+    }
+
+    public function create_pdf($code)
+    {
+        $sale = Sale::where('code' ,'=', $code)->first();
+        
+        $pdf = PDF::loadView('pdf.sale2', compact('sale'));
+                
+        return $pdf->download('venta_'.$sale->code.'.pdf');
+
     }
     
 }

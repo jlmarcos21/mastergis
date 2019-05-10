@@ -2,14 +2,23 @@
 
 @section('title', '| Detalle de Venta')
 
+@section('links')
+    <style>
+        .bg-sale{
+            background-color: #ab0111;        
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="row">
         <div class="col-12">
+            <a href="{{ route('pdf.sale', $sale->code) }}" class="btn btn-sm btn-primary">Descargar Venta</a>
             <div class="card">
                 <div class="card-body p-0">
                     <div class="row p-4">
                         <div class="col-md-6 py-2 text-center">
-                            <div class="p-4 bg-danger">
+                            <div class="p-4 bg-sale">
                                 <img src="https://www.mastergis.com/wp-content/themes/masterig/images/logo.svg" class="img-fluid">
                             </div>
                         </div>
@@ -65,7 +74,7 @@
                         </div>
                     </div>
 
-                    <div class="d-flex flex-row-reverse bg-danger text-white p-4">
+                    <div class="d-flex flex-row-reverse bg-sale text-white p-4">
                         <div class="py-3 px-5 text-right">
                             <div class="mb-2">Total</div>
                             <div class="h2 font-weight-light">{{ $sale->currency->icon }} {{ $sale->total }}</div>

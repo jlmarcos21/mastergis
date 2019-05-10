@@ -36,7 +36,7 @@
 <body>
 			
 <div id="bg-svg">
-    <svg onclick="createPdf()" title="Descargar PDF"
+    <svg onclick="window.print()" title="Descargar PDF"
         xmlns:dc="http://purl.org/dc/elements/1.1/"
         xmlns:cc="http://creativecommons.org/ns#"
         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -572,7 +572,7 @@
         x="447.58813"
         y="347.77106"><tspan
           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:37.33333206px;font-family:'Edwardian Script ITC';-inkscape-font-specification:'Edwardian Script ITC';stroke-width:0.29984999"
-          id="tspan1573">Felicidades</tspan></text>
+          id="tspan1573">{{ $project->state==1?'Felicidades':'Revisado' }}</tspan></text>
      
      
          </g>
@@ -806,12 +806,12 @@
           class="st3"
           style="fill:#e6e6e6"
           inkscape:connector-curvature="0" /><text
-          style="font-size:11.44727039px;font-family:ArialMT;stroke-width:0.9539392"
+          style="font-size:10.44727039px;font-family:ArialMT;stroke-width:0.9539392"
           id="text1537"
           class="st15 st5"
           transform="scale(0.95393923,1.0482848)"
-          x="496.42557"
-          y="66.233376">{{ $assignment->student->name }} {{ $assignment->student->lastname }}</text>
+          x="493.42557"
+          y="64.233376">{{ $assignment->student->name }} {{ $assignment->student->lastname }}</text>
      </g>
      
      </g>
@@ -839,7 +839,7 @@
         id="Capa_3"
         transform="matrix(0.82145116,0,0,1,28.04361,-2)">
          <text
-        transform="matrix(0.9703,0,0,1,168.2655,110.2647)"
+        transform="matrix(0.9703,0,0,1,168.2655,{{ ($project->sub_level->description=='Nulo')?'115.2647':'110.2647' }})"
         class="st16 st5"
         id="text1558"
         style="font-size:12px;font-family:ArialNarrow-Bold"><tspan
@@ -873,11 +873,9 @@
         style="font-size:12px;font-family:ArialNarrow-Bold"
         id="text1221"
         class="st16 st5"
-        transform="matrix(0.9703,0,0,1,168.2655,110.2647)"><tspan
+        transform="matrix(0.9703,0,0,1,166.2655,110.2647)"><tspan
           id="tspan1219"
-          style="font-style:normal;font-variant:normal;font-weight:Bold;font-stretch:normal;font-family:sans-serif">{{ $project->sub_level->description }}</tspan></text>
-     
-     
+          style="font-style:normal;font-variant:normal;font-weight:Bold;font-stretch:normal;font-family:sans-serif">{{ ($project->sub_level->description=='Nulo')?'':$project->sub_level->description }}</tspan></text>
      </g>
      @foreach ($descriptions as $key => $description)
         {{ $height_y = (235.43674 + ($key * 11)) }}

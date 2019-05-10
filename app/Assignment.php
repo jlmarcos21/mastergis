@@ -26,4 +26,17 @@ class Assignment extends Model
     {
         return $this->hasMany(Project::class);
     }
+
+    public function scopeCode($query, $code)
+    {
+        if($code)
+            return $query->where('code', 'LIKE', "%$code%");
+    }
+
+    public function scopeCourse($query, $course)
+    {
+        if($course)
+            return $query->where('course_id', '=', $course);
+    }
+
 }

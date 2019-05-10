@@ -13,6 +13,11 @@ class SubLevelsTableSeeder extends Seeder
     {
 
         App\SubLevel::create([
+            'description'   => 'Nulo',
+            'colour'        => '#8E8988'
+        ]);
+
+        App\SubLevel::create([
             'description'   => 'Basico',
             'colour'        => '#7eb530'
         ]);

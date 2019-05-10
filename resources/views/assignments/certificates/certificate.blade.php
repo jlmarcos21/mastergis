@@ -37,7 +37,7 @@
 			
 <div id="bg-svg">
 
-	<svg onclick="createPdf()" title="Descargar PDF"
+	<svg onclick="window.print()" title="Descargar PDF"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:cc="http://creativecommons.org/ns#"
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"

@@ -11,6 +11,26 @@
     </div>
 
     <div class="form-group col-md-4">
+        {{ Form::label(null, 'Sexo del Estudiante') }}
+        <select name="sex" id="sex" class="selectpicker form-control" data-size="5" data-style="border border-success" data-live-search="true" title="Selecciona El Sexo" required>            
+            <option                    
+            @isset($student)
+                {{old('sex',$student->sex)=='MASCULINO'? 'selected':''}}
+            @endisset
+            value="MASCULINO" data-icon="fas fa-male text-primary">
+                MASCULINO
+            </option>
+            <option
+            @isset($student)
+                {{old('sex',$student->sex)=='FEMENINO'? 'selected':''}}
+            @endisset
+            value="FEMENINO" data-icon="fas fa-female text-danger">
+                FEMENINO
+            </option>            
+        </select>
+    </div>
+
+    <div class="form-group col-md-4">
         {{ Form::label(null, 'Nacionalidad del Estudiante') }}
         <div class="row">
             <div class="col-sm-6">
@@ -35,8 +55,7 @@
                         {{ $country->description }}
                 </option>
             @endforeach
-        </select>
-              
+        </select>              
     </div>
 
     <div class="form-group col-md-4">
@@ -46,7 +65,7 @@
 
     <div class="form-group col-md-4">
         {{ Form::label('phone', 'Celular del Estudiante') }}
-        {{ Form::text('phone', null, ['class' => 'form-control border border-success', 'id' => 'phone', 'required', 'maxlength' => '25']) }}
+        {{ Form::text('phone', null, ['class' => 'form-control border border-success', 'id' => 'phone', 'maxlength' => '25']) }}
     </div>
 
     <div class="form-group col-md-12">

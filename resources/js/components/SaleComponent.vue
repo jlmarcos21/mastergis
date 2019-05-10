@@ -5,7 +5,7 @@
                 <div class="card-header"><h3>Realizar Ventas de Cursos</h3></div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label>Estudiante</label>
                                 <select class="selectpicker form-control" data-size="5" data-style="border border-dark" data-live-search="true" title="Buscar Estudiante" v-model="student" ref="student" @change="studentChange()">
@@ -15,9 +15,25 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
+                                <label>Comprobante</label>
+                                <select class="selectpicker form-control" data-size="5" data-style="border border-dark" data-live-search="true" title="Comprobante de Pago" v-model="voucher" ref="voucher">
+                                    <option v-for="voucher in vouchers" :key="voucher.id" :value="voucher">{{ voucher.name }} - {{ voucher.serie }} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
                                 <label>Metodo de Pago</label>
                                 <select class="selectpicker form-control" data-size="5" data-style="border border-dark" data-live-search="true" title="Metodo de Pago" v-model="payment" ref="payment">
                                     <option v-for="payment in payments" :key="payment.id" :value="payment" :data-icon="`${payment.icon} text-success`">{{ payment.name }} </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Moneda</label>
+                                <select class="selectpicker form-control" data-size="5" data-style="border border-dark" data-live-search="true" title="Moneda" v-model="currency" ref="currency">
+                                    <option v-for="currency in currencies" :key="currency.id" :value="currency" :data-icon="`${currency.flag}`"> {{ currency.icon }} {{ currency.name }}</option>
                                 </select>
                             </div>
                         </div>
@@ -30,20 +46,12 @@
                         <div class="col-md-2" v-if="payment.id==2 || payment.id==3 || payment.id==4">
                             <div class="form-group">
                                 <label>Credito (Opcional)</label>
-                                <div class="custom-control custom-checkbox">
+                                <div class="custom-control custom-checkbox form-control text-center">
                                     <input type="checkbox" class="custom-control-input" id="chekcredit" v-model="credit">
                                     <label class="custom-control-label" for="chekcredit"><strong>Credito</strong></label>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>Moneda</label>
-                                <select class="selectpicker form-control" data-size="5" data-style="border border-dark" data-live-search="true" title="Moneda" v-model="currency" ref="currency">
-                                    <option v-for="currency in currencies" :key="currency.id" :value="currency" :data-icon="`${currency.flag}`"> {{ currency.icon }} {{ currency.name }}</option>
-                                </select>
-                            </div>
-                        </div>
+                        </div>                        
                     </div>
                     <hr class="bg-dark">
                     <div class="row">
@@ -144,13 +152,15 @@
                 spinner : false,
 
                 students: [],
-                payments: [],
+                vouchers: [],
+                payments: [],                
                 currencies: [],
                 courses: [],
 
                 description: '',
                 credit: false,
                 student: {},
+                voucher: {},
                 payment: {},
                 currency: {},
                 course: {},
@@ -171,6 +181,7 @@
                      this.payments = response.data.paymentms
                      this.currencies = response.data.currencies
                      this.courses = response.data.courses
+                     this.vouchers = response.data.vouchers
                 }).catch(error => {
                     toastr.error(error)
                 });
@@ -224,7 +235,7 @@
                 }    
             },
             studentChange(){
-                this.$refs.payment.focus()
+                // this.$refs.payment.focus()
                 this.CoursesDatails = []
                 this.Calculate()
             },
@@ -250,6 +261,7 @@
                     axios.post(`${this.Url}save-sale` ,{
                         student_id : this.student.id,
                         payment_id : this.payment.id,
+                        voucher_id : this.voucher.id,
                         currency_id : this.currency.id,
                         description : this.description,
                         credit : this.credit,

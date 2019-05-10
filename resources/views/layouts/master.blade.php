@@ -64,15 +64,15 @@
     <ul class="navbar-nav ml-auto mr-0 mr-md-0 my-0 my-md-0">
       <li class="nav-item dropdown no-arrow mx-1">
         <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {!! $view_assignments->count()==0?'':'<span class="badge badge-danger">'.$view_assignments->count().'</span>' !!} 
+          {{-- {!! $view_assignments->count()==0?'':'<span class="badge badge-danger">'.$view_assignments->count().'</span>' !!}  --}}
           <i class="fas fa-bell fa-fw"></i>  
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
           <a class="dropdown-item">Asignaciones por Vencer</a>
           <div class="dropdown-divider"></div>
-          @foreach ($view_assignments as $asig)
+          {{-- @foreach ($view_assignments as $asig)
             <a class="dropdown-item active text-center" href="{{ route('assignments.show', $asig->code) }}">{{ $asig->code }}</a>
-          @endforeach          
+          @endforeach           --}}
         </div>
       </li>
       <li class="nav-item dropdown no-arrow">

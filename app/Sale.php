@@ -9,7 +9,7 @@ class Sale extends Model
     protected $table = 'sales';
 
     protected $fillable = [
-        'code', 'user_id', 'student_id', 'payment_id', 'currency_id', 'description', 'date', 'time', 'credit', 'subtotal', 'debt', 'total'
+        'code', 'serie', 'user_id', 'student_id', 'payment_id', 'voucher_id', 'currency_id', 'description', 'date', 'time', 'credit', 'subtotal', 'debt', 'total', 'discount_paypal', 'total_paypal', 'discount_interbank', 'total_interbank'
     ];
 
     public function user()
@@ -27,6 +27,11 @@ class Sale extends Model
         return $this->belongsTo(PaymentM::class);
     }
 
+    public function voucher()
+    {
+        return $this->belongsTo(Voucher::class);
+    }
+
     public function currency()
     {
         return $this->belongsTo(Currency::class);
@@ -40,5 +45,23 @@ class Sale extends Model
     public function payments()
     {
         return $this->hasMany(Payment::class)->orderBy('created_at', 'DESC');
+    }
+
+    public function scopeVoucher($query, $voucher)
+    {
+        if($voucher)
+            return $query->where('voucher_id', 'LIKE', "%$voucher%");
+    }
+
+    public function scopePayment($query, $payment)
+    {
+        if($payment)
+            return $query->where('payment_id', 'LIKE', "%$payment%");
+    }
+
+    public function scopeCurrency($query, $currency)
+    {
+        if($currency)
+            return $query->where('currency_id', 'LIKE', "%$currency%");
     }
 }

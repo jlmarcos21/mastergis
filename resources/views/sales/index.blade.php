@@ -31,6 +31,7 @@
                             <th>Codigo</th>
                             <th>Alumno</th>
                             <th>Pago</th>
+                            <th>Comprobante</th>
                             <th>Fecha</th>                    
                             <th>Moneda</th>
                             <th>Total</th>
@@ -44,6 +45,7 @@
                                 <td><a href="{{ route('sales.show', $sale->id) }}">{{ $sale->code }}</a></td>
                                 <td>{{ $sale->student->lastname }}, {{ $sale->student->name }}</td>
                                 <td>{{ $sale->payment->name }} <i class="{{ $sale->payment->icon }}"></i></td>
+                                <td>{{ $sale->voucher->name }}</td>
                                 <td>{{ $sale->date }}</td>                   
                                 <td>{{ $sale->currency->icon }} {{ $sale->currency->name }}</td>
                                 <td class="text-success">{{ $sale->total }}</td>

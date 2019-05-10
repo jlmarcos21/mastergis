@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Assignment;
 use App\SubLevel;
 use App\Project;
+use App\Course;
 
 class AssignmentController extends Controller
 {
@@ -17,11 +18,17 @@ class AssignmentController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $assignments = Assignment::orderBy('created_at', 'DESC')->paginate(8);
+
+        $assignments = Assignment::orderBy('created_at', 'DESC')
+                        ->code($request->searchcode)
+                        ->course($request->searchcourse)
+                        ->paginate(8);
+
+        $courses = Course::all();
         
-        return view('assignments.index', compact('assignments'));
+        return view('assignments.index', compact('assignments','courses', 'request'));
     }
     public function show($code)
     {
@@ -76,5 +83,5 @@ class AssignmentController extends Controller
         $assignment = Assignment::findOrFail($project->assignment_id);     
         
         return view('assignments.certificates.annotation', compact('project','assignment', 'descriptions'));
-    }
+    }    
 }

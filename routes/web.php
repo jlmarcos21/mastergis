@@ -66,4 +66,13 @@ Route::group(['middleware' => 'cors'], function(){
     //Consultation courses
     Route::get('search_courses', 'ReportController@search_courses')->name('search_courses');
 
+    //Consultation courses
+    Route::get('search_asigments', 'ReportController@search_asigments')->name('search_asigments');
+
+
+    //Generate PDF
+
+    // PDF SAlE
+    Route::get('pdf-sale/{code}', 'SaleController@create_pdf')->name('pdf.sale');
+
 });

@@ -28,10 +28,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $assignments = Assignment::whereMonth('final_date', Carbon::now()->month)
-                        ->whereYear('final_date', Carbon::now()->year)
-                        ->where('poll', '=', '0')->get();
+        // $assignments = Assignment::whereMonth('final_date', Carbon::now()->month)
+        //                 ->whereYear('final_date', Carbon::now()->year)
+        //                 ->where('poll', '=', '0')->get();
 
-        View::share('view_assignments', $assignments);
+        // View::share('view_assignments', $assignments);
     }
 }
