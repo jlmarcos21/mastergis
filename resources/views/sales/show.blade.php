@@ -35,8 +35,8 @@
                     <div class="row pb-4 p-4">
                         <div class="col-md-6">
                             <p class="font-weight-bold mb-4">Información del cliente</p>
-                            <p class="mb-1"><span class="text-muted">Nombre: </span>{{ $sale->student->lastname }}</p>
-                            <p class="mb-1"><span class="text-muted">Apellido: </span>{{ $sale->student->name }}</p>
+                            <p class="mb-1"><span class="text-muted">Nombre: </span>{{ $sale->student->name }}</p>
+                            <p class="mb-1"><span class="text-muted">Apellido: </span>{{ $sale->student->lastname }}</p>
                             <p class="mb-1"><span class="text-muted">País: </span>{{ $sale->student->country->description }}</p>                            
                         </div>
 
@@ -77,12 +77,12 @@
                     <div class="d-flex flex-row-reverse bg-sale text-white p-4">
                         <div class="py-3 px-5 text-right">
                             <div class="mb-2">Total</div>
-                            <div class="h2 font-weight-light">{{ $sale->currency->icon }} {{ $sale->total }}</div>
+                            <div class="h2 font-weight-light">{{ $sale->currency->icon }} {{ $sale->total_interbank }}</div>
                         </div>
 
                         <div class="py-3 px-5 text-right">
                             <div class="mb-2">Subtotal</div>
-                            <div class="h2 font-weight-light">{{ $sale->currency->icon }} {{ $sale->subtotal }}</div>
+                            <div class="h2 font-weight-light">{{ $sale->currency->icon }} {{ $sale->total_interbank }}</div>
                         </div>
                     </div>
                 </div>

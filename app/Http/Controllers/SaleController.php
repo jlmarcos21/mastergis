@@ -166,7 +166,7 @@ class SaleController extends Controller
                 $item->save();
             }            
 
-            return response()->json($sale->id, 200);
+            return response()->json($sale, 200);
 
        } catch (Throwable $errror) {
             return response()->json($errror, 500);
@@ -177,7 +177,7 @@ class SaleController extends Controller
     {
         $sale = Sale::where('code' ,'=', $code)->first();
         
-        $pdf = PDF::loadView('pdf.sale2', compact('sale'));
+        $pdf = PDF::loadView('pdf.sale', compact('sale'));
                 
         return $pdf->download('venta_'.$sale->code.'.pdf');
 

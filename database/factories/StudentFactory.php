@@ -5,8 +5,8 @@ use Illuminate\Support\Str;
 
 $factory->define(App\Student::class, function (Faker $faker) {
 
-    $name = $faker->unique()->name.rand(1, 100);
-    $lastname = $faker->unique()->lastname.rand(1, 100);
+    $name = $faker->unique()->name;
+    $lastname = $faker->unique()->lastname;
     $id = 1;
 
     return [

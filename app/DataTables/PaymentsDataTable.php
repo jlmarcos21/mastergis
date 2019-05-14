@@ -5,9 +5,9 @@ namespace App\DataTables;
 use App\Sale;
 use Yajra\DataTables\Services\DataTable;
 
-class SalesDataTable extends DataTable
+class PaymentsDataTable extends DataTable
 {
-  
+
     public function dataTable($query)
     {
         return datatables($query)
@@ -21,12 +21,15 @@ class SalesDataTable extends DataTable
                     return $sale->voucher->name;
                 })->editColumn('currency', function($sale) {
                     return $sale->currency->icon .' '. $sale->currency->name;
-                })->rawColumns(['code', 'payment']);
+                })->editColumn('pay', function($sale) {
+                    return '<a href="'.route('payments.show', $sale->code).'" class="btn btn-sm btn-success"><i class="fas fa-money-bill-wave"></i></a>';
+                })->rawColumns(['code', 'payment', 'pay']);
     }
 
     public function query()
     {
-        $sales = Sale::with(['student', 'payment', 'voucher', 'currency'])
+        $sales = Sale::where('credit', '=' ,'1')
+                ->with(['student', 'payment', 'voucher', 'currency'])
                 ->get();
 
         return $sales;
@@ -60,11 +63,13 @@ class SalesDataTable extends DataTable
             ['data' => 'date', 'title' => 'Fecha'],
             ['data' => 'currency', 'title' => 'Moneda'],
             ['data' => 'total', 'title' => 'Total'],
+            ['data' => 'debt', 'title' => 'Deuda'],
+            ['data' => 'pay', 'title' => 'Deuda'],
         ]);
     }
 
     protected function filename()
     {
-        return 'Sales_' . date('YmdHis');
+        return 'Payments_' . date('YmdHis');
     }
 }

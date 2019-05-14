@@ -12,7 +12,7 @@ class StudentsDataTable extends DataTable
     {
         return datatables($query)
                 ->editColumn('name', function($student) {
-                    return $student->lastname ." ". $student->name;
+                    return $student->name." ".$student->lastname;
                 })->editColumn('country', function($student) {
                     return '<span title="'.$student->country->description.'" class="'.$student->country->flag.'"></span><small class="d-none">'.$student->country->description.'</small>';                    
                 })->addColumn('buttom', function ($student) {                
@@ -45,7 +45,8 @@ class StudentsDataTable extends DataTable
                             ['extend' => 'print'],
                             ['extend' => 'reset'],
                             ['extend' => 'reload'],            
-                        ],            
+                        ],
+                        'language' => ['url' => '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json']
                     ]);
     }
 
@@ -53,7 +54,7 @@ class StudentsDataTable extends DataTable
     {
         return ([
             ['data' => 'id', 'title' => '#'],
-            ['data' => 'name', 'title' => 'Apellidos y Nombres'],
+            ['data' => 'name', 'title' => 'Nombre y Apellido'],
             ['data' => 'sex', 'title' => 'Sexo'],
             ['data' => 'code', 'title' => 'Código'],
             ['data' => 'country', 'title' => 'País'],

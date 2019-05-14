@@ -9,7 +9,7 @@
                             <div class="form-group">
                                 <label>Estudiante</label>
                                 <select class="selectpicker form-control" data-size="5" data-style="border border-dark" data-live-search="true" title="Buscar Estudiante" v-model="student" ref="student" @change="studentChange()">
-                                    <option v-for="student in students" :key="student.id" :value="student" :data-content="`${student.lastname} ${student.name} <small class='text-muted'>Codigó: ${student.code}</small>`"></option>
+                                    <option v-for="student in students" :key="student.id" :value="student" :data-content="`${student.name} ${student.lastname} <small class='text-muted'>Codigó: ${student.code}</small>`"></option>
                                 </select>
                             </div>
                         </div>
@@ -131,6 +131,43 @@
         <div class="col-md-12 text-center" v-show="spinner==true">
             <img src="https://loading.io/spinners/coin/index.money-coin-palette-color-preloader.svg" alt="Cargando..." width="50%">
         </div>
+        <div class="col-md-12">
+            <div class="modal fade bd-example-modal-lg show" id="modal-payment" tabindex="-1" role="dialog" aria-labelledby="modal-payment" aria-hidden="true" data-backdrop="static">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Registar Cuota</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>Total</label>
+                                <input type="text" class="form-control" :value="total" disabled>
+                            </div>
+                            <div class="col-md-2">
+                                <label>Pago</label>
+                                <input type="number" class="form-control" v-model="payment_amount">
+                            </div>
+                            <div class="col-md-3">
+                                <label>Fecha</label>
+                                <input type="date" class="form-control" v-model="payment_date">
+                            </div>
+                            <div class="col-md-5">
+                                <label>Descripción</label>
+                                <input type="text" class="form-control" v-model="payment_description">
+                            </div>
+                        </div>                   
+                    </div>
+                    <div class="modal-footer" v-show="sale_id=!''">                        
+                        <button type="button" class="btn btn-primary" @click="SavePayment()">Registar Couta</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>    
 </template>
 
@@ -147,7 +184,9 @@
             return {
                 Url: '',
                 count: 0,
-                veri: 0,
+                veri: 0,                
+
+                Sale: {},
 
                 spinner : false,
 
@@ -169,7 +208,11 @@
                 subtotal: 0,
                 total: 0,
 
-                CoursesDatails: [],
+                CoursesDatails: [],                
+
+                payment_amount: '',
+                payment_date: '',
+                payment_description: '',                
                 
             }
         },
@@ -268,19 +311,42 @@
                         subtotal: this.subtotal,
                         total: this.total,
                         courses : this.CoursesDatails
-                    })
-                    .then(response => {
-                        this.spinner = true,
-                        toastr.success('Se Registro Correctamente la Venta')
-                        setTimeout(() => {
-                            window.location.href = `${this.Url}sales/${response.data}`;
-                        },1000)
+                    }).then(response => {
+                        this.spinner = true
+                        this.Sale = response.data
+                        toastr.success('Se Registro Correctamente la Venta')                                               
+                        if(this.Sale.credit)
+                        {
+                            $('#modal-payment').modal('show')
+                        }else {
+                            setTimeout(() => {
+                                window.location.href = `${this.Url}sales/${this.Sale.id}`;                            
+                            },1000)
+                        }
+                        
                     }).catch(error => {
                         toastr.error(`Ocurrio un Error => ${error}`)
                     })
                 }else{
                     toastr.error('Complete los datos para Registrar la Venta')
                 }
+            },
+            SavePayment() {
+                axios.post(`${this.Url}payments`, {
+                    sale_id : this.Sale.id,
+                    description : this.payment_description,
+                    amount : this.payment_amount,
+                    date : this.payment_date
+
+                }).then(response => {
+                    toastr.success('Se Registro Correctamente la Couta')
+                    $('#modal-payment').modal('hide')
+                    setTimeout(() => {
+                        window.location.href = `${this.Url}sales/${this.Sale.id}`;                            
+                    },1500)
+                }).catch(error => {
+                    toastr.error(`Ocurrio un Error => ${error}`)
+                })
             }
         },
         computed: {

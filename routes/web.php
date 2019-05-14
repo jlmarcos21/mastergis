@@ -40,6 +40,8 @@ Route::group(['middleware' => 'cors'], function(){
     Route::resource('assignments', 'AssignmentController')->except([
         'store', 'create', 'destroy'
     ]);
+    
+    Route::get('show_assignments/{id}', 'AssignmentController@show_assignments')->name('show_assignments');
 
     //certificate
     Route::get('generate-certificate/{code}', 'AssignmentController@certificate')->name('generate-certificate');

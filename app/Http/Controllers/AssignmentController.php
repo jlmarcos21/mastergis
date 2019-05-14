@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-
+use App\DataTables\AssignmentsDataTable;
 use App\Assignment;
 use App\SubLevel;
 use App\Project;
@@ -18,18 +18,21 @@ class AssignmentController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(Request $request)
+    public function index()
     {
 
-        $assignments = Assignment::orderBy('created_at', 'DESC')
-                        ->code($request->searchcode)
-                        ->course($request->searchcourse)
-                        ->paginate(8);
-
-        $courses = Course::all();
+        $courses = Course::withCount(['assignments'])
+                    ->orderBy('assignments_count', 'DESC')              
+                    ->get();                            
         
-        return view('assignments.index', compact('assignments','courses', 'request'));
+        return view('assignments.index', compact('courses'));
     }
+
+    public function show_assignments($id, AssignmentsDataTable $dataTable)
+    {        
+        return $dataTable->with('id', $id)->render('assignments.lists');
+    }    
+
     public function show($code)
     {
         $assignment = Assignment::where('code', '=', $code)->first();

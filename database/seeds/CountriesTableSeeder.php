@@ -65,13 +65,8 @@ class CountriesTableSeeder extends Seeder
         ]);
 
         App\Country::create([
-            'description' => 'Canada',
+            'description' => 'Canadá',
             'flag' => 'flag-icon flag-icon-ca'
-        ]);
-
-        App\Country::create([
-            'description' => 'China',
-            'flag' => 'flag-icon flag-icon-cn'
         ]);
 
         App\Country::create([
@@ -89,5 +84,39 @@ class CountriesTableSeeder extends Seeder
             'flag' => 'flag-icon flag-icon-hn'
         ]);
 
+        App\Country::create([
+            'description' => 'Bolivia',
+            'flag' => 'flag-icon flag-icon-bo'
+        ]);
+
+        App\Country::create([
+            'description' => 'Venezuela',
+            'flag' => 'flag-icon flag-icon-ve'
+        ]);
+
+        App\Country::create([
+            'description' => 'Panama',
+            'flag' => 'flag-icon flag-icon-pa'
+        ]);
+
+        App\Country::create([
+            'description' => 'Costa Rica',
+            'flag' => 'flag-icon flag-icon-cr'
+        ]);
+
+        App\Country::create([
+            'description' => 'Guatemala',
+            'flag' => 'flag-icon flag-icon-gt'
+        ]);
+
+        App\Country::create([
+            'description' => 'EEUU',
+            'flag' => 'flag-icon flag-icon-us'
+        ]);
+
+        App\Country::create([
+            'description' => 'Portugal',
+            'flag' => 'flag-icon flag-icon-pt'
+        ]);
     }
 }

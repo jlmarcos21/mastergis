@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\DataTables\PaymentsDataTable;
 use App\Payment;
 
 use App\Sale;
@@ -16,12 +16,9 @@ class PaymentController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(PaymentsDataTable $dataTable)
     {
-        $sales = Sale::orderBy('created_at', 'DESC')
-                    ->where('credit', '=', '1')
-                    ->get();
-        return view('payments.index', compact('sales'));
+        return $dataTable->render('payments.index');
     }
 
     public function store(Request $request)

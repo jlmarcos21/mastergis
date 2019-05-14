@@ -8,25 +8,31 @@
         <div class="col-md-12">
             <div class="table-responsive">
                 <table class="table text-center table-bordered">
-                    <tbody>
+                    <thead class="thead-dark">
                         <tr>
                             <th>Fecha de Inicio <i class="far fa-calendar-check"></i></th>                            
                             <th>Fecha de Final <i class="far fa-calendar-times"></i></th>
                             <th>Dias Restantes</th>
-                            <th>Generar Certificado</th>                            
+                            <th>Generar Certificado</th>
+                            <th>Documento</th>                            
                             <th>Actualizar</th>            
                         </tr>
+                    </thead>
+                    <tbody>                        
                         <tr>
                             <td><span class="text-success">{{ $assignment->start_date }}</span></td>
                             <td><span class="text-danger" id="final_date">{{ $assignment->final_date }}</span></td>
                             <td><span class="text-primary" id="data_rest">0</span></td>
                             <td>
-                                @if ($assignment->access==1 && $assignment->entry==1 && $assignment->poll==1)
+                                @if ($assignment->access==1 && $assignment->entry==1)
                                     <a href="{{ route('generate-certificate', $assignment->code) }}" target="_blank" class="btn btn-sm btn-dark" title="Generar Certificado">Generar Certificado</a>
                                 @else
-                                    <span>En Proceso...</span>
+                                    <div class="spinner-border text-danger" role="status">
+                                        <span class="sr-only">Proceso...</span>
+                                      </div>
                                 @endif                                
                             </td>
+                            <td><a href="#" class="btn btn-sm btn-warning">Documento</a></td>
                             <td>
                                 <a href="{{ route('assignments.edit', $assignment->id) }}" class="btn btn-sm btn-success" title="Actualizar Seguimiento"><i class="far fa-edit"></i></a>
                             </td>
@@ -34,7 +40,7 @@
                     </tbody>
                 </table>      
                 <table class="table text-center table-bordered">
-                    <tbody>
+                    <thead class="thead-dark">
                         <tr>
                             <th>Codigo</th>
                             <th>Alumno</th>
@@ -45,6 +51,8 @@
                             <th width="10px">Encuesta</th>             
                             <th width="10px">Certificado.F</th>                            
                         </tr>
+                    </thead>
+                    <tbody>                        
                         <tr>
                             <td>{{ $assignment->code }}</td>
                             <td>{{ $assignment->student->lastname }}, {{ $assignment->student->name }}</td>
@@ -126,8 +134,7 @@
 @section('scripts')
     <script>
 
-        $(()=>{            
-        
+        $(()=>{                    
             var fecha = new Date(); //Fecha actual
             var mes = fecha.getMonth()+1; //obteniendo mes
             var dia = fecha.getDate(); //obteniendo dia

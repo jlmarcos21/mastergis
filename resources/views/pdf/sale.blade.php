@@ -15,7 +15,7 @@
             font-family: Verdana, Arial, sans-serif;
         }
         a {
-            color: #fff;
+            color: #000000;
             text-decoration: none;
         }
         table {
@@ -31,15 +31,14 @@
         .invoice h3 {
             margin-left: 15px;
         }
-        .information {
-            background-color: #ab0111;
-            color: #FFF;
+        .information {            
+            color: #000000;
         }
         .information .logo {
-            margin: 1px;
+            margin-bottom: 0; 
         }
-        .information table {
-            padding: 10px;
+        .information table {            
+            margin: 15px;
         }
     </style>
 
@@ -49,32 +48,33 @@
 <div class="information">
     <table width="100%">
         <tr>
-            <td style="width: 30%; text-align: left">
-                <h3>{{ $sale->student->name }} {{ $sale->student->lastname }}</h3>
+            <td style="width: 50%; text-align: center">                
 <pre>
-N°{{ $sale->code }}
-{{ $sale->student->country->description }}
+<img src="https://i.imgur.com/abOGZUb.png" alt="Logo" width="250px" class="logo"/>
+<small><strong>PASIÓN POR LOS GIS</strong></small>
+<small>Especialistas en Sistemas de Información</small>
+<small>Geográfica</small>
 <br><br>
-Fecha: {{ $sale->date }}
-Hora: {{ $sale->time }}
-Pago: {{ $sale->payment->name }}
 </pre>
             </td>
-            <td style="text-align: center">
-                <img src="https://www.mastergis.com/wp-content/themes/masterig/images/logo.svg  " alt="Logo" width="250px" class="logo"/>
+            <td style="width: 10%; text-align: center">
             </td>
-            <td style="width: 30%; text-align: right">
-
-                <h3>MasterGis</h3>
-                <pre>
-                    www.mastergis.com
-                    <br><br>
-                    Sede
-                    Lima, Lima
-                </pre>
+            <td style="width: 40%; text-align: center; border: 1px solid black" >
+                <h3><strong>R.U.C. 20601066972</strong></h3>
+                <hr>
+                <h3>{{ $sale->voucher->name }}</h3>
+                <hr> 
+                <h3>{{ $sale->voucher->serie }}- <span style="color: #ab0111">N° {{ $sale->serie }}</span> </h3>
             </td>
         </tr>
 
+        <tr>
+            <td style="text-align: left">
+                <strong>Cliente: <small>{{ $sale->student->name }} {{ $sale->student->lastname }}</small></strong>
+                <br>
+                <strong>Fecha: <small>{{ $sale->date }}</small> - <small>{{ $sale->time }}</small></strong>             
+            </td>            
+        </tr>
     </table>
 </div>
 
@@ -107,12 +107,12 @@ Pago: {{ $sale->payment->name }}
         <tr>
             <td colspan="2"></td>
             <td style="text-align: left">SubTotal</td>
-            <td style="text-align: left" class="gray">{{ $sale->currency->icon }}{{ $sale->subtotal }}</td>
+            <td style="text-align: left" class="gray">{{ $sale->currency->icon }}{{ $sale->total_interbank }}</td>
         </tr>
         <tr>
             <td colspan="2"></td>
             <td style="text-align: left">Total</td>
-            <td style="text-align: left" class="gray">{{ $sale->currency->icon }}{{ $sale->total }}</td>
+            <td style="text-align: left" class="gray">{{ $sale->currency->icon }}{{ $sale->total_interbank }}</td>
         </tr>
         </tfoot>
     </table>
