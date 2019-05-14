@@ -14,7 +14,7 @@ class AssignmentsDataTable extends DataTable
         ->editColumn('code', function($assignment) {
             return '<a href="'.route('assignments.show', $assignment->code).'">'.$assignment->code.'</a>';
         })->editColumn('student', function($assignment) {
-            return $assignment->student->name." ".$assignment->student->name;
+            return $assignment->student->name." ".$assignment->student->lastname;
         })->editColumn('course', function($assignment) {
             return $assignment->course->name;
         })->rawColumns(['code', 'student', 'course']);
