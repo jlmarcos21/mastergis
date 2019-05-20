@@ -52,6 +52,8 @@ Route::group(['middleware' => 'cors'], function(){
     //annotation
     Route::get('generate-annotation/{id}', 'AssignmentController@annotation')->name('generate-annotation');
 
+    Route::post('send_email', 'AssignmentController@sendEmail')->name('send.email');
+
     //Project
     Route::resource('projects', 'ProjectController')->except([
         'index', 'create', 'edit', 'update','destroy'
@@ -70,7 +72,6 @@ Route::group(['middleware' => 'cors'], function(){
 
     //Consultation courses
     Route::get('search_asigments', 'ReportController@search_asigments')->name('search_asigments');
-
 
     //Generate PDF
 

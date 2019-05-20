@@ -12,12 +12,8 @@
         <div class="modal-body container">
         {!! Form::open(['route' => 'projects.store', 'files' => true]) !!}
             <div class="row">                              
-                <div class="col-md-3 form-group">
+                <div class="col-md-4 form-group">
                     {{ Form::hidden('assignment_id', $assignment->id) }}
-                    {{ Form::label('name', 'Nombre del Proyecto') }}
-                    {{ Form::text('name', null, ['class' => 'form-control']) }}
-                </div>
-                <div class="col-md-3 form-group">                    
                     {{ Form::label('sub_level_id', 'Nivel del Proyecto') }}
                     <select name="sub_level_id" id="sub_level_id" class="selectpicker form-control" data-style="border border-success" data-live-search="true" title="Selecciona su Nivel" required>
                         @foreach ($sublevels as $sublevel)
@@ -25,14 +21,14 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-3 form-group">
+                <div class="col-md-4 form-group">
                     {{ Form::label('state', 'Estado del Proyecto') }}
                     <select name="state" id="state" class="form-control">
                         <option value="1">Aprobado</option>
                         <option value="0">Desaprobado</option>
                     </select>
                 </div>
-                <div class="col-md-3 form-group">                
+                <div class="col-md-4 form-group">                
                     {{ Form::label('date', 'Fecha del Proyecto') }}
                     {{ Form::date('date', null, ['class' => 'form-control text-center', 'required']) }}
                 </div>

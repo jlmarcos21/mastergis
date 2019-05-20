@@ -51,7 +51,13 @@
                                     <label class="custom-control-label" for="chekcredit"><strong>Credito</strong></label>
                                 </div>
                             </div>
-                        </div>                        
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Fecha</label>
+                                <input type="date" class="form-control" v-model="saledate">                            
+                            </div>
+                        </div>                       
                     </div>
                     <hr class="bg-dark">
                     <div class="row">
@@ -201,6 +207,7 @@
                 student: {},
                 voucher: {},
                 payment: {},
+                saledate: '',
                 currency: {},
                 course: {},
                 price: '0.0',
@@ -307,6 +314,7 @@
                         voucher_id : this.voucher.id,
                         currency_id : this.currency.id,
                         description : this.description,
+                        date : this.saledate,
                         credit : this.credit,
                         subtotal: this.subtotal,
                         total: this.total,

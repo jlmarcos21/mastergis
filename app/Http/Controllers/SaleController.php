@@ -9,6 +9,8 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
+use App\Http\Requests\SaleRequest;
+
 use App\Student;
 use App\Course;
 use App\PaymentM;
@@ -68,15 +70,7 @@ class SaleController extends Controller
         ], 200);
     }
 
-    public function VerificarCourse($student_id, $course_id)
-    {
-        $student_courses = Assignment::where('student_id', '=', $student_id)
-                            ->where('course_id', '=', $course_id)->first();
-
-        return response()->json($student_courses, 200);
-    }
-
-    public function SaveSale(Request $request)
+    public function SaveSale(SaleRequest $request)
     {
        try {
             
@@ -97,7 +91,7 @@ class SaleController extends Controller
             $sale->voucher_id = $request->voucher_id;
             $sale->currency_id = $request->currency_id;
             $sale->description = $request->description;
-            $sale->date = $date_now;
+            $sale->date = $request->date;
             $sale->time = Carbon::now()->toTimeString();
             $sale->credit = $request->credit;
             $sale->subtotal = $request->subtotal;
@@ -147,23 +141,36 @@ class SaleController extends Controller
                 $item->price = $course['course_price'];
                 $item->quantity = $course['course_quantity'];
                 $item->total = $course['course_total'];
-                $item->date = $date_now;
+                $item->date = $request->date;
                 $item->save();
 
                 //Asiganaciones
-                $item = new Assignment();
-                $codea = str_pad(($course['course_code']).(($item->orderBy('id', 'DESC')->pluck('id')->first() + 1)), 10, "0", STR_PAD_LEFT);          
-                $item->code = str_slug($codea);
-                $item->student_id = $request->student_id;
-                $item->course_id = $course['course_id'];
-                $item->access = false;
-                $item->entry = false;
-                $item->poll = false;
-                $item->physical_certificate = false;
-                $item->start_date = $date_now;
-                $item->final_date = Carbon::now()->addYear(1)->toDateString();
+                $assignment = new Assignment();
+                $codea = str_pad(($course['course_code']).(($assignment->orderBy('id', 'DESC')->pluck('id')->first() + 1)), 10, "0", STR_PAD_LEFT);          
+                $assignment->code = str_slug($codea);
+                $assignment->student_id = $request->student_id;
+                $assignment->course_id = $course['course_id'];
+                $assignment->access = false;
+                $assignment->entry = false;
+                $assignment->poll = false;
+                $assignment->physical_certificate = false;
+                $assignment->start_date = $request->date;
 
-                $item->save();
+                //Suma un año a la Fecha
+                $fecha_actual = $request->date;                
+                $nuevafecha = date("Y-m-d",strtotime($fecha_actual."+ 1 year")); 
+
+                $assignment->final_date = $nuevafecha;
+
+                //Resta de Fechas
+                $final_date = Carbon::parse($assignment->final_date);
+                $dt = Carbon::now();                        
+                $remaining_days = $dt->diffInDays($final_date, false);
+                $assignment->remaining_days = $remaining_days;
+
+                
+
+                $assignment->save();
             }            
 
             return response()->json($sale, 200);

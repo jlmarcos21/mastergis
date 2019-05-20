@@ -11,7 +11,7 @@ class Student extends Model
 
     //Campos a interactuar
     protected $fillable = [
-        'code', 'name', 'lastname', 'sex', 'nationality', 'country_id', 'email', 'phone', 'state'
+        'code', 'name', 'lastname', 'sex', 'country_id', 'email', 'phone', 'state', 'date'
     ];
 
     public function country()

@@ -13,28 +13,6 @@
 <div class="row">
     <div class="col-md-12">
         <div class="table-responsive py-3">
-            {{-- <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Código</th>
-                        <th>Estudiante</th>
-                        <th>Curso</th>
-                        <th>F. Inicio</th>
-                        <th>F. Final</th>    
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($assignments as $assignment)
-                        <tr style="cursor: pointer" onclick="location.href='{{ route('assignments.show', $assignment->code) }}'">
-                            <td>{{ $assignment->code }}</td>
-                            <td>{{ $assignment->student->name }} {{ $assignment->student->lastname }}</td>
-                            <td>{{ $assignment->course->name }}</td>
-                            <td>{{ $assignment->start_date }}</td>
-                            <td>{{ $assignment->final_date }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table> --}}
             {!! $dataTable->table() !!}
         </div>
     </div>

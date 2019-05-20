@@ -4,6 +4,11 @@
             {{ Form::label('name', 'Nombre del Curso') }}
             {{ Form::text('name', null, ['class' => 'form-control border border-success', 'id' => 'name', 'required', 'maxlength' => '150', 'autofocus']) }}
         </div>
+
+        <div class="form-group col-md-4">
+            {{ Form::label('certificate', 'Certificado del Curso') }}
+            {{ Form::text('certificate', null, ['class' => 'form-control border border-success', 'id' => 'certificate', 'required', 'maxlength' => '150', 'autofocus']) }}
+        </div>
         
         <div class="form-group col-md-4">
             {{ Form::label('code', 'Codigo del Curso') }}
@@ -23,11 +28,6 @@
                     </option>
                 @endforeach
             </select>                  
-        </div>
-    
-        <div class="form-group col-md-4">
-            {{ Form::label('certificate', 'Certificado del Curso') }}
-            {{ Form::text('certificate', null, ['class' => 'form-control border border-success', 'id' => 'certificate', 'required', 'maxlength' => '250']) }}
         </div>
     
         <div class="form-group col-md-4">

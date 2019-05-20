@@ -31,18 +31,6 @@
     </div>
 
     <div class="form-group col-md-4">
-        {{ Form::label(null, 'Nacionalidad del Estudiante') }}
-        <div class="row">
-            <div class="col-sm-6">
-                    <label>{{ Form::radio('nationality', 'NACIONAL', null, ['id' => 'nationality']) }} NACIONAL</label>
-            </div>
-            <div class="col-sm-6">
-                <label>{{ Form::radio('nationality', 'EXTRANJERO') }} EXTRANJERO</label>
-            </div>
-        </div>        
-    </div>
-
-    <div class="form-group col-md-4">
         {{ Form::label('country_id', 'País del Estudiante') }}
         <select name="country_id" id="country_id" class="selectpicker form-control" data-size="5" data-style="border border-success" data-live-search="true" title="Selecciona su País" required>
             @foreach ($countries as $country)
@@ -73,16 +61,3 @@
         <a href="{{ route('students.index') }}" class="btn btn-danger">Cancelar</a>        
     </div>
 </div>
-
-@section('scripts')
-
-    <script>
-        $(()=> {
-            $('#nationality').change(()=> {                
-                $('#country_id option[value=1]').prop('selected', 'selected').change();
-                $('.selectpicker').selectpicker('refresh')
-            });
-        })
-    </script>
-
-@endsection

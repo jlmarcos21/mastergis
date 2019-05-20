@@ -13,22 +13,22 @@ class SubLevelsTableSeeder extends Seeder
     {
 
         App\SubLevel::create([
-            'description'   => 'Nulo',
+            'description'   => 'NULO',
             'colour'        => '#8E8988'
         ]);
 
         App\SubLevel::create([
-            'description'   => 'Basico',
+            'description'   => 'BÁSICO',
             'colour'        => '#7eb530'
         ]);
 
         App\SubLevel::create([
-            'description'   => 'Intermedio',
+            'description'   => 'INTERMEDIO',
             'colour'        => '#eec207'
         ]);
 
         App\SubLevel::create([
-            'description'   => 'Avanzado',
+            'description'   => 'AVANZADO',
             'colour'        => '#c10012'
         ]);
         

@@ -37,7 +37,7 @@ class SalesDataTable extends DataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->parameters([
-                        'order'   => [[0, 'desc']],
+                        'order'   => [[5, 'desc']],
                         'dom' => 'Bfrtip',
                         'buttons' => [                    
                             ['extend' => 'export'],                   

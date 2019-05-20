@@ -19,12 +19,11 @@ class CreateStudentsTable extends Migration
             $table->string('code', 10)->unique()->nullable();
             $table->string('name', 150)->unique();
             $table->string('lastname', 150)->unique();
-            $table->enum('sex', ['MASCULINO', 'FEMENINO'])->default('MASCULINO');            
-            $table->enum('nationality', ['EXTRANJERO', 'NACIONAL'])->default('NACIONAL');
+            $table->enum('sex', ['MASCULINO', 'FEMENINO'])->default('MASCULINO');                        
             $table->integer('country_id')->unsigned();            
             $table->string('email', 240)->unique();
             $table->string('phone', 25)->nullable();
-            $table->boolean('state', 25)->default('1')->nullable();
+            $table->boolean('state', 25)->default('1')->nullable();            
 
             $table->timestamps();
 

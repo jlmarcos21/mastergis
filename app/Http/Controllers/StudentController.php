@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\DataTables\StudentsDataTable;
 use Illuminate\Support\Str;
@@ -38,6 +39,20 @@ class StudentController extends Controller
         $student->fill([
             'code' => $code            
         ])->save();
+
+        //Envio de correo de Bienvenida a MasterGIS
+        $data = array(
+            'user' => auth()->user()->email,
+            'student'=> $student->name." ".$student->lastname,
+            'email'=> $student->email,
+            'from'=> 'MasterGIS',            
+            'subject'=> 'Bienvenida a MasterGIS'
+        );
+
+        Mail::send('emails.welcome', compact('data'), function($message) use ($data){                 
+            $message->from($data['user'], $data['from']);
+            $message->to($data['email'])->subject($data['subject']);
+        });
 
         return redirect()->route('students.index')->with('info', 'Registrado con éxito');
     }

@@ -27,7 +27,6 @@ class CourseStoreRequest extends FormRequest
             'name'          => 'required|max:150|unique:courses,name',
             'code'          => 'required|max:100|unique:courses,code',
             'level_id'      => 'required|integer',
-            'certificate'   => 'required|string',
             'duration'      => 'required|string|max:120'
         ];
 

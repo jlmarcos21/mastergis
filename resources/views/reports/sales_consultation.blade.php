@@ -99,6 +99,7 @@
                                             <th width="10px">#</th>
                                             <th>Serie</th>
                                             <th>Alumno</th>
+                                            <th>Observación</th>
                                             <th>Pago</th>
                                             <th>Comprobante</th>
                                             <th>Moneda</th>
@@ -119,6 +120,7 @@
                                                 <td>{{ $sale->id }}</td>
                                                 <td><a href="{{ route('sales.show', $sale->id) }}">{{ $sale->code }}</a></td>
                                                 <td>{{ $sale->student->lastname }} {{ $sale->student->name }}</td>
+                                                <td>{{ $sale->description }}</td>
                                                 <td>{{ $sale->payment->name }} <i class="{{ $sale->payment->icon }}"></i></td>
                                                 <td>{{ $sale->voucher->name }}</td>                                                             
                                                 <td>{{ $sale->currency->icon }} {{ $sale->currency->name }}</td>

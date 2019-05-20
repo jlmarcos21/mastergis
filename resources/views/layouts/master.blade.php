@@ -143,17 +143,16 @@
             <span>Reportes</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="ReportDropdown">
-            <a class="dropdown-item" href="{{ route('search_sales') }}">Consulta de Ventas</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ route('search_courses') }}">Consulta de Cursos</a>
+            <a class="dropdown-item" href="{{ route('search_sales') }}">C. de Ventas</a>
+            <a class="dropdown-item" href="{{ route('search_courses') }}">C. de Cursos</a>            
           </div>
-        </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('statistics.index') }}">          
-          <i class="fas fa-fw fa-chart-line"></i>
-          <span>Estadísticas</span>
-        </a>
       </li>
+      <li class="nav-item">
+          <a class="nav-link" href="{{ route('statistics.index') }}">          
+            <i class="fas fa-fw fa-chart-line"></i>
+            <span>Estadísticas</span>
+          </a>
+      </li>      
     </ul>
 
     <div id="content-wrapper">
@@ -240,7 +239,6 @@
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}"></script>
   <script>
-
     window.onload = function() {
       $(".se-pre-con").fadeOut("slow");
     };

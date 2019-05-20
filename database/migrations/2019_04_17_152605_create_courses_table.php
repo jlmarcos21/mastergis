@@ -16,9 +16,9 @@ class CreateCoursesTable extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 150)->unique();
+            $table->string('certificate', 150)->unique();
             $table->string('code', 100)->unique();
             $table->integer('level_id')->unsigned();
-            $table->text('certificate');
             $table->text('duration', 120);            
             $table->string('image_url', 191)->default('https://doc.louisiana.gov/assets/camaleon_cms/image-not-found-4a963b95bf081c3ea02923dceaeb3f8085e1a654fc54840aac61a57a60903fef.png')->nullable();
             $table->boolean('state', 25)->default('1')->nullable();
