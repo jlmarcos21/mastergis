@@ -24,7 +24,7 @@
 
         <div class="col-md-12">
              <div class="table-responsive py-3">
-                {!! $dataTable->table() !!}         
+                {!! $dataTable->table() !!}
             </div>
         </div>
     </div>

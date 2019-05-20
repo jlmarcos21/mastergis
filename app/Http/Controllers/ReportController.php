@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\DataTables\SearchSaleDataTable;
 use App\Sale;
 use App\PaymentM;
 use App\Voucher;
@@ -38,6 +39,32 @@ class ReportController extends Controller
         }else {
             return view('reports.sales_consultation', compact('payments', 'vouchers', 'currencies', 'request'));
         }            
+    }
+
+    public function search_sales2(SearchSaleDataTable $dataTable, Request $request)
+    {
+        $payments = PaymentM::all();
+        $vouchers = Voucher::all();
+        $currencies = Currency::all();
+
+        if(isset($request->date_s) && isset($request->date_f)) {
+            return $dataTable->with([
+                'searchvoucher'     => $request->searchvoucher,
+                'searchpayment'     => $request->searchpayment,
+                'searchcurrency'    => $request->searchcurrency,
+                'date_s'            => $request->date_s,
+                'date_f'            => $request->date_f,
+            ])->render('reports.sales_consultation2', compact('payments', 'vouchers', 'currencies', 'request'));
+        }else {
+            return $dataTable->with([
+                'searchvoucher'     => $request->searchvoucher,
+                'searchpayment'     => $request->searchpayment,
+                'searchcurrency'    => $request->searchcurrency,
+                'date_s'            => $request->date_s,
+                'date_f'            => $request->date_f,
+            ])->render('reports.sales_consultation2', compact('payments', 'vouchers', 'currencies', 'request'));
+        } 
+        
     }
 
     public function search_courses(Request $request)

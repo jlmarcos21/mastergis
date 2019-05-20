@@ -742,14 +742,13 @@
             var png = canvas.toDataURL("image/png", 0.9);                
             var pp = document.createElement('a');
             pp.setAttribute('href', png);
-            pp.setAttribute('download', 'certificado_{{ $assignment->code }}');                
+            pp.setAttribute('download', 'anotacion_{{ $assignment->code }}');                
             pp.click();
 
             var imgData = png;
             var doc = new jsPDF('l', 'px', [719, 690]);
             doc.addImage(imgData, 'JPEG', 0, 0, 0, 0);         
-            doc.save('certificado_{{ $assignment->code }}'+'.pdf');
-
+            doc.save('anotacion_{{ $assignment->code }}'+'.pdf');
 
          };
          img.src = url;

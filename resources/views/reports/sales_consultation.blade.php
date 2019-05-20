@@ -109,9 +109,9 @@
                                             <th>SubTotal</th>
                                             <th>Total</th>
                                             <th>Desc.Paypal</th>
-                                            <th>Desc.Total</th>
+                                            <th>Paypal.Total</th>
                                             <th>Desc.Interbank</th>
-                                            <th>Desc.Total</th>                                  
+                                            <th>Interbank.Total</th>                                  
                                         </tr>
                                     </thead>
                                     <tbody>

@@ -19,6 +19,14 @@ class AssignmentController extends Controller
         $this->middleware('auth');
     }
 
+    function getDate()
+    {
+        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+        $date = "Lima, ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ; 
+
+        return $date;
+    }
+
     public function index()
     {
 
@@ -44,12 +52,9 @@ class AssignmentController extends Controller
         $assignment->remaining_days = $remaining_days;
         $assignment->save();
 
-        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-        $date = "Lima, ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ; 
-
         $sublevels = SubLevel::orderBy('id', 'ASC')->get();
 
-        return view('assignments.show', compact('assignment', 'sublevels', 'date'));
+        return view('assignments.show', compact('assignment', 'sublevels'));
     }
 
     public function edit($id)
@@ -70,10 +75,9 @@ class AssignmentController extends Controller
     {
         $assignment = Assignment::where('code', '=', $code)->first();
 
-        $certificate = array_map('trim', explode( '|', $assignment->course->certificate));
-    
-        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-        $date = "Lima, ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ;        
+        $certificate = array_map('trim', explode('|', $assignment->course->certificate));
+            
+        $date = $date = $this->getDate();
         
         return view('assignments.certificates.certificate', compact('assignment', 'certificate', 'date'));
     }
@@ -84,10 +88,9 @@ class AssignmentController extends Controller
 
         $assignment = Assignment::findOrFail($project->assignment_id);
 
-        $certificate = array_map('trim', explode( '|', $assignment->course->certificate));
+        $certificate = array_map('trim', explode('|', $assignment->course->certificate));
     
-        $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-        $date = "Lima, ".date('d')." de ".$meses[date('n')-1]. " del ".date('Y') ;        
+        $date = $date = $this->getDate();      
         
         return view('assignments.certificates.constancy', compact('project','assignment', 'certificate', 'date'));
     }
@@ -106,6 +109,7 @@ class AssignmentController extends Controller
     public function sendEmail(Request $request)
     {
         $data = array(
+            'user' => auth()->user()->email,
             'body'=> $request->editor,
             'from'=> $request->from,
             'email'=> $request->email,
@@ -115,7 +119,7 @@ class AssignmentController extends Controller
         $files = $request->file('files');
 
         Mail::send('emails.email_info', compact('data'), function($message) use ($data, $files){                 
-            $message->from('dadanielita5@gmail.com', $data['from']);
+            $message->from($data['user'], $data['from']);
             $message->to($data['email'])->subject($data['subject']);
             if($files != null) {
                 foreach($files as $file) {
