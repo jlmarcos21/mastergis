@@ -17,20 +17,10 @@
             <p class="card-text">{{ $assignment->course->name }}</p>
             <p class="text-muted">{{ $assignment->code }}</p>
 
-            @php
-              $progress = $assignment->access+$assignment->entry+$assignment->physical_certificate+$assignment->poll
-            @endphp
-            
-            @if($progress==1)
-              <div class="progress">
-                  <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%"></div>
-              </div>
-            @elseif($progress==2)
-              <div class="progress">
-                  <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" style="width: 55%"></div>
-              </div>
-            @elseif($progress==3)
+            @if ($assignment->finished)
               <strong class="text-success">Curso Terminado</strong>
+            @else
+              <strong class="text-danger">No Terminado</strong>
             @endif
 
           </div>

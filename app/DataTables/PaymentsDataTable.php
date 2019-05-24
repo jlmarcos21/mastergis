@@ -70,6 +70,6 @@ class PaymentsDataTable extends DataTable
 
     protected function filename()
     {
-        return 'Payments_' . date('YmdHis');
+        return 'pagos_' . date('YmdHis');
     }
 }

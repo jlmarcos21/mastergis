@@ -16,20 +16,15 @@ class CoursesDataTable extends DataTable
     public function dataTable($query)
     {
         return datatables($query)
-                ->editColumn('level', function($course) {
-                    return '<i class="fas fa-circle" style="color: '.$course->level->colour.'"></i> '.$course->level->description;                    
-                })->editColumn('image', function($course) {
-                    return '<img src="'.$course->image_url.'" alt="'.$course->name.'" width="50px" class="img-fluid">';                                
-                })->addColumn('buttom', function ($course) {                
-                    return '<div class="dropdown">
-                    <button class="btn btn-sm btn-danger dropdown-toggle" type="button" id="'.$course->id.'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                                            
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="ddm-'.$course->id.'">
-                        <a class="dropdown-item" href="'.route('courses.edit', $course->id).'"><i class="far fa-edit"></i> Editar</a>
-                        <a class="dropdown-item" href="'.route('courses.show', $course->id).'"><i class="fas fa-info"></i> Detalles</a>
-                    </div>
-                </div>';
-                })->rawColumns(['level', 'image', 'buttom']);
+            ->editColumn('name', function($course) {
+                return '<a href="'.route('courses.show', $course->id).'" title="Detalles del Curso">'.$course->name.'</a>';
+            })->editColumn('level', function($course) {
+                return '<i class="fas fa-circle" style="color: '.$course->level->colour.'"></i> '.$course->level->description;                    
+            })->editColumn('image', function($course) {
+                return '<img src="'.$course->image_url.'" alt="'.$course->name.'" width="50px" class="img-fluid">';                                
+            })->addColumn('buttom', function ($course) {                
+                return '<a class="btn btn-sm btn-primary" href="'.route('courses.edit', $course->id).'"><i class="far fa-edit"></i> Editar</a>';
+            })->rawColumns(['name', 'level', 'image', 'buttom']);
     }
 
     /**
@@ -90,6 +85,6 @@ class CoursesDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Courses_' . date('YmdHis');
+        return 'cursos_' . date('YmdHis');
     }
 }

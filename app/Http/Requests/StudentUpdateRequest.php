@@ -27,7 +27,7 @@ class StudentUpdateRequest extends FormRequest
             'name'          => 'required|max:150|unique:students,name,'. $this->student,
             'lastname'      => 'required|max:150|unique:students,lastname,'. $this->student,
             'sex'           => 'required|in:MASCULINO,FEMENINO',                      
-            'country_id'    => 'required|integer',
+            'country_id'    => 'required|integer|exists:countries,id',
             'email'         => 'required|max:240|unique:students,email,'. $this->student,
             'phone'         => 'max:25'
         ];

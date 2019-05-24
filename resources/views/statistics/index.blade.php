@@ -100,7 +100,7 @@
 
             for(var i in vcourses){
                 names.push(vcourses[i].name)
-                assigments.push(vcourses[i].assignments_count)
+                assigments.push(parseFloat(vcourses[i].assignments_count))
             }  
 
             Highcharts.chart('chart-courses', {
@@ -156,7 +156,7 @@
 
             for(var i in vstudents){
                 students.push(vstudents[i].lastname + ", " + vstudents[i].name)
-                sales.push(vstudents[i].sales_count)
+                sales.push(parseFloat(vstudents[i].sales_count))
             }
 
             Highcharts.chart('chart-students', {
@@ -198,7 +198,7 @@
 
             for(var i in vstudents){
                 students_c.push(vstudents_courses[i].lastname + ", " + vstudents_courses[i].name)
-                courses_c.push(vstudents_courses[i].assignments_count)
+                courses_c.push(parseFloat(vstudents_courses[i].assignments_count))
             }
 
             Highcharts.chart('chart-students_courses', {
@@ -245,7 +245,7 @@
             for(var i in courses){
                 data_courses.push({
                     'name' : courses[i].description,
-                    'y' : courses[i].students_count,
+                    'y' : parseFloat(courses[i].students_count),
                     'flag' : courses[i].flag,
                 })
             }

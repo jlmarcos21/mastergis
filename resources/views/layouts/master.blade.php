@@ -144,7 +144,8 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="ReportDropdown">
             <a class="dropdown-item" href="{{ route('search_sales') }}">C. de Ventas</a>
-            <a class="dropdown-item" href="{{ route('search_courses') }}">C. de Cursos</a>            
+            <a class="dropdown-item" href="{{ route('search_courses') }}">C. de Cursos</a>
+            <a class="dropdown-item" href="{{ route('search_assignments') }}">C. de Asignaciones</a>          
           </div>
       </li>
       <li class="nav-item">
@@ -243,7 +244,11 @@
       $(".se-pre-con").fadeOut("slow");
     };
     $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
+      setTimeout(function() {
+        $(".alert").fadeOut("slow");
+      }, 3000);
+      $('[data-toggle="tooltip"]').tooltip();
+      $('[data-toggle="popover"]').popover();      
     })
   </script>
   @yield('scripts')

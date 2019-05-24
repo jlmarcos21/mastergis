@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\DataTables\SearchSaleDataTable;
+use App\DataTables\SerchAssignmentsDataTable;
 use App\Sale;
 use App\PaymentM;
 use App\Voucher;
 use App\Currency;
 
 use App\DetailSale;
+
+use App\Assignment;
+use App\Course;
 
 class ReportController extends Controller
 {
@@ -22,7 +26,8 @@ class ReportController extends Controller
 
     public function search_sales(Request $request)
     { 
-        
+        auth()->user()->authorizeRoles(['admin', 'accounting']);
+
         $payments = PaymentM::all();
         $vouchers = Voucher::all();
         $currencies = Currency::all();
@@ -41,34 +46,10 @@ class ReportController extends Controller
         }            
     }
 
-    public function search_sales2(SearchSaleDataTable $dataTable, Request $request)
-    {
-        $payments = PaymentM::all();
-        $vouchers = Voucher::all();
-        $currencies = Currency::all();
-
-        if(isset($request->date_s) && isset($request->date_f)) {
-            return $dataTable->with([
-                'searchvoucher'     => $request->searchvoucher,
-                'searchpayment'     => $request->searchpayment,
-                'searchcurrency'    => $request->searchcurrency,
-                'date_s'            => $request->date_s,
-                'date_f'            => $request->date_f,
-            ])->render('reports.sales_consultation2', compact('payments', 'vouchers', 'currencies', 'request'));
-        }else {
-            return $dataTable->with([
-                'searchvoucher'     => $request->searchvoucher,
-                'searchpayment'     => $request->searchpayment,
-                'searchcurrency'    => $request->searchcurrency,
-                'date_s'            => $request->date_s,
-                'date_f'            => $request->date_f,
-            ])->render('reports.sales_consultation2', compact('payments', 'vouchers', 'currencies', 'request'));
-        } 
-        
-    }
-
     public function search_courses(Request $request)
     {        
+        auth()->user()->authorizeRoles(['admin', 'accounting']);
+        
         if(isset($request->date_s) && isset($request->date_f)) {
             $s_courses = DetailSale::orderBy('date', 'DESC')
                         ->whereBetween('date', [$request->date_s, $request->date_f])                                     
@@ -79,5 +60,29 @@ class ReportController extends Controller
             return view('reports.courses_consultation', compact('request'));
         }                
     }
+
+    public function search_assignments(Request $request)
+    {
+        auth()->user()->authorizeRoles(['admin', 'accounting']);
+
+        $courses = Course::all();            
+
+        if(isset($request->date_s) && isset($request->date_f)) {
+            $s_assignments = Assignment::orderBy('id', 'DESC')                            
+                            ->course($request->searchcourse)
+                            ->access($request->searchaccess)
+                            ->entry($request->searchentry)
+                            ->basic($request->searchbasisc)
+                            ->intermediate($request->searchintermediate)
+                            ->advanced($request->searchadvanced)
+                            ->finished($request->searchfinished)
+                            ->whereBetween('start_date', [$request->date_s, $request->date_f])
+                            ->get();
+
+            return view('reports.assignments_consultation', compact('courses', 's_assignments', 'request'));                 
+        }else {
+            return view('reports.assignments_consultation', compact('courses', 'request'));
+        }        
+    }    
 
 }

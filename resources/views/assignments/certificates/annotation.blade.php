@@ -646,7 +646,7 @@
                       id="tspan9046-3"
                       x="17.601093"
                       y="{{$height_y}}"
-                      style="font-size:2.41666656px;line-height:0;stroke-width:0.26458332">{{$description}}</tspan></text>
+                      style="font-size:2.21666656px;line-height:0;stroke-width:0.26458332">{{$description}}</tspan></text>
                 @endforeach         
                  <text
                       xml:space="preserve"

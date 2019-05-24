@@ -8,7 +8,7 @@
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label>Estudiante</label>
-                                <select class="selectpicker form-control" data-size="5" data-style="border border-dark" data-live-search="true" title="Buscar Estudiante" v-model="student" ref="student" @change="studentChange()">
+                                <select class="selectpicker form-control" data-size="5" data-style="border-dark" data-live-search="true" title="Buscar Estudiante" v-model="student" ref="student" @change="studentChange()">
                                     <option v-for="student in students" :key="student.id" :value="student" :data-content="`${student.name} ${student.lastname} <small class='text-muted'>Codigó: ${student.code}</small>`"></option>
                                 </select>
                             </div>
@@ -16,7 +16,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Comprobante</label>
-                                <select class="selectpicker form-control" data-size="5" data-style="border border-dark" data-live-search="true" title="Comprobante de Pago" v-model="voucher" ref="voucher">
+                                <select class="selectpicker form-control" data-size="5" data-style="border-dark" data-live-search="true" title="Comprobante de Pago" v-model="voucher" ref="voucher">
                                     <option v-for="voucher in vouchers" :key="voucher.id" :value="voucher">{{ voucher.name }} - {{ voucher.serie }} </option>
                                 </select>
                             </div>
@@ -24,7 +24,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Metodo de Pago</label>
-                                <select class="selectpicker form-control" data-size="5" data-style="border border-dark" data-live-search="true" title="Metodo de Pago" v-model="payment" ref="payment">
+                                <select class="selectpicker form-control" data-size="5" data-style="border-dark" data-live-search="true" title="Metodo de Pago" v-model="payment" ref="payment">
                                     <option v-for="payment in payments" :key="payment.id" :value="payment" :data-icon="`${payment.icon} text-success`">{{ payment.name }} </option>
                                 </select>
                             </div>
@@ -32,7 +32,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Moneda</label>
-                                <select class="selectpicker form-control" data-size="5" data-style="border border-dark" data-live-search="true" title="Moneda" v-model="currency" ref="currency">
+                                <select class="selectpicker form-control" data-size="5" data-style="border-dark" data-live-search="true" title="Moneda" v-model="currency" ref="currency">
                                     <option v-for="currency in currencies" :key="currency.id" :value="currency" :data-icon="`${currency.flag}`"> {{ currency.icon }} {{ currency.name }}</option>
                                 </select>
                             </div>
@@ -40,7 +40,7 @@
                         <div class="col-md">
                             <div class="form-group">
                                 <label>Descripcion de Pago</label>
-                                <input type="text" class="form-control border border-dark" v-model="description" ref="description">
+                                <input type="text" class="form-control border-dark" v-model="description" ref="description" maxlength="149">
                             </div>
                         </div>
                         <div class="col-md-2" v-if="payment.id==2 || payment.id==3 || payment.id==4">
@@ -55,7 +55,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Fecha</label>
-                                <input type="date" class="form-control" v-model="saledate">                            
+                                <input type="date" class="form-control border-dark" v-model="saledate">                            
                             </div>
                         </div>                       
                     </div>
@@ -64,7 +64,7 @@
                         <div class="col-md-9">
                             <div class="form-group">
                                 <label>Seleccionar Curso</label>
-                                <select class="selectpicker form-control" data-size="5" data-style="border border-dark" data-live-search="true" title="Buscar Curso" v-model="course" ref="course" @change="$refs.price.focus()">
+                                <select class="selectpicker form-control" data-size="5" data-style="border-dark" data-live-search="true" title="Buscar Curso" v-model="course" ref="course" @change="$refs.price.focus()">
                                     <option v-for="course in courses" :key="course.id" :value="course" :data-content="`<img src='${course.image_url}' width='30px'> <strong>${course.name}</strong> <small class='text-muted'>Codigó: ${course.code}</small>`"></option>
                                 </select>
                             </div>
@@ -72,7 +72,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Precio del Curso</label>
-                                <input type="number" class="form-control border border-dark text-center" v-model="price" ref="price" @keypress.enter="AddCourses()">
+                                <input type="number" class="form-control border-dark text-center" v-model="price" ref="price" @keypress.enter="AddCourses()">
                             </div>
                         </div>
                         <div class="col-md-1">
@@ -142,7 +142,7 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Registar Cuota</h5>
+                        <h5 class="modal-title">Registrar Cuota</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -258,7 +258,7 @@
                         }
 
                         if(this.count==0){
-                            if(Object.keys(this.course).length != 0 && this.price != ""){
+                            if(Object.keys(this.course).length != 0 && parseInt(this.price) != 0){
                                 this.CoursesDatails.unshift({
                                     course_id : this.course.id,
                                     course_code : this.course.code,
@@ -306,8 +306,8 @@
             Verification() {
                 
             },
-            SaveSale() {
-                if((Object.keys(this.student).length != 0) && (Object.keys(this.payment).length != 0) && (Object.keys(this.CoursesDatails).length != 0)){
+            SaveSale() {                
+                if((Object.keys(this.student).length > 1) && (Object.keys(this.voucher).length > 1) && (Object.keys(this.payment).length > 1) && (Object.keys(this.currency).length > 1) && (this.saledate!='')){
                     axios.post(`${this.Url}save-sale` ,{
                         student_id : this.student.id,
                         payment_id : this.payment.id,

@@ -28,13 +28,7 @@ class SearchSaleDataTable extends DataTable
 
     public function query()
     {
-        $sales = Sale::orderBy('id', 'DESC')
-                ->voucher($this->searchvoucher)
-                ->payment($this->searchpayment)
-                ->currency($this->searchcurrency)
-                ->date_s($this->date_s)
-                ->date_f($this->date_f)
-                ->get();
+        $sales = $this->sales;
 
         return $sales;
 
@@ -81,6 +75,6 @@ class SearchSaleDataTable extends DataTable
 
     protected function filename()
     {
-        return 'SearchSale_' . date('YmdHis');
+        return 'filtro_ventas_' . date('YmdHis');
     }
 }

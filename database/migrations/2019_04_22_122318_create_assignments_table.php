@@ -20,10 +20,14 @@ class CreateAssignmentsTable extends Migration
             $table->integer('student_id')->unsigned();
             $table->integer('course_id')->unsigned();
             $table->boolean('access')->default('0');
-            $table->boolean('entry')->default('0');            
-            $table->boolean('physical_certificate')->default('0');
+            $table->boolean('entry')->default('0');
+            $table->boolean('basic_constancy')->default('0');
+            $table->boolean('intermediate_constancy')->default('0');
+            $table->boolean('advanced_constancy')->default('0');
+            $table->boolean('certificate')->default('0');
+            $table->boolean('finished')->default('0');            
             $table->boolean('poll')->default('0');
-            $table->boolean('finished')->default('0');
+            $table->boolean('physical_certificate')->default('0');        
             $table->date('start_date');
             $table->date('final_date');
             $table->integer('remaining_days')->nullable();

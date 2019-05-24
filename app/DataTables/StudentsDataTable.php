@@ -11,20 +11,16 @@ class StudentsDataTable extends DataTable
     public function dataTable($query)
     {
         return datatables($query)
-                ->editColumn('name', function($student) {
-                    return $student->name." ".$student->lastname;
-                })->editColumn('country', function($student) {
-                    return '<span title="'.$student->country->description.'" class="'.$student->country->flag.'"></span><small class="d-none">'.$student->country->description.'</small>';                    
-                })->addColumn('buttom', function ($student) {                
-                    return '<div class="dropdown">
-                    <button class="btn btn-sm btn-danger dropdown-toggle" type="button" id="ddm-'.$student->id.'" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                                            
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="ddm-'.$student->id.'">
-                        <a class="dropdown-item" href="'.route('students.edit', $student->id).'"><i class="far fa-edit"></i> Editar</a>
-                        <a class="dropdown-item" href="'.route('students.show', $student->id).'"><i class="far fa-user-circle"></i> Perfil</a>
-                    </div>
-                </div>';
-                })->rawColumns(['country', 'buttom']);
+            ->editColumn('name', function($student) {
+                return '<a href="'.route('students.show', $student->id).'" title="Perfil del Estudiante">'.$student->name.' '.$student->lastname.'</a>';
+            })->editColumn('state', function($student) {
+                return $student->state=='0'?'<span class="text-danger">Inactivo</span>':'<span class="text-success">Activo</span>';
+            })->editColumn('country', function($student) {
+                return '<span title="'.$student->country->description.'" class="'.$student->country->flag.'"></span><small class="d-none">'.$student->country->description.'</small>';                    
+            })->addColumn('edit', function ($student) {                
+                return '<a class="btn btn-sm btn-primary" href="'.route('students.edit', $student->id).'"><i class="far fa-edit"></i> Editar</a>';
+            })->addColumn('delete', 'students.form.delete')
+            ->rawColumns(['name', 'state', 'country', 'edit', 'delete']);
     }
 
     public function query()
@@ -57,14 +53,16 @@ class StudentsDataTable extends DataTable
             ['data' => 'name', 'title' => 'Nombre y Apellido'],
             ['data' => 'sex', 'title' => 'Sexo'],
             ['data' => 'code', 'title' => 'Código'],
+            //['data' => 'state', 'title' => 'Estado'],
             ['data' => 'country', 'title' => 'País'],
             ['data' => 'email', 'title' => 'Correo'],
-            ['data' => 'buttom', 'title' => '<i class="far fa-edit"></i>', 'className' => 'text-center'],
+            ['data' => 'edit', 'title' => '<i class="far fa-edit"></i>', 'className' => 'text-center'],
+            //['data' => 'delete', 'title' => '<i class="far fa-trash-alt"></i>', 'className' => 'text-center'],
         ]);
     }
 
     protected function filename()
     {
-        return 'Students_' . date('YmdHis');
+        return 'estudiantes_' . date('YmdHis');
     }
 }

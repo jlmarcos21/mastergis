@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Historial de Cobranzas')
+@section('title', '| Historial de Cobranzas - '.$sale->code)
 
 @section('links')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/datatables.min.css"/>

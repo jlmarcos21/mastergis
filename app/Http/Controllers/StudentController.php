@@ -22,18 +22,22 @@ class StudentController extends Controller
     }
 
     public function index(StudentsDataTable $dataTable)
-    {
+    {        
         return $dataTable->render('students.index');    
     }
 
     public function create()
     {
+        auth()->user()->authorizeRoles(['admin', 'marketing']);
+
         $countries = Country::orderBy('description', 'ASC')->get();
         return view('students.create', compact('countries'));
     }
 
     public function store(StudentStoreRequest $request)
     {
+        auth()->user()->authorizeRoles(['admin', 'marketing']);
+
         $student = Student::create($request->all());
         $code = str_slug(Str::substr($request->lastname, 0, 2).Str::substr($request->name, 0, 2).$student->id);
         $student->fill([
@@ -49,22 +53,19 @@ class StudentController extends Controller
             'subject'=> 'Bienvenida a MasterGIS'
         );
 
-        Mail::send('emails.welcome', compact('data'), function($message) use ($data){                 
-            $message->from($data['user'], $data['from']);
-            $message->to($data['email'])->subject($data['subject']);
-        });
-
         return redirect()->route('students.index')->with('info', 'Registrado con éxito');
     }
 
     public function show($id)
-    {
+    {        
         $student = Student::findOrFail($id);
         return view('students.show', compact('student'));
     }
 
     public function edit($id)
     {
+        auth()->user()->authorizeRoles(['admin', 'marketing']);
+
         $student = Student::findOrFail($id);
         $countries = Country::orderBy('description', 'ASC')->get();
         return view('students.edit', compact('student', 'countries')); 
@@ -72,6 +73,8 @@ class StudentController extends Controller
 
     public function update(StudentUpdateRequest $request, $id)
     {
+        auth()->user()->authorizeRoles(['admin', 'marketing']);
+
         $student = Student::findOrFail($id);
         $student->fill($request->all())->save();
         
@@ -80,11 +83,16 @@ class StudentController extends Controller
 
     public function destroy($id)
     {
+        auth()->user()->authorizeRoles(['admin', 'marketing']);
+
         $student = Student::findOrFail($id);
-        $student->state = 0;
+        if($student->state==1)
+            $student->state = 0;
+        else
+            $student->state = 1;
         $student->save();
 
-        return back()->with('info', 'Eliminado correctamente');
+        return back()->with('info', 'Estado Actualizado');
     }
     
 }

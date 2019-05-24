@@ -30,16 +30,18 @@ class AssignmentController extends Controller
     public function index()
     {
 
-        $courses = Course::withCount(['assignments'])
-                    ->orderBy('assignments_count', 'DESC')              
+        $courses = Course::withCount(['assignments'])                    
+                    ->orderBy('assignments_count', 'DESC')        
                     ->get();                            
         
         return view('assignments.index', compact('courses'));
     }
 
     public function show_assignments($id, AssignmentsDataTable $dataTable)
-    {        
-        return $dataTable->with('id', $id)->render('assignments.lists');
+    {   
+        $course = Course::findOrFail($id);
+
+        return $dataTable->with('id', $id)->render('assignments.lists', compact('course'));
     }    
 
     public function show($code)
@@ -59,20 +61,26 @@ class AssignmentController extends Controller
 
     public function edit($id)
     {
+        auth()->user()->authorizeRoles(['admin', 'marketing']);
+        
         $assignment = Assignment::findOrFail($id);
         return view('assignments.edit', compact('assignment'));
     }
 
     public function update(Request $request, $id)
     {
+        auth()->user()->authorizeRoles(['admin', 'marketing']);
+
         $assignment = Assignment::findOrFail($id);
         $assignment->fill($request->all())->save();
 
-        return redirect()->route('assignments.show', $assignment->code)->with('info', 'Asignacion Actualizada');
+        return redirect()->route('assignments.show', $assignment->code)->with('info', 'Cambios realizados');
     }
 
     public function certificate($code)
     {
+        auth()->user()->authorizeRoles(['admin', 'accounting']);
+
         $assignment = Assignment::where('code', '=', $code)->first();
 
         $certificate = array_map('trim', explode('|', $assignment->course->certificate));
@@ -84,9 +92,15 @@ class AssignmentController extends Controller
 
     public function constancy($id)
     {
-        $project = Project::findOrFail($id);
+
+        auth()->user()->authorizeRoles(['admin', 'project-review']);
+
+        $project = Project::findOrFail($id);        
 
         $assignment = Assignment::findOrFail($project->assignment_id);
+
+        if($project->state==0)
+            return redirect()->route('assignments.show', $assignment->code);
 
         $certificate = array_map('trim', explode('|', $assignment->course->certificate));
     
@@ -97,6 +111,8 @@ class AssignmentController extends Controller
 
     public function annotation($id)
     {
+        auth()->user()->authorizeRoles(['admin', 'project-review']);
+
         $project = Project::findOrFail($id);
 
         $descriptions = array_map('trim', explode( '|', $project->description));

@@ -9,7 +9,7 @@ class Assignment extends Model
     protected $table = 'assignments';
 
     protected $fillable = [
-        'code', 'student_id', 'course_id', 'access', 'entry', 'physical_certificate', 'poll', 'finished', 'start_date', 'final_date', 'remaining_days'
+        'code', 'student_id', 'course_id', 'access', 'entry', 'basic_constancy', 'intermediate_constancy', 'advanced_constancy', 'certificate', 'finished', 'poll', 'physical_certificate', 'start_date', 'final_date', 'remaining_days'
     ];
 
     public function course()
@@ -28,29 +28,46 @@ class Assignment extends Model
     }
 
     //Filtros
+    public function scopeCourse($query, $course)
+    {
+        if($course)
+            return $query->where('course_id', 'LIKE', "%$course%");        
+    }
+
+    public function scopeAccess($query, $access)
+    {
+        if($access)
+            return $query->where('access', 'LIKE', "%$access%");        
+    }
+
     public function scopeEntry($query, $entry)
     {
         if($entry)
-            return $query->where('entry', '=', "$entry");
-        else
-            return $query->where('entry', '=', "0");
+            return $query->where('entry', 'LIKE', "%$entry%");        
     }
 
-    public function scopePoll($query, $poll)
+    public function scopeBasic($query, $basic)
     {
-        if($poll)
-            return $query->where('poll', '=', "$poll");        
-        else
-            return $query->where('poll', '=', "0");
+        if($basic)
+            return $query->where('basic_constancy', 'LIKE', "%$basic%");        
+    }
+
+    public function scopeIntermediate($query, $intermediate)
+    {
+        if($intermediate)
+            return $query->where('intermediate_constancy', 'LIKE', "%$intermediate%");
+    }
+
+    public function scopeAdvanced($query, $advanced)
+    {
+        if($advanced)
+            return $query->where('advanced_constancy', 'LIKE', "%$advanced%");
     }
 
     public function scopeFinished($query, $finished)
     {
         if($finished)
-            return $query->where('finished', '=', "$finished");
-        else
-            return $query->where('finished', '=', "0");
-    }
-    
+            return $query->where('finished', 'LIKE', "%$finished%");
+    } 
 
 }

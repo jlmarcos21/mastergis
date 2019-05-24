@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Panel de Control')
+@section('title', '| Panel de Control')
 
 @section('content')
 

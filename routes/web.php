@@ -71,11 +71,16 @@ Route::group(['middleware' => 'cors'], function(){
     Route::get('search_courses', 'ReportController@search_courses')->name('search_courses');
 
     //Consultation courses
-    Route::get('search_asigments', 'ReportController@search_asigments')->name('search_asigments');
+    Route::get('search_assignments', 'ReportController@search_assignments')->name('search_assignments');    
 
     //Generate PDF
 
     // PDF SAlE
     Route::get('pdf-sale/{code}', 'SaleController@create_pdf')->name('pdf.sale');
+
+    Route::get('migrate', function () {
+        Artisan::call('migrate:fresh', ['--seed' => true]);
+        return 'Migración correcta';
+    });
 
 });

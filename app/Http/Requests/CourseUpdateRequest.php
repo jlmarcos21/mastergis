@@ -26,7 +26,7 @@ class CourseUpdateRequest extends FormRequest
         $rules = [
             'name'          => 'required|max:150|unique:courses,name,'. $this->course,
             'code'          => 'required|max:100|unique:courses,code,'. $this->course,
-            'level_id'      => 'required|integer',        
+            'level_id'      => 'required|integer|exists:levels,id',        
             'duration'      => 'required|string|max:120'
         ];
 

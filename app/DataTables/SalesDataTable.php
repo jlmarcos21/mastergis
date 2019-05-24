@@ -65,6 +65,6 @@ class SalesDataTable extends DataTable
 
     protected function filename()
     {
-        return 'Sales_' . date('YmdHis');
+        return 'ventas_' . date('YmdHis');
     }
 }

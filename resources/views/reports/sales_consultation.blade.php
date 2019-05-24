@@ -19,35 +19,35 @@
                 <div class="card-body">
                     {!! Form::open(['route' => 'search_sales', 'method' => 'GET']) !!}
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-2 form-group">
                                 {{ Form::label('date_s', 'Fecha de Inicio') }}
                                 {{ Form::date('date_s', (isset($request->date_s))?$request->date_s:'', ['class' => 'form-control border border-success', 'id' => 'date_s', 'required']) }}
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 form-group">
                                 {{ Form::label('date_f', 'Fecha Final') }}
                                 {{ Form::date('date_f', (isset($request->date_f))?$request->date_f:'', ['class' => 'form-control border border-success', 'id' => 'date_f', 'required']) }}
                             </div>
-                            <div class="col-md-3">
-                                    {{ Form::label('searchpayment', 'Pago') }}
-                                    <select name="searchpayment" id="searchpayment" class="form-control">
-                                        <option value="">Todos</option>
-                                        @foreach ($payments as $payment)     
-    
-                                        <option value="{{ $payment->id }}"
-                                            @isset($request->searchpayment)
-                                                @if ($payment->id==$request->searchpayment)
-                                                    selected
-                                                @endif
-                                            @endisset
-                                            >{{ $payment->name }}
-                                        </option>
-    
-                                        @endforeach
-                                    </select>
-                                </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3 form-group">
+                                {{ Form::label('searchpayment', 'Pago') }}
+                                <select name="searchpayment" id="searchpayment" class="form-control border-success">
+                                    <option value="">Todos</option>
+                                    @foreach ($payments as $payment)     
+
+                                    <option value="{{ $payment->id }}"
+                                        @isset($request->searchpayment)
+                                            @if ($payment->id==$request->searchpayment)
+                                                selected
+                                            @endif
+                                        @endisset
+                                        >{{ $payment->name }}
+                                    </option>
+
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-2 form-group">
                                 {{ Form::label('searchvoucher', 'Comprobante') }}
-                                <select name="searchvoucher" id="searchvoucher" class="form-control">
+                                <select name="searchvoucher" id="searchvoucher" class="form-control border-success">
                                     <option value="">Todos</option>
                                     @foreach ($vouchers as $voucher)                                         
 
@@ -63,9 +63,9 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 form-group">
                                     {{ Form::label('searchcurrency', 'Moneda') }}
-                                    <select name="searchcurrency" id="searchcurrency" class="form-control">
+                                    <select name="searchcurrency" id="searchcurrency" class="form-control border-success">
                                         <option value="">Todos</option>
                                         @foreach ($currencies as $currency)                                             
 
@@ -81,7 +81,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            <div class="col-md-1">
+                            <div class="col-md-1 form-group">
                                 {{ Form::label('date_f', 'Filtrar') }}                                
                                 <button type="submit" class="btn btn-block btn-primary"><i class="fas fa-search"></i></button>
                             </div>

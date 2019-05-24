@@ -27,12 +27,16 @@ class CourseController extends Controller
 
     public function create()
     {
+        auth()->user()->authorizeRoles(['admin', 'marketing']);
+
         $levels = Level::all();
         return view('courses.create', compact('levels'));
     }
 
     public function store(CourseStoreRequest $request)
     {
+        auth()->user()->authorizeRoles(['admin', 'marketing']);
+
         $course = Course::create($request->all());
         return redirect()->route('courses.index')->with('info', 'Registrado con éxito');
     }
@@ -46,6 +50,8 @@ class CourseController extends Controller
 
     public function edit($id)
     {
+        auth()->user()->authorizeRoles(['admin', 'marketing']);
+
         $course = Course::findOrFail($id);
         $levels = Level::all();
         return view('courses.edit', compact('course', 'levels'));
@@ -53,6 +59,8 @@ class CourseController extends Controller
 
     public function update(CourseUpdateRequest $request, $id)
     {
+        auth()->user()->authorizeRoles(['admin', 'marketing']);
+
         $course = Course::findOrFail($id);
         $course->fill($request->all())->save();
         return redirect()->route('courses.index')->with('info', 'Actualizado con éxito');
@@ -60,6 +68,8 @@ class CourseController extends Controller
 
     public function destroy($id)
     {
+        auth()->user()->authorizeRoles(['admin', 'marketing']);
+        
         $course = Course::findOrFail($id);        
         $course->state = 0;
         $course->save();

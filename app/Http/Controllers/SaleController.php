@@ -36,6 +36,7 @@ class SaleController extends Controller
 
     public function create()
     {
+        auth()->user()->authorizeRoles(['admin', 'marketing', 'accounting']);
         return view('sales.create');
     }
 
@@ -72,7 +73,9 @@ class SaleController extends Controller
 
     public function SaveSale(SaleRequest $request)
     {
-       try {
+        auth()->user()->authorizeRoles(['admin', 'marketing', 'accounting']);
+
+        try {
             
             $date_now = Carbon::now()->toDateString();
             
@@ -175,7 +178,7 @@ class SaleController extends Controller
 
             return response()->json($sale, 200);
 
-       } catch (Throwable $errror) {
+       }catch (Throwable $errror) {
             return response()->json($errror, 500);
        }
     }

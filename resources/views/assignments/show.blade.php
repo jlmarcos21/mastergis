@@ -13,7 +13,7 @@
                             <th>Fecha de Inicio <i class="far fa-calendar-check"></i></th>                            
                             <th>Fecha de Final <i class="far fa-calendar-times"></i></th>
                             <th>Dias Restantes</th>
-                            <th>Generar Certificado</th>                                                
+                            <th>Generar Certificado</th>                                        
                             <th>Actualizar</th>            
                         </tr>
                     </thead>
@@ -21,15 +21,12 @@
                         <tr>
                             <td><span class="text-success">{{ $assignment->start_date }}</span></td>
                             <td><span class="text-danger">{{ $assignment->final_date }}</span></td>
-                            <td><span>{{ $assignment->remaining_days }}</span></td>
+                            <td>{!! $assignment->remaining_days<0?'<span class="text-danger">Curso Vencido</span>':'<span class="text-success">'.$assignment->remaining_days.'</span>' !!}</td>
                             <td>
-                                @if ($assignment->access==1 && $assignment->entry==1)
-                                    <a href="{{ route('generate-certificate', $assignment->code) }}" target="_blank" class="btn btn-sm btn-dark" title="Generar Certificado">Generar Certificado</a>
-                                    {{-- @include('assignments.certificates.certi') --}}
+                                @if ($assignment->finished)
+                                    <a href="{{ route('generate-certificate', $assignment->code) }}" target="_blank" class="btn btn-sm btn-dark" title="Generar Certificado">Generar Certificado</a>                                    
                                 @else
-                                    <div class="spinner-border text-danger" role="status">
-                                        <span class="sr-only">Proceso...</span>
-                                      </div>
+                                    <span class="text-danger">Proceso...</span>
                                 @endif                                
                             </td>                            
                             <td>
@@ -37,41 +34,69 @@
                             </td>
                         </tr>
                     </tbody>
-                </table>      
+                </table>
+                
                 <table class="table text-center table-bordered">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Codigo</th>
-                            <th>Alumno</th>
+                            <th>Código</th>
+                            <th>Estudiante</th>
                             <th>Curso</th>
                             <th>Nivel</th>
-                            <th width="10px">Acceso</th>
-                            <th width="10px">Ingreso</th>
-                            <th width="10px">Encuesta</th>             
-                            <th width="10px">Certificado.F</th>
-                            <th>Estado</th>                            
                         </tr>
                     </thead>
-                    <tbody>                        
+                    <tbody>
                         <tr>
                             <td>{{ $assignment->code }}</td>
                             <td>{{ $assignment->student->name }}, {{ $assignment->student->lastname }}</td>
                             <td>{{ $assignment->course->name }}</td>
                             <td><i class="fas fa-circle" style="color:{{ $assignment->course->level->colour }}"> {{ $assignment->course->level->description }}</i></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <table class="table text-center table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th width="10px">Acceso</th>
+                            <th width="10px">Ingreso</th>
+                            <th>C.Básico</th>
+                            <th>C.Intermedio</th>
+                            <th>C.Avanzado</th>
+                            <th>Certificado</th>
+                            <th>Estado</th>
+                            <th width="10px">Encuesta</th>             
+                            <th>Certificado.F</th>                                                       
+                        </tr>
+                    </thead>
+                    <tbody>                        
+                        <tr>                            
                             <td>
-                                {!! $assignment->access=='0'?'<i class="far fa-times-circle text-danger"></i>':'<i class="far fa-check-circle text-success"></i>' !!}
+                                {!! $assignment->access=='0'?'<strong class="text-danger">NO</strong>':'<strong class="text-success">SI</strong>' !!}
                             </td>
                             <td>
-                                {!! $assignment->entry=='0'?'<i class="far fa-times-circle text-danger"></i>':'<i class="far fa-check-circle text-success"></i>' !!}
+                                {!! $assignment->entry=='0'?'<strong class="text-danger">NO</strong>':'<strong class="text-success">SI</strong>' !!}
                             </td>
                             <td>
-                                    {!! $assignment->poll=='0'?'<i class="far fa-times-circle text-danger"></i>':'<i class="far fa-check-circle text-success"></i>' !!}
-                                </td> 
-                            <td>
-                                {!! $assignment->physical_certificate=='0'?'<i class="far fa-times-circle text-danger"></i>':'<i class="far fa-check-circle text-success"></i>' !!}
+                                {!! $assignment->basic_constancy=='0'?'<strong class="text-danger">NO</strong>':'<strong class="text-success">SI</strong>' !!}
                             </td>
                             <td>
-                                {!! $assignment->finished=='0'?'<span class="text-danger">Curso no Terminado</span>':'<span class="text-success">Curso Terminado</span>' !!}
+                                {!! $assignment->intermediate_constancy=='0'?'<strong class="text-danger">NO</strong>':'<strong class="text-success">SI</strong>' !!}
+                            </td>
+                            <td>
+                                {!! $assignment->advanced_constancy=='0'?'<strong class="text-danger">NO</strong>':'<strong class="text-success">SI</strong>' !!}
+                            </td>
+                            <td>
+                                {!! $assignment->certificate=='0'?'<strong class="text-danger">NO</strong>':'<strong class="text-success">SI</strong>' !!}
+                            </td>
+                            <td>
+                                {!! $assignment->finished=='0'?'<strong class="text-danger">No Terminado</strong>':'<strong class="text-success">Curso Terminado</strong>' !!}
+                            </td> 
+                            <td>
+                                {!! $assignment->poll=='0'?'<strong class="text-danger">NO</strong>':'<strong class="text-success">SI</strong>' !!}
+                            </td>
+                            <td>
+                                {!! $assignment->physical_certificate=='0'?'<strong class="text-danger">NO</strong>':'<strong class="text-success">SI</strong>' !!}
                             </td>                                                       
                         </tr>          
                     </tbody>
@@ -83,11 +108,13 @@
                 <div class="mr-auto p-2 bd-highlight">
                     <a href="{{ route('assignments.index') }}" class="btn btn-sm btn-danger"><i class="fas fa-arrow-circle-left"></i></a>
                 </div>
-                <div class="p-2 bd-highlight">
-                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#projectModal" data-backdrop="static">
-                        Añadir Proyectos
-                    </button>
-                </div>
+                @if (($assignment->access) && ($assignment->entry))
+                    <div class="p-2 bd-highlight">
+                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#projectModal" data-backdrop="static" {{ $assignment->finished?'DISABLED':'' }}>
+                            Añadir Proyectos
+                        </button>
+                    </div>            
+                @endif                
             </div>                                                
         </div>
         <div class="col-md-12">

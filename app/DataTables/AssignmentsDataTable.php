@@ -15,22 +15,24 @@ class AssignmentsDataTable extends DataTable
             return '<a href="'.route('assignments.show', $assignment->code).'">'.$assignment->code.'</a>';
         })->editColumn('student', function($assignment) {
             return $assignment->student->name." ".$assignment->student->lastname;
-        })->editColumn('course', function($assignment) {
-            return $assignment->course->name;
         })->editColumn('finished', function($assignment) {
-            return $assignment->finished=='0'?'<span class="text-danger">Curso no Terminado</span>':'<span class="text-success">Curso Terminado</span>';
+            return $assignment->finished=='0'?'<span class="text-danger">No Terminado</span>':'<span class="text-success">Curso Terminado</span>';
         })->editColumn('remaining_days', function($assignment) {
             return $assignment->remaining_days<0?'<span class="text-danger">Curso Vencido</span>':'<span class="text-success">'.$assignment->remaining_days.'</span>';
         })->editColumn('projects', function($assignment) {
-            return $assignment->projects->count();
-        })->rawColumns(['code', 'student', 'course', 'finished', 'remaining_days']);
+            return '<button type="button" class="btn btn-sm btn-primary">
+                        Proyectos <span class="badge badge-light">'.$assignment->projects->count().'</span>
+                    </button>';
+            
+        })->rawColumns(['code', 'student', 'course', 'finished', 'remaining_days', 'projects']);
     }
 
     public function query()
     {
         $id = $this->id;
 
-        $assignments = Assignment::orderBy('id', 'DESC')
+        $assignments = Assignment::orderBy('start_date', 'DESC')
+                ->orderBy('finished', 'ASC')
                 ->where('course_id', '=', $id)
                 ->with(['course', 'student'])
                 ->get();
@@ -43,7 +45,7 @@ class AssignmentsDataTable extends DataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->parameters([
-                        'order'   => [[4, 'desc']],
+                        'order'   => [[2, 'desc'], [3, 'asc']],      
                         'dom' => 'Bfrtip',
                         'buttons' => ([                    
                             ['extend' => 'export'],                   
@@ -59,8 +61,7 @@ class AssignmentsDataTable extends DataTable
     {
         return([
             ['data' => 'code', 'title' => 'Código'],
-            ['data' => 'student', 'title' => 'Estudiante'],
-            ['data' => 'course', 'title' => 'Curso'],
+            ['data' => 'student', 'title' => 'Estudiante'],            
             ['data' => 'finished', 'title' => 'Estado'],
             ['data' => 'start_date', 'title' => 'F. Inicio'],
             ['data' => 'final_date', 'title' => 'F- Final'],

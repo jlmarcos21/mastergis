@@ -9,8 +9,13 @@ class Project extends Model
     protected $table = 'projects';
 
     protected $fillable = [
-        'assignment_id', 'sub_level_id', 'description', 'state', 'date'
+        'assignment_id', 'user_id', 'sub_level_id', 'description', 'state', 'date'
     ];
+
+    public function user()
+    {
+        return $his->belogsTo(User::class);
+    }
 
     public function sub_level()
     {

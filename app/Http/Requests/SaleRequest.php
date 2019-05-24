@@ -24,10 +24,10 @@ class SaleRequest extends FormRequest
     public function rules()
     {
         return [            
-            'student_id'    => 'required|integer',
-            'payment_id'    => 'required|integer',
-            'voucher_id'    => 'required|integer',
-            'currency_id'   => 'required|integer',
+            'student_id'    => 'required|integer|exists:students,id',
+            'payment_id'    => 'required|integer|exists:payment_ms,id',
+            'voucher_id'    => 'required|integer|exists:vouchers,id',
+            'currency_id'   => 'required|integer|exists:currencies,id',
             'description'   => 'max:150',
         ];
     }

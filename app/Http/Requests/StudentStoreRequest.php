@@ -27,7 +27,7 @@ class StudentStoreRequest extends FormRequest
             'name'          => 'required|max:150|unique:students,name',
             'lastname'      => 'required|max:150|unique:students,lastname',
             'sex'           => 'required|in:MASCULINO,FEMENINO',                    
-            'country_id'    => 'required|integer',
+            'country_id'    => 'required|integer|exists:countries,id',
             'email'         => 'required|max:240|unique:students,email',
             'phone'         => 'max:25'
         ];

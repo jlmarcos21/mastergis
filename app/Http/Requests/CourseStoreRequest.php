@@ -26,7 +26,7 @@ class CourseStoreRequest extends FormRequest
         $rules = [
             'name'          => 'required|max:150|unique:courses,name',
             'code'          => 'required|max:100|unique:courses,code',
-            'level_id'      => 'required|integer',
+            'level_id'      => 'required|integer|exists:levels,id',
             'duration'      => 'required|string|max:120'
         ];
 

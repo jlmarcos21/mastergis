@@ -64,16 +64,5 @@ class Sale extends Model
         if($currency)
             return $query->where('currency_id', 'LIKE', "%$currency%");
     }
-
-    public function scopeDate_s($query, $date_s)
-    {
-        if($date_s)
-            return $query->where('date', '>=', $date_s);
-    }
-
-    public function scopeDate_f($query, $date_f)
-    {
-        if($date_f)
-            return $query->where('date', '<=', $date_f);
-    }
+    
 }

@@ -17,6 +17,7 @@ class CreateProjectsTable extends Migration
             $table->increments('id');
 
             $table->integer('assignment_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->integer('sub_level_id')->unsigned();
             $table->text('description')->nullable();        
             $table->boolean('state')->default('0');
@@ -25,6 +26,7 @@ class CreateProjectsTable extends Migration
             $table->timestamps();
 
             //Relaciones
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('assignment_id')->references('id')->on('assignments');
             $table->foreign('sub_level_id')->references('id')->on('sub_levels');            
         });

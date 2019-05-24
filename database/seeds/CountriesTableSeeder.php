@@ -118,5 +118,36 @@ class CountriesTableSeeder extends Seeder
             'description' => 'Portugal',
             'flag' => 'flag-icon flag-icon-pt'
         ]);
+
+        App\Country::create([
+            'description' => 'Francia',
+            'flag' => 'flag-icon flag-icon-fr'
+        ]);
+
+        App\Country::create([
+            'description' => 'Andorra',
+            'flag' => 'flag-icon flag-icon-ad'
+        ]);
+
+        App\Country::create([
+            'description' => 'Aruba',
+            'flag' => 'flag-icon flag-icon-aw'
+        ]);
+
+        App\Country::create([
+            'description' => 'El Salvador',
+            'flag' => 'flag-icon flag-icon-sv'
+        ]);
+
+        App\Country::create([
+            'description' => 'Indonesia',
+            'flag' => 'flag-icon flag-icon-id'
+        ]);
+
+        App\Country::create([
+            'description' => 'Puerto Rico',
+            'flag' => 'flag-icon flag-icon-pr'
+        ]);
+
     }
 }

@@ -33,8 +33,9 @@
                     {{ Form::date('date', null, ['class' => 'form-control text-center', 'required']) }}
                 </div>
                 <div class="col-md-12 form-group">                
-                    {{ Form::label('description', 'Descripción del Proyecto') }}
-                    {{ Form::textarea('description', null, ['class' => 'form-control', 'rows' => 2, 'style' => 'resize:none']) }}
+                    {{ Form::label('description', 'Descripción del Proyecto') }} <small id="result" class="text-muted"></small> <small class="text-primary" id="alert" style="display: none">Realize el Salto de Linea</small>
+                    {{ Form::textarea('description', null, ['class' => 'form-control', 'id' => 'description', 'rows' => 2, 'style' => 'resize:none', 'onKeyDown' => 'kotoba()', 'onKeyUp' => 'kotoba()']) }}
+                    <span class="text-muted">* Solo 75 caracteres por parrafo</span>
                 </div>
                 <div class="col-md-12">
                     <button type="submit" class="btn btn-success">Añadir</button>
@@ -45,3 +46,19 @@
         </div>
     </div>
 </div>
+
+@section('scripts')
+    <script>       
+       function kotoba() {
+            $("#result").text("("+$("#description").val().length + " Caracteres)");
+
+            let limit = 73;
+
+            if ($("#description").val().length==limit || $("#description").val().length==limit*2 || $("#description").val().length==limit*3) {
+                $("#alert").show('slow')
+            }else{
+                $("#alert").hide('slow')
+            }     
+        }
+    </script>
+@endsection

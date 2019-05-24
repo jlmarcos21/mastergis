@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Country;
+use App\DataTables\CountriesDataTable;
 
 class CountryController extends Controller
 {
@@ -14,10 +14,8 @@ class CountryController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(CountriesDataTable $dataTable)
     {        
-        $countries = Country::withCount(['students'])->orderBy('students_count', 'DESC')->get();
-
-        return view('countries.index', compact('countries'));
+        return $dataTable->render('countries.index');
     }
 }
