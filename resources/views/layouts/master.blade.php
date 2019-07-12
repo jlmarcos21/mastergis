@@ -19,6 +19,9 @@
   
   <!-- Styles -->
   <style>
+    .fa-star{ 
+        color: yellow
+    }
     .card-bg:hover{
       cursor: pointer;
       border: solid #000 1px;
@@ -32,6 +35,12 @@
       z-index: 9999;
       background: url(https://loading.io/spinners/earth/lg.earth-globe-map-spinner.gif) center no-repeat #fff;
     }
+    .bg-black{
+      background-color: #000000eb !important;
+    }
+    .bg-black2{
+      background-color: #000000f7 !important;
+    }
   </style>
   @yield('links')
 
@@ -40,7 +49,7 @@
 <body id="page-top">
   <div class="se-pre-con"></div>
 
-  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+  <nav class="navbar navbar-expand navbar-dark bg-black static-top">
 
     <a class="navbar-brand mr-1" href="{{ route('dashboard') }}">Master<span class="text-danger">Gis</span></a>
 
@@ -48,31 +57,14 @@
       <i class="fas fa-bars"></i>
     </button>
 
-    {{-- <!-- Navbar Search -->
-    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Buscar..." aria-label="Search" aria-describedby="basic-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-danger" type="button">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form> --}}
-
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto mr-0 mr-md-0 my-0 my-md-0">
       <li class="nav-item dropdown no-arrow mx-1">
         <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{-- {!! $view_assignments->count()==0?'':'<span class="badge badge-danger">'.$view_assignments->count().'</span>' !!}  --}}
+          <span class="badge badge-danger" id="consultations_number">0</span>      
           <i class="fas fa-bell fa-fw"></i>  
         </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
-          <a class="dropdown-item">Asignaciones por Vencer</a>
-          <div class="dropdown-divider"></div>
-          {{-- @foreach ($view_assignments as $asig)
-            <a class="dropdown-item active text-center" href="{{ route('assignments.show', $asig->code) }}">{{ $asig->code }}</a>
-          @endforeach           --}}
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown" id="consultations_content">      
         </div>
       </li>
       <li class="nav-item dropdown no-arrow">
@@ -90,51 +82,51 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="sidebar navbar-nav">
-      <li class="nav-item">
+    <ul class="sidebar bg-black2 navbar-nav d-print-none">
+      <li class="nav-item {{ active(route('dashboard')) }}">
         <a class="nav-link" href="{{ route('dashboard') }}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Panel de Control</span>
         </a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="StudentDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <li class="nav-item dropdown {{ active(['students.*'], 'show active') }}">
+        <a class="nav-link dropdown-toggle" href="#" id="StudentDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="{{ active(['students.*'], 'true') }}">
           <i class="fas fa-fw fa-user-graduate"></i>
           <span>Estudiantes</span>
         </a>
-        <div class="dropdown-menu" aria-labelledby="StudentDropdown">
-          <a class="dropdown-item" href="{{ route('students.create') }}">Nuevo Estudiante</a>
-          <a class="dropdown-item" href="{{ route('students.index') }}">Listado de Estudiantes</a>
+        <div class="dropdown-menu {{ active(['students.*'], 'show') }}" aria-labelledby="StudentDropdown">
+          <a class="dropdown-item {{ active(route('students.create')) }}" href="{{ route('students.create') }}">Nuevo Estudiante</a>
+          <a class="dropdown-item {{ active(route('students.index')) }}" href="{{ route('students.index') }}">Listado de Estudiantes</a>
         </div>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="CourseDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <li class="nav-item dropdown {{ active(['courses.*'], 'show active') }}">
+        <a class="nav-link dropdown-toggle" href="#" id="CourseDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="{{ active(['courses.*'], 'true') }}">
           <i class="fas fa-fw fa-book"></i>
           <span>Cursos</span>
         </a>
-        <div class="dropdown-menu" aria-labelledby="CourseDropdown">
-          <a class="dropdown-item" href="{{ route('courses.create') }}">Nuevo Curso</a>
-          <a class="dropdown-item" href="{{ route('courses.index') }}">Listado de Cursos</a>
+        <div class="dropdown-menu {{ active(['courses.*'], 'show') }}" aria-labelledby="CourseDropdown">
+          <a class="dropdown-item {{ active(route('courses.create')) }}" href="{{ route('courses.create') }}">Nuevo Curso</a>
+          <a class="dropdown-item {{ active(route('courses.index')) }}" href="{{ route('courses.index') }}">Listado de Cursos</a>
         </div>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown {{ active(['sales.*', route('payments.index')], 'show active') }}">
         <a class="nav-link dropdown-toggle" href="#" id="SaleDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-fw fa-shopping-cart"></i>
           <span>Ventas</span>
         </a>
-        <div class="dropdown-menu" aria-labelledby="SaleDropdown">
-          <a class="dropdown-item" href="{{ route('sales.create') }}">Nueva Venta</a>
-          <a class="dropdown-item" href="{{ route('sales.index') }}">Listado de Ventas</a>
-          <a class="dropdown-item" href="{{ route('payments.index') }}">Ventas por Cobrar</a>
+        <div class="dropdown-menu {{ active(['sales.*', route('payments.index')], 'show') }}" aria-labelledby="SaleDropdown">
+          <a class="dropdown-item {{ active(route('sales.create')) }}" href="{{ route('sales.create') }}">Nueva Venta</a>
+          <a class="dropdown-item {{ active(route('sales.index')) }}" href="{{ route('sales.index') }}">Listado de Ventas</a>
+          <a class="dropdown-item {{ active(route('payments.index')) }}" href="{{ route('payments.index') }}">Ventas por Cobrar</a>
         </div>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown {{ active(['assignments.*', 'show_assignments'], 'show active') }}">
         <a class="nav-link dropdown-toggle" href="#" id="AsigDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">          
           <i class="fas fa-fw fa-book-open"></i>
           <span>Asignaciones</span>
         </a>
-        <div class="dropdown-menu" aria-labelledby="AsigDropdown">
-          <a class="dropdown-item" href="{{ route('assignments.index') }}">Lista de Asignaciones</a>
+        <div class="dropdown-menu {{ active(['assignments.*', 'show_assignments'], 'show') }}" aria-labelledby="AsigDropdown">
+          <a class="dropdown-item {{ active(route('assignments.index')) }}" href="{{ route('assignments.index') }}">Lista de Asignaciones</a>
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -143,12 +135,17 @@
             <span>Reportes</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="ReportDropdown">
-            <a class="dropdown-item" href="{{ route('search_sales') }}">C. de Ventas</a>
-            <a class="dropdown-item" href="{{ route('search_courses') }}">C. de Cursos</a>
-            <a class="dropdown-item" href="{{ route('search_assignments') }}">C. de Asignaciones</a>          
+            <a class="dropdown-item" href="{{ route('search_sales') }}">Ventas</a>            
+            <a class="dropdown-item" href="{{ route('search_assignments') }}">Asignaciones</a>          
           </div>
       </li>
-      <li class="nav-item">
+      <li class="nav-item {{ active(['consultations.*', 'active']) }}">
+          <a class="nav-link" href="{{ route('consultations.index') }}">          
+            <i class="far fa-fw fa-comment-dots"></i>
+            <span>Consultas</span>
+          </a>
+      </li> 
+      <li class="nav-item {{ active(['statistics.*', 'active']) }}">
           <a class="nav-link" href="{{ route('statistics.index') }}">          
             <i class="fas fa-fw fa-chart-line"></i>
             <span>Estadísticas</span>
@@ -160,15 +157,6 @@
 
       <!-- container-fluid -->
       <div class="container-fluid" id="app">
-          @if(session('info'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Mensaje</strong> {{ session('info') }}
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-          @endif
-
           @if(count($errors))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
               <ul>
@@ -239,20 +227,50 @@
 
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <script>
+
+    function mensage_return_delete_tag(msj_resonse){
+      Swal.fire({
+        title: "Mensaje!",
+        text: msj_resonse,
+        type: "success",
+        timer: 2000
+      });
+    }
+
     window.onload = function() {
       $(".se-pre-con").fadeOut("slow");
+      $('[data-toggle="tooltip"]').tooltip()
     };
-    $(function () {
-      setTimeout(function() {
-        $(".alert").fadeOut("slow");
-      }, 3000);
-      $('[data-toggle="tooltip"]').tooltip();
-      $('[data-toggle="popover"]').popover();      
-    })
+    
   </script>
+
+  @if(session('info'))
+    <script>
+      mensage_return_delete_tag("{{ session('info') }}");
+    </script>
+  @endif
+
+  {{-- <script>
+  $(() => {
+    let URLPAGE = `{{ env('APP_URL') }}`;
+    $.get(`${URLPAGE}get_consultations`, function(res, sta){
+        $("#consultations_content").empty();
+        $('#consultations_number').text(res.length)
+        res.forEach(element => {
+            $("#consultations_content").append(`<a class="dropdown-item text-center" href="${URLPAGE}consultations/${element.id}">
+            <span style="color: ${element.interest.colour}">${element.interest.name}</span>
+            <br>
+            ${element.interest.stars}
+          </a>`);                
+        });        
+    });
+
+  })
+  </script> --}}
+
   @yield('scripts')
   
 </body>
-
 </html>

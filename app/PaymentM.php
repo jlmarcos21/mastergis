@@ -11,4 +11,9 @@ class PaymentM extends Model
     protected $fillable = [
         'name', 'icon'
     ];
+
+    public function agencies()
+    {
+        return $this->hasMany(Agency::class);
+    }
 }

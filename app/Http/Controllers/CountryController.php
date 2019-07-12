@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\DataTables\CountriesDataTable;
 
+use App\Province;
+
 class CountryController extends Controller
 {
 
@@ -17,5 +19,11 @@ class CountryController extends Controller
     public function index(CountriesDataTable $dataTable)
     {        
         return $dataTable->render('countries.index');
+    }
+
+    public function show($id)
+    {        
+        $provinces = Province::where('country_id', $id)->get();
+        return response()->json($provinces, 200);
     }
 }

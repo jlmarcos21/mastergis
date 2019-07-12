@@ -20,10 +20,11 @@ class CreateSalesTable extends Migration
             $table->string('serie', 6);
             $table->integer('user_id')->unsigned();
             $table->integer('student_id')->unsigned();
-            $table->integer('payment_id')->unsigned();
             $table->integer('voucher_id')->unsigned();
+            $table->integer('payment_id')->unsigned();
+            $table->integer('agency_id')->unsigned()->default('1');            
             $table->integer('currency_id')->unsigned();
-            $table->string('description', 150)->nullable();
+            $table->string('description', 250)->nullable();
             $table->date('date');
             $table->time('time');
             $table->boolean('credit')->default('0');
@@ -34,6 +35,7 @@ class CreateSalesTable extends Migration
             $table->decimal('total_paypal', 10,2);
             $table->decimal('discount_interbank', 10,2);
             $table->decimal('total_interbank', 10,2);
+            $table->boolean('canceled')->default('0');
 
             $table->timestamps();
 
@@ -41,6 +43,7 @@ class CreateSalesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('student_id')->references('id')->on('students');
             $table->foreign('payment_id')->references('id')->on('payment_ms');
+            $table->foreign('agency_id')->references('id')->on('agencies');
             $table->foreign('voucher_id')->references('id')->on('vouchers');
             $table->foreign('currency_id')->references('id')->on('currencies');        
             

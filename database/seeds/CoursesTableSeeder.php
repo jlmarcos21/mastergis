@@ -101,5 +101,23 @@ class CoursesTableSeeder extends Seeder
             'image_url'     => 'https://www.mastergis.com/wp-content/uploads/2018/08/envi.png',
         ]);
 
+        // App\Course::create([
+        //     'name'          => 'ArcGIS - Básico',
+        //     'certificate'   => 'Sistemas de Información Geográfica | con ArcGIS Básico',
+        //     'code'          => 'sigb11',
+        //     'level_id'      => 1,            
+        //     'duration'      => 'Con una duración de 60 horas lectivas',            
+        //     'image_url'     => 'https://images.immediate.co.uk/production/volatile/sites/3/2017/11/imagenotavailable1-39de324.png?quality=90&resize=768,574',
+        // ]);
+
+        // App\Course::create([
+        //     'name'          => 'QGIS - Básico',
+        //     'certificate'   => 'Sistemas de Información Geográfica | con QGIS Básico',
+        //     'code'          => 'sigq12',
+        //     'level_id'      => 1,            
+        //     'duration'      => 'Con una duración de 60 horas lectivas',            
+        //     'image_url'     => 'https://images.immediate.co.uk/production/volatile/sites/3/2017/11/imagenotavailable1-39de324.png?quality=90&resize=768,574',
+        // ]);
+
     }
 }

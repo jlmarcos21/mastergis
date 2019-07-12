@@ -10,7 +10,7 @@
             <span class="text-success">Acceso Otorgado</span>
         @endif        
     </div>
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
         @if ($assignment->entry==0)
             <div class="custom-control custom-checkbox">
                 {{Form::checkbox("entry", "1", old('entry'), ["class" => "custom-control-input", "id" => "entry"])}}   
@@ -19,8 +19,18 @@
         @else
             <span class="text-success">Ingreso Correcto</span>
         @endif 
-    </div>        
+    </div> 
     <div class="form-group col-md-3">
+        @if ($assignment->finished==0)
+            <div class="custom-control custom-checkbox">
+                {{Form::checkbox("finished", "1", old('finished'), ["class" => "custom-control-input", "id" => "finished"])}}
+                <label class="custom-control-label" for="finished">Terminar Curso</label>
+            </div>            
+        @else
+            <span class="text-success">Curso Termiando</span>
+        @endif 
+    </div>        
+    <div class="form-group col-md-2">
         @if ($assignment->poll==0)
             <div class="custom-control custom-checkbox">
                 {{Form::checkbox("poll", "1", old('poll'), ["class" => "custom-control-input", "id" => "poll"])}}
@@ -30,7 +40,7 @@
             <span class="text-success">Encuesta Realizada</span>
         @endif
     </div>
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-2">
         @if ($assignment->physical_certificate==0)
             <div class="custom-control custom-checkbox">
                 {{Form::checkbox("physical_certificate", "1", old('physical_certificate'), ["class" => "custom-control-input", "id" => "physical_certificate"])}}

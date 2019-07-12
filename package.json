@@ -29,6 +29,7 @@
         "flag-icon-css": "^3.3.0",
         "jquery.easing": "^1.4.1",
         "startbootstrap-sb-admin": "^5.0.3",
-        "toastr": "^2.1.4"
+        "toastr": "^2.1.4",
+        "vue-select": "^3.1.0"        
     }
 }

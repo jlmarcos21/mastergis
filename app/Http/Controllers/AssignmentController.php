@@ -29,7 +29,6 @@ class AssignmentController extends Controller
 
     public function index()
     {
-
         $courses = Course::withCount(['assignments'])                    
                     ->orderBy('assignments_count', 'DESC')        
                     ->get();                            
@@ -49,7 +48,9 @@ class AssignmentController extends Controller
         $assignment = Assignment::where('code', '=', $code)->first();
 
         $final_date = Carbon::parse($assignment->final_date);
-        $dt = Carbon::now();                        
+        $dt = Carbon::now();
+        
+        //Calcular dias
         $remaining_days = $dt->diffInDays($final_date, false);              
         $assignment->remaining_days = $remaining_days;
         $assignment->save();

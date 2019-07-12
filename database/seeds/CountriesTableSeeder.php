@@ -95,7 +95,7 @@ class CountriesTableSeeder extends Seeder
         ]);
 
         App\Country::create([
-            'description' => 'Panama',
+            'description' => 'Panamá',
             'flag' => 'flag-icon flag-icon-pa'
         ]);
 

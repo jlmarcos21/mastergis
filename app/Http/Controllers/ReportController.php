@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 
 use App\DataTables\SearchSaleDataTable;
 use App\DataTables\SerchAssignmentsDataTable;
+
 use App\Sale;
+use App\Student;
 use App\PaymentM;
 use App\Voucher;
 use App\Currency;
@@ -28,6 +30,7 @@ class ReportController extends Controller
     { 
         auth()->user()->authorizeRoles(['admin', 'accounting']);
 
+        $students = Student::all();
         $payments = PaymentM::all();
         $vouchers = Voucher::all();
         $currencies = Currency::all();
@@ -37,28 +40,15 @@ class ReportController extends Controller
                         ->voucher($request->searchvoucher)
                         ->payment($request->searchpayment)
                         ->currency($request->searchcurrency)
+                        ->credit($request->credit)
+                        ->canceled($request->canceled)
                         ->whereBetween('date', [$request->date_s, $request->date_f])
                         ->get();
 
-            return view('reports.sales_consultation', compact('payments', 'vouchers', 'currencies', 'request', 'sales'));
+            return view('reports.sales_consultation', compact('students', 'payments', 'vouchers', 'currencies', 'request', 'sales'));
         }else {
-            return view('reports.sales_consultation', compact('payments', 'vouchers', 'currencies', 'request'));
+            return view('reports.sales_consultation', compact('students', 'payments', 'vouchers', 'currencies', 'request'));
         }            
-    }
-
-    public function search_courses(Request $request)
-    {        
-        auth()->user()->authorizeRoles(['admin', 'accounting']);
-        
-        if(isset($request->date_s) && isset($request->date_f)) {
-            $s_courses = DetailSale::orderBy('date', 'DESC')
-                        ->whereBetween('date', [$request->date_s, $request->date_f])                                     
-                        ->get();
-
-            return view('reports.courses_consultation', compact('s_courses', 'request'));                 
-        }else {
-            return view('reports.courses_consultation', compact('request'));
-        }                
     }
 
     public function search_assignments(Request $request)

@@ -19,15 +19,16 @@
                 <div class="card-body">
                     {!! Form::open(['route' => 'search_sales', 'method' => 'GET']) !!}
                         <div class="row">
-                            <div class="col-md-2 form-group">
-                                {{ Form::label('date_s', 'Fecha de Inicio') }}
-                                {{ Form::date('date_s', (isset($request->date_s))?$request->date_s:'', ['class' => 'form-control border border-success', 'id' => 'date_s', 'required']) }}
+                            <div class="col-md-4 form-group">
+                                {{ Form::label('date_s', 'Fecha de Inicio', ['class' => 'font-weight-bold']) }}
+                                {{ Form::date('date_s', (isset($request->date_s))?$request->date_s:'', ['class' => 'form-control border-success text-center', 'id' => 'date_s', 'required']) }}
                             </div>
-                            <div class="col-md-2 form-group">
-                                {{ Form::label('date_f', 'Fecha Final') }}
-                                {{ Form::date('date_f', (isset($request->date_f))?$request->date_f:'', ['class' => 'form-control border border-success', 'id' => 'date_f', 'required']) }}
+                            <div class="col-md-4 form-group">
+                                {{ Form::label('date_f', 'Fecha Final', ['class' => 'font-weight-bold']) }}
+                                {{ Form::date('date_f', (isset($request->date_f))?$request->date_f:'', ['class' => 'form-control border-success text-center', 'id' => 'date_f', 'required']) }}
                             </div>
-                            <div class="col-md-3 form-group">
+                            
+                            <div class="col-md-4 form-group">
                                 {{ Form::label('searchpayment', 'Pago') }}
                                 <select name="searchpayment" id="searchpayment" class="form-control border-success">
                                     <option value="">Todos</option>
@@ -45,7 +46,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-2 form-group">
+                            <div class="col-md-3 form-group">
                                 {{ Form::label('searchvoucher', 'Comprobante') }}
                                 <select name="searchvoucher" id="searchvoucher" class="form-control border-success">
                                     <option value="">Todos</option>
@@ -63,26 +64,41 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-2 form-group">
-                                    {{ Form::label('searchcurrency', 'Moneda') }}
-                                    <select name="searchcurrency" id="searchcurrency" class="form-control border-success">
-                                        <option value="">Todos</option>
-                                        @foreach ($currencies as $currency)                                             
+                            <div class="col-md-3 form-group">
+                                {{ Form::label('searchcurrency', 'Moneda') }}
+                                <select name="searchcurrency" id="searchcurrency" class="form-control border-success">
+                                    <option value="">Todos</option>
+                                    @foreach ($currencies as $currency)                                             
 
-                                        <option value="{{ $currency->id }}"
-                                            @isset($request->searchcurrency)
-                                                @if ($currency->id==$request->searchcurrency)
-                                                    selected
-                                                @endif
-                                            @endisset
-                                            >{{ $currency->name }}
-                                        </option>
+                                    <option value="{{ $currency->id }}"
+                                        @isset($request->searchcurrency)
+                                            @if ($currency->id==$request->searchcurrency)
+                                                selected
+                                            @endif
+                                        @endisset
+                                        >{{ $currency->name }}
+                                    </option>
 
-                                        @endforeach
-                                    </select>
-                                </div>
-                            <div class="col-md-1 form-group">
-                                {{ Form::label('date_f', 'Filtrar') }}                                
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                {{ Form::label('credit', 'Credito') }}
+                                <select name="credit" id="credit" class="form-control border-success">
+                                    <option value="" {{ isset($request->credit)?($request->credit==''?'selected':''):'' }}>Todos</option>
+                                    <option value="1" {{ isset($request->credit)?($request->credit=='1'?'selected':''):'' }}>SI</option>  
+                                    <option value="0" {{ isset($request->credit)?($request->credit=='0'?'selected':''):'' }}>No</option>                                       
+                                </select>
+                            </div>
+                            <div class="col-md-3 form-group">
+                                {{ Form::label('canceled', 'Anulado') }}
+                                <select name="canceled" id="canceled" class="form-control border-success">
+                                    <option value="" {{ isset($request->canceled)?($request->canceled==''?'selected':''):'' }}>Todos</option>
+                                    <option value="1" {{ isset($request->canceled)?($request->canceled=='1'?'selected':''):'' }}>SI</option>  
+                                    <option value="0" {{ isset($request->canceled)?($request->canceled=='0'?'selected':''):'' }}>No</option>                                       
+                                </select>
+                            </div>
+                            <div class="col-md-12 form-group">                                                          
                                 <button type="submit" class="btn btn-block btn-primary"><i class="fas fa-search"></i></button>
                             </div>
                         </div>
@@ -98,10 +114,12 @@
                                         <tr>
                                             <th width="10px">#</th>
                                             <th>Serie</th>
-                                            <th>Alumno</th>
+                                            <th>Estudiante</th>
                                             <th>Observación</th>
-                                            <th>Pago</th>
+                                            <th>Anulado</th>
                                             <th>Comprobante</th>
+                                            <th>Pago</th>
+                                            <th>Agencia</th>                                            
                                             <th>Moneda</th>
                                             <th>Credito</th>
                                             <th>Deuda</th>
@@ -119,10 +137,12 @@
                                             <tr>
                                                 <td>{{ $sale->id }}</td>
                                                 <td><a href="{{ route('sales.show', $sale->id) }}">{{ $sale->code }}</a></td>
-                                                <td>{{ $sale->student->lastname }} {{ $sale->student->name }}</td>
+                                                <td>{{ $sale->student->name }} {{ $sale->student->lastname }}</td>
                                                 <td>{{ $sale->description }}</td>
-                                                <td>{{ $sale->payment->name }} <i class="{{ $sale->payment->icon }}"></i></td>
+                                                <td>{{ $sale->canceled==1?'SI':'NO' }}</td>
                                                 <td>{{ $sale->voucher->name }}</td>                                                             
+                                                <td>{{ $sale->payment->name }} <i class="{{ $sale->payment->icon }}"></i></td>
+                                                <td>{{ $sale->agency->name }} <i class="{{ $sale->agency->icon }}"></i></td>                                                
                                                 <td>{{ $sale->currency->icon }} {{ $sale->currency->name }}</td>
                                                 <td>{{ $sale->credit==1?'Si':'No' }}</td>
                                                 <td>{{ $sale->debt }}</td>

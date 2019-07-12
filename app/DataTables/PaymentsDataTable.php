@@ -14,7 +14,7 @@ class PaymentsDataTable extends DataTable
                 ->editColumn('code', function($sale) {
                     return '<a href="'.route('sales.show', $sale->id).'">'.$sale->code.'</a>';
                 })->editColumn('student', function($sale) {
-                    return $sale->student->lastname ." ". $sale->student->name;
+                    return '<a href="'.route('students.show', $sale->student->id).'" class="text-success">'.$sale->student->name ." ". $sale->student->lastname.'</a>';
                 })->editColumn('payment', function($sale) {
                     return $sale->payment->name. ' <i class="'.$sale->payment->icon.'"></i>';
                 })->editColumn('voucher', function($sale) {
@@ -23,7 +23,7 @@ class PaymentsDataTable extends DataTable
                     return $sale->currency->icon .' '. $sale->currency->name;
                 })->editColumn('pay', function($sale) {
                     return '<a href="'.route('payments.show', $sale->code).'" class="btn btn-sm btn-success"><i class="fas fa-money-bill-wave"></i></a>';
-                })->rawColumns(['code', 'payment', 'pay']);
+                })->rawColumns(['code', 'student', 'payment', 'pay']);
     }
 
     public function query()
@@ -58,8 +58,8 @@ class PaymentsDataTable extends DataTable
             ['data' => 'id', 'title' => '#'],
             ['data' => 'code', 'title' => 'Código'],
             ['data' => 'student', 'title' => 'Estudiante'],
-            ['data' => 'payment', 'title' => 'Pago'],
             ['data' => 'voucher', 'title' => 'Comprobante'],
+            ['data' => 'payment', 'title' => 'Pago'],            
             ['data' => 'date', 'title' => 'Fecha'],
             ['data' => 'currency', 'title' => 'Moneda'],
             ['data' => 'total', 'title' => 'Total'],

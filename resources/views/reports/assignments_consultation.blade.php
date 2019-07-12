@@ -20,11 +20,11 @@
                     {!! Form::open(['route' => 'search_assignments', 'method' => 'GET']) !!}
                         <div class="row">
                             <div class="col-md-3 form-group">
-                                {{ Form::label('date_s', 'Fecha de Inicio') }}
+                                {{ Form::label('date_s', 'Fecha de Inicio', ['class' => 'font-weight-bold']) }}
                                 {{ Form::date('date_s', (isset($request->date_s))?$request->date_s:'', ['class' => 'form-control text-center border-success', 'id' => 'date_s', 'required']) }}
                             </div>
                             <div class="col-md-3 form-group">
-                                {{ Form::label('date_f', 'Fecha Final') }}
+                                {{ Form::label('date_f', 'Fecha Final', ['class' => 'font-weight-bold']) }}
                                 {{ Form::date('date_f', (isset($request->date_f))?$request->date_f:'', ['class' => 'form-control text-center border-success', 'id' => 'date_f', 'required']) }}
                             </div>
                             <div class="col-md-6 form-group">
@@ -111,6 +111,9 @@
                                             <th>Estudiante</th>
                                             <th>Curso</th>
                                             <th>Nivel</th>
+                                            <th>Descripción de Venta</th>
+                                            <th>Descripción</th>
+                                            <th>Fecha</th>
                                             <th>Acceso</th>
                                             <th>Ingreso</th>
                                             <th>C.Básico</th>
@@ -132,6 +135,9 @@
                                             <td>{{ $assignment->student->name." ".$assignment->student->lastname}}</td>
                                             <td>{{ $assignment->course->name }}</td>
                                             <td>{{ $assignment->course->level->description }}</td>
+                                            <td>{{ $assignment->description_sale }}</td>
+                                            <td>{{ $assignment->description }}</td>
+                                            <td>{{ $assignment->date }}</td>
                                             <td><strong>{{ $assignment->access==1?'SI':'NO' }}</strong></td>
                                             <td><strong>{{ $assignment->entry==1?'SI':'NO' }}</strong></td>
                                             <td><strong>{{ $assignment->basic_constancy==1?'SI':'NO' }}</strong></td>

@@ -24,10 +24,11 @@ class StudentStoreRequest extends FormRequest
     public function rules()
     {
         $rules = [            
-            'name'          => 'required|max:150|unique:students,name',
-            'lastname'      => 'required|max:150|unique:students,lastname',
-            'sex'           => 'required|in:MASCULINO,FEMENINO',                    
+            'name'          => 'required|max:150',
+            'lastname'      => 'required|max:150',
+            'sex'           => 'required|in:Masculino,Femenino',                    
             'country_id'    => 'required|integer|exists:countries,id',
+            'province_id'   => 'required|integer|exists:provinces,id',
             'email'         => 'required|max:240|unique:students,email',
             'phone'         => 'max:25'
         ];

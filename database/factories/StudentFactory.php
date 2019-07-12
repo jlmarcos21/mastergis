@@ -7,16 +7,17 @@ $factory->define(App\Student::class, function (Faker $faker) {
 
     $name = $faker->unique()->name;
     $lastname = $faker->unique()->lastname;
-    $id = 1;
+    $country_id = App\Country::inRandomOrder()->first()->id;
 
     return [
-        'code'          => str_slug(Str::substr($lastname, 0, 2).Str::substr($name, 0, 2).(rand(1, 9))),
+        'code'          => str_slug(Str::substr($lastname, 0, 2).Str::substr($name, 0, 2).(rand(1, 100))),
         'name'          => $name,
         'lastname'      => $lastname,
-        'sex'           => $faker->randomElement(['MASCULINO', 'FEMENINO']),        
-        'country_id'    => App\Country::inRandomOrder()->first()->id,   
-        'email'         => $faker->unique()->safeEmail,
-        'phone'         => $faker->unique()->phoneNumber,
+        'sex'           => $faker->randomElement(['Masculino', 'Femenino']),        
+        'country_id'    => $country_id,
+        'province_id'   => App\Province::inRandomOrder()->where('country_id', $country_id)->first()->id, 
+        'email'         => rand(1, 9).$faker->safeEmail,
+        'phone'         => $faker->phoneNumber,
         'state'         => 1
     ];
 });

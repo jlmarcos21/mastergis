@@ -16,16 +16,21 @@ class StudentsDataTable extends DataTable
             })->editColumn('state', function($student) {
                 return $student->state=='0'?'<span class="text-danger">Inactivo</span>':'<span class="text-success">Activo</span>';
             })->editColumn('country', function($student) {
-                return '<span title="'.$student->country->description.'" class="'.$student->country->flag.'"></span><small class="d-none">'.$student->country->description.'</small>';                    
+                return '<span title="'.$student->country->description.'" class="'.$student->country->flag.'"></span><small class="d-none">'.$student->country->description.'</small>';
+            })->editColumn('province', function($student) {
+                return $student->province->description;
             })->addColumn('edit', function ($student) {                
-                return '<a class="btn btn-sm btn-primary" href="'.route('students.edit', $student->id).'"><i class="far fa-edit"></i> Editar</a>';
-            })->addColumn('delete', 'students.form.delete')
-            ->rawColumns(['name', 'state', 'country', 'edit', 'delete']);
+                return '<a class="btn btn-sm btn-primary" href="'.route('students.edit', $student->id).'"><i class="far fa-edit"></i></a>';
+            })->editColumn('sales', function($student) {
+                return $student->sales->count();
+            })->editColumn('assignments', function($student) {
+                return $student->assignments->count();
+            })->rawColumns(['name', 'state', 'country', 'edit']);
     }
 
     public function query()
     {
-        $sales = Student::with('country')->get();
+        $sales = Student::where('state', '=', '1')->get();
         return $sales;
     }
 
@@ -52,12 +57,13 @@ class StudentsDataTable extends DataTable
             ['data' => 'id', 'title' => '#'],
             ['data' => 'name', 'title' => 'Nombre y Apellido'],
             ['data' => 'sex', 'title' => 'Sexo'],
-            ['data' => 'code', 'title' => 'Código'],
-            //['data' => 'state', 'title' => 'Estado'],
+            ['data' => 'code', 'title' => 'Código'],            
             ['data' => 'country', 'title' => 'País'],
+            ['data' => 'province', 'title' => 'Provincia'],
             ['data' => 'email', 'title' => 'Correo'],
-            ['data' => 'edit', 'title' => '<i class="far fa-edit"></i>', 'className' => 'text-center'],
-            //['data' => 'delete', 'title' => '<i class="far fa-trash-alt"></i>', 'className' => 'text-center'],
+            ['data' => 'sales', 'title' => 'Ventas'],
+            ['data' => 'assignments', 'title' => 'Asignaciones'],
+            ['data' => 'edit', 'title' => '<i class="far fa-edit"></i>', 'className' => 'text-center']            
         ]);
     }
 

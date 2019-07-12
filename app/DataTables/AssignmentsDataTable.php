@@ -15,6 +15,8 @@ class AssignmentsDataTable extends DataTable
             return '<a href="'.route('assignments.show', $assignment->code).'">'.$assignment->code.'</a>';
         })->editColumn('student', function($assignment) {
             return $assignment->student->name." ".$assignment->student->lastname;
+        })->editColumn('country', function($assignment) {
+            return $assignment->student->country->description.' <span class="'.$assignment->student->country->flag.'"></span>';
         })->editColumn('finished', function($assignment) {
             return $assignment->finished=='0'?'<span class="text-danger">No Terminado</span>':'<span class="text-success">Curso Terminado</span>';
         })->editColumn('remaining_days', function($assignment) {
@@ -24,7 +26,7 @@ class AssignmentsDataTable extends DataTable
                         Proyectos <span class="badge badge-light">'.$assignment->projects->count().'</span>
                     </button>';
             
-        })->rawColumns(['code', 'student', 'course', 'finished', 'remaining_days', 'projects']);
+        })->rawColumns(['code', 'country', 'student', 'course', 'finished', 'remaining_days', 'projects']);
     }
 
     public function query()
@@ -45,15 +47,15 @@ class AssignmentsDataTable extends DataTable
         return $this->builder()
                     ->columns($this->getColumns())
                     ->parameters([
-                        'order'   => [[2, 'desc'], [3, 'asc']],      
+                        'order'   => [[4, 'desc']],
                         'dom' => 'Bfrtip',
-                        'buttons' => ([                    
-                            ['extend' => 'export'],                   
+                        'buttons' => ([
+                            ['extend' => 'export'],
                             ['extend' => 'print'],
                             ['extend' => 'reset'],
-                            ['extend' => 'reload'],            
+                            ['extend' => 'reload'],
                         ]),
-                        'language' => ['url' => '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json']          
+                        'language' => ['url' => '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json']
                     ]);
     }
 
@@ -61,7 +63,8 @@ class AssignmentsDataTable extends DataTable
     {
         return([
             ['data' => 'code', 'title' => 'Código'],
-            ['data' => 'student', 'title' => 'Estudiante'],            
+            ['data' => 'student', 'title' => 'Estudiante'],
+            ['data' => 'country', 'title' => 'País'],            
             ['data' => 'finished', 'title' => 'Estado'],
             ['data' => 'start_date', 'title' => 'F. Inicio'],
             ['data' => 'final_date', 'title' => 'F- Final'],
